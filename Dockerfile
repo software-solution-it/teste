@@ -1,5 +1,5 @@
 # Use uma imagem base com PHP e Apache
-FROM php:7.4-apache
+FROM php:7.4-fpm
 
 # Instale as extensões PHP necessárias para o Laravel
 RUN docker-php-ext-install pdo pdo_mysql
@@ -30,4 +30,4 @@ RUN composer update
 RUN composer install
 
 # Exponha a porta 80 do contêiner
-EXPOSE 80
+EXPOSE 5000
