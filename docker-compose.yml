@@ -3,8 +3,6 @@ services:
   laravel-app:
     build:
       context: .
-    ports:
-      - "5000:5000"
     volumes:
       - .:/var/www/html
     depends_on:

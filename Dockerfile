@@ -29,4 +29,4 @@ RUN composer update
 RUN composer install
 
 # Exponha a porta 80 do contêiner
-EXPOSE 5000
+EXPOSE 9000
