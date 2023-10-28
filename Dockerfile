@@ -19,7 +19,6 @@ COPY . /var/www/html
 # Defina as variáveis de ambiente necessárias para o Laravel
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-
 # Copie seu arquivo de configuração Nginx personalizado
 COPY nginx-site.conf /etc/nginx/conf.d/
 
