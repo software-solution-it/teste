@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\PaymentsProviders;
 use App\User;
@@ -37,14 +39,17 @@ use GuzzleHttp\Exception\RequestException;
 
 class AdminController extends Controller
 {
+    private $paymentsProviders;
     const CHAT_CHANNEL = 'chat.message';
     const NEW_MSG_CHANNEL = 'new.msg';
     const CLEAR = 'chat.clear';
     const DELETE_MSG_CHANNEL = 'del.msg';
 
-    public function __construct()
+    public function __construct(PaymentsProviders $paymentsProviders)
     {
         parent::__construct();
+        DB::connection()->getPdo()->exec('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
+        $this->paymentsProviders = $paymentsProviders;
         $jackpot_easy = Jackpot::where('room', 'easy')->orderBy('id', 'desc')->first();
         $jackpot_medium = Jackpot::where('room', 'medium')->orderBy('id', 'desc')->first();
         $jackpot_hard = Jackpot::where('room', 'hard')->orderBy('id', 'desc')->first();
@@ -151,12 +156,12 @@ class AdminController extends Controller
             ->groupBy('battle_bets.game_id', 'battle_bets.price')
             ->get()->sum('price');
         $battleWin = BattleBets::join('battle', 'battle.id', '=', 'battle_bets.game_id')
-                ->select('battle.status', 'battle.id', 'battle_bets.game_id', 'battle_bets.win_sum')
-                ->where('battle.status', 3)
-                ->where('battle_bets.balType', 'balance')
-                ->where(['battle_bets.user_id' => $user->id, 'battle_bets.win' => 1])
-                ->groupBy('battle_bets.game_id', 'battle_bets.win_sum')
-                ->get()->sum('win_sum') - $battleWin;
+            ->select('battle.status', 'battle.id', 'battle_bets.game_id', 'battle_bets.win_sum')
+            ->where('battle.status', 3)
+            ->where('battle_bets.balType', 'balance')
+            ->where(['battle_bets.user_id' => $user->id, 'battle_bets.win' => 1])
+            ->groupBy('battle_bets.game_id', 'battle_bets.win_sum')
+            ->get()->sum('win_sum') - $battleWin;
         $diceWin = Dice::where(['user_id' => $user->id, 'balType' => 'balance', 'win' => 1])->sum('win_sum');
         $betWin = $jackpotWin + $wheelWin + $crashWin + $coinWin + $battleWin + $diceWin;
 
@@ -186,9 +191,9 @@ class AdminController extends Controller
             ->get()->sum('price');
         $diceLose = Dice::where(['user_id' => $user->id, 'balType' => 'balance', 'win' => 0])->sum('sum');
         $betLose = $jackpotLose + $wheelLose + $crashLose + $coinLose + $battleLose + $diceLose;
-        
+
         $X = Exchanges::where('user_id', $user->id)->sum('sum');
-        $exchanges = round( $X ?? 1  / $this->settings->exchange_curs, 2);
+        $exchanges = round($X ?? 1  / $this->settings->exchange_curs, 2);
 
         /*
               SELECT
@@ -411,7 +416,8 @@ class AdminController extends Controller
         if (!$sum) return redirect()->route('admin.giveaway')->with('error', 'O campo "Valor" não pode ficar vazio!');
         if (!$time_to) return redirect()->route('admin.giveaway')->with('error', 'O campo "End Time" não pode ficar vazio!');
 
-        if (!is_null($group_sub)) $group_sub = 1; else $group_sub = 0;
+        if (!is_null($group_sub)) $group_sub = 1;
+        else $group_sub = 0;
         if (is_null($min_dep)) $min_dep = 0;
         if ($winner_id == 'null') $winner_id = null;
 
@@ -470,7 +476,8 @@ class AdminController extends Controller
         if (!$sum) return redirect()->route('admin.giveaway')->with('error', 'O campo "Valor" não pode ficar vazio!');
         if (!$time_to) return redirect()->route('admin.giveaway')->with('error', 'O campo "End Time" não pode ficar vazio!');
 
-        if (!is_null($group_sub)) $group_sub = 1; else $group_sub = 0;
+        if (!is_null($group_sub)) $group_sub = 1;
+        else $group_sub = 0;
         if (is_null($min_dep)) $min_dep = 0;
         if ($winner_id == 'null') $winner_id = null;
 
@@ -653,7 +660,7 @@ class AdminController extends Controller
                 'username' => $user->username,
                 'avatar' => $user->avatar,
                 'system' => $itm->system,
-                'payment_provider' => 'ezbank',
+                'payment_provider' => 'Volut',
                 'wallet' => $itm->wallet,
                 'value' => $itm->value,
                 'status' => $itm->status
@@ -672,7 +679,7 @@ class AdminController extends Controller
                 'username' => $user->username,
                 'avatar' => $user->avatar,
                 'system' => $itm->system,
-                'payment_provider' => 'ezbank',
+                'payment_provider' => 'Volut',
                 'wallet' => $itm->wallet,
                 'value' => $itm->value,
                 'status' => $itm->status
@@ -680,13 +687,17 @@ class AdminController extends Controller
         }
 
         // [Skull] - All deposits
-        $list2 = Payments::limit(30);
+        $list2 = Payments::limit(30)->get();
+        error_log("PAYMENTS 2 " . json_encode($list2));
         $deposits = [];
         foreach ($list2 as $itm) {
 
             // Covert Status INT to String Names
+            error_log("LISTA" . $itm);
             $statusStrNames = $this->PaymentStatus_mp($itm->status);
+            error_log("STATUS" . $statusStrNames);
             $user = User::where('id', $itm->user_id)->first();
+            error_log("USUÁRIO" . $itm);
             $deposits[] = [
                 'id' => $itm->id,
                 'user_id' => $user->id,
@@ -696,31 +707,33 @@ class AdminController extends Controller
                 'value' => $itm->sum,
                 'status' => $statusStrNames
             ];
+            error_log("DEPOSITOS" . json_encode($deposits));
         }
 
         return view('admin.withdraws', compact('withdraws', 'deposits', 'finished'));
     }
 
-    private function getTokenEZbank() {
+    private function getTokenEZbank()
+    {
         $client_id = env('EZ_ID'); //'eyJpZCI6ImY2ODRhMTRmLTE4ZmUtMTFlZS1hOGRkLTQyMDEwYTk2MDAwOSIsIm5hbWUiOiJ3ZXNlYmV0In0=';
-        $client_secret = env('EZ_SECRET');//'01ioPlMQvEcJSj8wHVhOUNL5e3Ttz2xI4R7GKkm6nrysXWYgAuCBDqdfaZFpb9';
-        $stringCode = base64_encode($client_id.':'.$client_secret);
-    
+        $client_secret = env('EZ_SECRET'); //'01ioPlMQvEcJSj8wHVhOUNL5e3Ttz2xI4R7GKkm6nrysXWYgAuCBDqdfaZFpb9';
+        $stringCode = base64_encode($client_id . ':' . $client_secret);
+
         $client = new Client([
             'headers' => [
-                'Authorization' => 'Basic '.$stringCode,
+                'Authorization' => 'Basic ' . $stringCode,
                 'Content-Type' => 'application/x-www-form-urlencoded'
             ]
         ]);
-    
+
         $response = $client->request('POST', 'https://api.ezzebank.com/v2/oauth/token', [
             'form_params' => [
                 'grant_type' => 'client_credentials'
             ]
         ]);
-    
+
         $responseBody = json_decode($response->getBody(), true);
-        if(!isset($responseBody['access_token'])){
+        if (!isset($responseBody['access_token'])) {
             return redirect()->route('admin.withdraws')->with('error', 'EZ não retornou Token!');
             //return response()->json(['success' => false, 'msg' => 'EZ não retornou Token!', 'type' => 'error']); 
         }
@@ -729,59 +742,66 @@ class AdminController extends Controller
 
     public function withdrawSend($id)
     {
+        $providerCredentials = $this->paymentsProviders->getClientCredentialsVolut('Volut');
         $withdraw = Withdraw::where('id', $id)->first();
         $user = User::where('id', $withdraw->user_id)->first();
-        if(empty($user->cpf)) return redirect()->route('admin.withdraws')->with('error', 'Este usuário não tem CPF cadastrado');
+        if (empty($user->cpf)) return redirect()->route('admin.withdraws')->with('error', 'Este usuário não tem CPF cadastrado');
         if ($withdraw->status > 0) return redirect()->route('admin.withdraws')->with('error', 'Esta retirada já foi processada ou cancelada');
-
-        if ($withdraw->system == 'pix')
-        {
-           
-            $client = new Client([
-                'headers' => [
-                    'Authorization' => 'Bearer '.$this->getTokenEZbank(),
-                    'Content-Type' => 'application/json'
-                ]
-            ]);
-        
+    
+        if ($withdraw->system == 'pix') {
+    
+            $url = "https://v-api.volutipay.com.br/v1/transactions/cashout";
+            $amount = (float) $withdraw->value;
             $data = [
-                "amount" =>  $withdraw->value,
-                "external_id" => $user->username.'-'.$user->id,
-                "description" => "saque - wesebet.online",
-                "creditParty" => [
-                    "name" => $user->real_name,
-                    "keyType" => "CPF",
+                "pixKey" => [
                     "key" => $user->cpf,
-                    "taxId" => $user->cpf
-                ]
+                    "type" => "CPF",
+                ],
+                "amount" => $amount,
+                "description" => "saque - wesebet.online",
+                "postbackUrl" => "",
+                "conciliationId" => ""
             ];
-        
+    
+            error_log(json_encode($data));
+    
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-type: application/json',
+                'Authorization: Basic ' . $providerCredentials['key']
+            ]);
+    
             try {
-                $response = $client->request('POST', 'https://api.ezzebank.com/v2/pix/payment', [
-                    'json' => $data
-                ]);
-        
-                $responseBody = json_decode($response->getBody(), true);
+    
+                $response = json_decode(curl_exec($ch), true);
+                curl_close($ch);
+    
+                $responseData = json_encode($response);
+                error_log($responseData);
+    
+                if (!isset($response['conciliationId'])) {
+                    return redirect()->route('admin.withdraws')->with('error', 'Erro interno, tente novamente.');
+                }
+    
+                $withdraw->status = 1;
+                $withdraw->save();
+                return redirect()->route('admin.withdraws')->with('success', 'Saque efetuado com sucesso!');
             } catch (RequestException $e) {
-                // Aqui você pode manipular o erro da maneira que quiser. Por exemplo, você pode registrar o erro e retornar uma resposta com código de erro para o cliente.
-                // Você também pode pegar a resposta da exceção se ela existir
                 if ($e->hasResponse()) {
                     $exceptionResponse = $e->getResponse();
-                    // fazer algo com a resposta da exceção
                     $exceptionResponseBody = $exceptionResponse->getBody()->getContents();
                     $exceptionResponseBody = json_decode($exceptionResponseBody, true);
-                    return redirect()->route('admin.withdraws')->with('error', 'Erro'.$exceptionResponseBody['message']);
+                    return redirect()->route('admin.withdraws')->with('error', 'Erro ' . $exceptionResponseBody['message']);
                 }
             }
-
-            if (!isset($responseBody['transactionId'])) return redirect()->route('admin.withdraws')->with('error', 'Erro interno, tente novamente.');
-
-            $withdraw->status = 1;
-            $withdraw->save();
-            return redirect()->route('admin.withdraws')->with('success', 'Saque efetuado com sucesso!');   
-
         }
     }
+    
 
     public function withdrawReturn($id)
     {
@@ -1291,6 +1311,5 @@ class AdminController extends Controller
                 'type' => 'error'
             ]);
         }
-
     }
 }

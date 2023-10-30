@@ -1,32 +1,34 @@
-# Use uma imagem base com PHP-FPM
-FROM php:7.4-fpm
+# Use a imagem base com PHP 7.1.3 e Apache
+FROM php:7.4-apache
 
-# Instale as extensões PHP necessárias para o Laravel
+# Habilita o módulo do Apache para rewrite
+RUN a2enmod rewrite
+
+# Instala as extensões PHP necessárias
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Instale algumas ferramentas necessárias
-RUN apt-get update && apt-get install -y zip unzip
-
-# Instale o cliente Redis e suas dependências
-RUN apt-get install -y redis-tools
-
-# Copie os arquivos do seu projeto para o contêiner
-COPY . /var/www/html
-
-# Defina as variáveis de ambiente necessárias para o Laravel
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-
-# Instale o Composer globalmente
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Entre no diretório do projeto Laravel
+# Cria um diretório de trabalho
 WORKDIR /var/www/html
 
-# Atualize as dependências do Composer (para garantir que o composer.lock esteja atualizado)
-RUN composer update
+# Copia todo o conteúdo do seu projeto Laravel para o diretório de trabalho
+COPY . .
 
-# Instale as dependências do Composer
-RUN composer install
+# Após a cópia do código-fonte do Laravel
+RUN chown -R www-data:www-data /var/www/html/storage
 
-# Exponha a porta 80 do contêiner
-EXPOSE 9000
+# Defina o usuário e grupo do Apache
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+
+
+# Configuração do VirtualHost do Apache para servir o conteúdo da pasta public
+COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
+
+# Ativa o site e desativa o site padrão
+RUN a2dissite 000-default && a2ensite 000-default
+
+# Exponha a porta 80
+EXPOSE 80
+
+# Inicialize o servidor Apache
+CMD ["apache2-foreground"]

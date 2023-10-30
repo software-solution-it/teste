@@ -1013,6 +1013,8 @@ class PagesController extends Controller
      */
     public function pay(Request $r)
     {
+        $requestData = json_encode($r->all());
+        error_log($requestData);
         if (\Cache::has('action.user.' . $this->user->id)) return response()->json(['msg' => 'Aguarde a ação anterior!', 'type' => 'error']);
         // \Cache::put('action.user.' . $this->user->id, '', 5);
         if ($r->get('amount') < $this->settings->min_dep) return response()->json(['success' => false, 'msg' => 'Quantidade mínima para depósito é R$ ' . $this->settings->min_dep . '!', 'type' => 'error']);
@@ -1071,7 +1073,80 @@ class PagesController extends Controller
 
             return response()->json(['success' => true, 'url' => 'https://payeer.com/merchant/?m_shop=' . $m_shop . '&m_orderid=' . $m_orderid . '&m_amount=' . $m_amount . '&m_curr=' . $m_curr . '&m_desc=' . $m_desc . '&m_sign=' . $sign . '&lang=ru']);
 
-        } elseif ($r->get('type') == 'MercadoPago') {
+        }elseif ($r->get('type') == 'Volut') {
+            if ($this->settings->mp_provider_status === 0) return response()->json(['success' => false, 'msg' => 'Método de pagamento desativado!', 'type' => 'error']);
+            if ($r->get('amount') < $this->settings->min_dep) return response()->json(['success' => false, 'msg' => 'Quantidade mínima para depósito é R$ ' . $this->settings->min_dep . '!', 'type' => 'error']);
+
+            $randomPart = md5(uniqid(mt_rand(), true));
+            $m_orderid = time() . $randomPart;          
+            $m_amount = number_format($r->get('amount'), 2, '.', ''); // Convert value to 0.00 float
+            $amount = rtrim(rtrim($m_amount, '0'), '.'); // Remove x.00 value to unique INTEGER
+            $username = explode(" ", $this->user->real_name); // username
+
+            $userEmail = $this->user->email;
+            
+
+            $url = "https://v-api.volutipay.com.br/v1/transactions";
+
+            // Request new payment with this body
+            // https://DOMAIN_URI_SERVER/api/payments/mercadopago/return
+
+            $data = [
+                "amount" => (int)$amount,
+                "pix" => [
+                    "description" => "Taxa de serviço de adição de crédito"
+                ],
+                "paymentMethod" => "pix",
+                "postbackUrl" => ""
+            ];
+
+            $providerCredentials = $this->paymentsProviders->getClientCredentialsVolut('Volut');
+
+            $requestDataProvider = json_encode($providerCredentials);
+            error_log($requestDataProvider);
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-type: application/json',
+                'Authorization: Basic ' . $providerCredentials['key']
+            ]);
+            $response = json_decode(curl_exec($ch), true);
+            curl_close($ch);
+
+            $responseData = json_encode($response);
+            error_log($responseData);
+
+            // Save to database | Table: payments
+
+            if ($m_amount != 0) {
+                DB::beginTransaction();
+                try {
+                    $payment = new Payments();
+                    $payment->user_id = $this->user->id;
+                    $payment->secret = $response['conciliationId'];
+                    $payment->order_id = $m_orderid;
+                    $payment->sum = $m_amount;
+                    $payment->system = 'Volut (PIX)';
+                    $payment->extra_info = $response['qrCode'];
+                    $payment->save();
+
+                    DB::commit();
+                } catch (\PDOException $e) {
+                    DB::connection()->getPdo()->rollBack();
+                    return response()->json(['success' => false, 'msg' => $e->getMessage(), 'type' => 'error']);
+                }
+            }
+
+            $url_pay = "/deposit/" . $m_orderid;
+            return response()->json(['success' => true, 'url' => $url_pay]);
+
+        }
+         elseif ($r->get('type') == 'MercadoPago') {
             if ($this->settings->mp_provider_status === 0) return response()->json(['success' => false, 'msg' => 'Método de pagamento desativado!', 'type' => 'error']);
             if ($r->get('amount') < $this->settings->min_dep) return response()->json(['success' => false, 'msg' => 'Quantidade mínima para depósito é R$ ' . $this->settings->min_dep . '!', 'type' => 'error']);
 

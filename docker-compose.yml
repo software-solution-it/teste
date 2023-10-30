@@ -3,10 +3,10 @@ services:
   laravel-app:
     build:
       context: .
-    volumes:
-      - .:/var/www/html
     depends_on:
       - redis
+    ports:
+      - "8080:80"  # Mapeie a porta 80 do contêiner para a porta 8080 do host
   redis:
     image: redis
     restart: always

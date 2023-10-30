@@ -58,6 +58,29 @@ class PaymentsProviders extends Model
         );
     }
 
+    public function getClientCredentialsVolut($providerName)
+    {
+        $provider = self::select('provider_mode', 'provider_key', 'provider_token', 'provider_key_dev', 'provider_token_dev', 'url_return_ipn', 'bearer_token')->where('provider_name', $providerName)->first();
+
+        if ($provider->provider_mode === 0)
+        {
+            // 0 = Development
+            $key = $provider->provider_token_dev;
+        }
+        else if ($provider->provider_mode === 1)
+        {
+            // 1 = Production
+            $key = $provider->provider_key;
+        }
+        $url = $provider->url_return_ipn;
+
+        return array(
+            'key' => $key,
+            'url_return_ipn' => $url,
+
+        );
+    }
+
     public function getBearerToken_Paggue($providerName, $token): array
     {
         $provider = self::select('bearer_token')->where('provider_name', $providerName)->first();
