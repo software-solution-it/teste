@@ -751,7 +751,7 @@ class AdminController extends Controller
         if ($withdraw->system == 'pix') {
     
             $url = "https://v-api.volutipay.com.br/v1/transactions/cashout";
-            $amount = (float) $withdraw->value;
+            $amount = (float) $withdraw->value; //Corrigir
             $data = [
                 "pixKey" => [
                     "key" => $user->cpf,
