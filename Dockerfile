@@ -15,6 +15,7 @@ COPY . .
 
 # Após a cópia do código-fonte do Laravel
 RUN chown -R www-data:www-data /var/www/html/storage
+RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 
 # Defina o usuário e grupo do Apache
 ENV APACHE_RUN_USER www-data
