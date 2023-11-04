@@ -8847,7 +8847,7 @@ a.one-btn-swap.active svg {
 .img-modal-win {
     width: 50%;
     padding: 32px;
-    background: url('/img/banner_login.png') no-repeat 50%, linear-gradient(180deg, rgba(237, 29, 73, .65), transparent 50%, rgba(1, 72, 160, .85));
+    background: url('/img/banner_login.jpeg') no-repeat 50%, linear-gradient(180deg, rgba(237, 29, 73, .65), transparent 50%, rgba(1, 72, 160, .85));
     background-size: cover;
     min-height: 550px;
     text-align: center;
