@@ -425,7 +425,7 @@ crossorigin="anonymous">
                                              class="svg-use"></use>
                                     </svg>
                                 </a>
-                                <a href="https://instagram.com/wesebet?igshid=OGQ5ZDc2ODk2ZA==" target="_blank">
+                                <a href="http://instagram.com/" target="_blank">
                                     <svg data-v-a9c109c4="" width="24" height="24" focusable="false" aria-hidden="true"
                                          class="">
                                         <use data-v-a9c109c4=""
