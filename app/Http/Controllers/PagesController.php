@@ -55,21 +55,13 @@ class PagesController extends Controller
 
     public function home()
     {
-        $jogos = [ 
-            'GatesofOlympus'//
-           ,'FruitParty'//
-           ,'SugarRush'//
-           ,'SweetBonanza'//
-           ,'StarlightPrincess'//
-           ,'TheDogHouse'//
-           ,'PirateGoldenAge'//
-           ,'MoneyMouse'//
-           ,'BigBassKeepingitReel'//
-           ,'BiggerBassBlizzard'//
-           ,'AztecKing'//
-       ];
-        
-        return view('pages.home', compact('jogos'));
+
+       $gameController = new GameController();
+
+       $gameListData = $gameController->gameList();;
+
+       return view('pages.home', compact('jogos'));
+
     }
 
     public function depositPaggue($transaction)
