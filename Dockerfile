@@ -29,7 +29,7 @@ COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2dissite 000-default && a2ensite 000-default
 
 # Exponha a porta 80
-EXPOSE 80
+EXPOSE 8080
 
 # Inicialize o servidor Apache
 CMD ["apache2-foreground"]
