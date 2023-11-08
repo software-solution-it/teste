@@ -6,7 +6,7 @@ services:
     depends_on:
       - redis
     ports:
-      - "80:80"  # Mapeie a porta 80 do contêiner para a porta 8080 do host
+      - "3000:8080"
   redis:
     image: redis
     restart: always
