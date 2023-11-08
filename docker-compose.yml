@@ -19,6 +19,4 @@ services:
     env_file:
       - .env
     networks:
-      - common-network   
-  networks:
-    - common-network   
+      - common-network
