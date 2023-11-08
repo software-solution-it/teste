@@ -15,7 +15,7 @@ class GameController extends Controller
 
     public function login(Request $r){
 
-        $api_url = 'http://gaming.stagedc.net';
+        $api_url = 'https://google.com';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
@@ -52,7 +52,7 @@ class GameController extends Controller
     public function play(Request $r){
 
         $game_id = $r->input('game_id');
-        $api_url = 'http://gaming.stagedc.net';
+        $api_url = 'https://google.com';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
@@ -94,7 +94,7 @@ class GameController extends Controller
 
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
-        $api_url = 'http://gaming.stagedc.net';
+        $api_url = 'https://google.com';
 
         $data = [
             'brand_id' => $id_marca,
