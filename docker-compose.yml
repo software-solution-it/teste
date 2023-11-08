@@ -8,7 +8,7 @@ services:
     ports:
       - "8080:80"  # Mapeie a porta 80 do contêiner para a porta 8080 do host
     dns:
-      - 8.8.8.8  # Configuração de DNS personalizado
+      - 1.1.1.1  # Configuração de DNS personalizado
   redis:
     image: redis
     restart: always
