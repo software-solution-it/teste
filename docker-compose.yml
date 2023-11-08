@@ -6,7 +6,7 @@ services:
     depends_on:
       - redis
     ports:
-      - "8080:80"  # Mapeie a porta 80 do contêiner para a porta 8080 do host
+      - "8080:80"
     dns:
       - 8.8.8.8
       - 8.8.4.4
@@ -20,3 +20,5 @@ services:
       - .env
     networks:
       - common-network
+networks:
+  common-network:
