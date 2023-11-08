@@ -13,11 +13,6 @@ WORKDIR /var/www/html
 # Copia todo o conteúdo do seu projeto Laravel para o diretório de trabalho
 COPY . .
 
-RUN chmod 777 /etc/
-
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
-    echo "nameserver 8.8.4.4" >> /etc/resolv.conf
-
 # Após a cópia do código-fonte do Laravel
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
