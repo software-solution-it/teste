@@ -20,16 +20,6 @@ class GameController extends Controller
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
 
-        $data2 = [
-            'brand_id' => $brand_id,
-            'sign' => $sign,
-            'token' => $token,
-            'brand_uid' => $brand_uid,
-            'currency' => $currency
-        ];
-
-        dd($data2);
-
         $data = [
             'code' => 1000,
             'msg' => 'Success',
