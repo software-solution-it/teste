@@ -54,6 +54,31 @@ class GameController extends Controller
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
+        $token = strtoupper(str_random(32));
+
+        $client = new Client([
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
+
+        $dataAuth = [
+            'brand_id' => $id_marca,
+            'sign' => strtoupper(md5($id_marca . $token . $chave_api)),
+            'brand_uid' => $brand_uid,
+            'token' => $chave_api,
+            'currency' => 'BRL',
+        ];
+
+        $response2 = $client->request('POST', $api_url . '/login', [
+            'json' => $dataAuth
+        ]);
+
+        $responseBody2 = json_decode($response2->getBody(), true);
+
+        dd($responseBody2);
+
+
 
         $data = [
             'brand_id' => $id_marca,
