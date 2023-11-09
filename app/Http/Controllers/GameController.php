@@ -117,7 +117,7 @@ class GameController extends Controller
                 $game['local_image'] = null;
             }
         }
-        dd($jogos);
+        dd($game);
         return response()->json($responseBody);
     }
     
