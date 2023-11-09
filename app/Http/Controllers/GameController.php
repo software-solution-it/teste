@@ -55,8 +55,6 @@ class GameController extends Controller
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
 
-        dd($game_id);
-
         $data = [
             'brand_id' => $id_marca,
             'sign' => strtoupper(md5($id_marca . $brand_uid . $chave_api)),
