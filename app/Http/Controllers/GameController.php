@@ -79,7 +79,7 @@ class GameController extends Controller
 
         $responseBody = json_decode($response->getBody(), true);
 
-        #dd($responseBody);
+        dd($responseBody);
 
         if (isset($responseBody['game_url'])) {
             $gameUrl = $responseBody['game_url'];
