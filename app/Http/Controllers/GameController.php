@@ -57,7 +57,7 @@ class GameController extends Controller
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
 
-        dd($game_id);
+        #dd($game_id);
 
         $data = [
             'brand_id' => $id_marca,

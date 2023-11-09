@@ -83,7 +83,7 @@ Route::any('/fail', 'PagesController@fail');
 
 //Game
 Route::any('/loginGame', 'GameController@login');
-Route::any('/playGame', 'GameController@playGame')->name('playGame');
+Route::any('/playGame/{game_id}', 'GameController@playGame')->name('playGame');
 Route::any('/gameList', 'GameController@gameList');
 
 Route::group(['prefix' => '/auth'], function () {
