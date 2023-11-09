@@ -113,10 +113,10 @@ class GameController extends Controller
         
             if ($nomeImagem) {
                 $jogos[$index]['local_image'] = $nomeImagem;
+                dd($jogos[$index]);
             } else {
                 $jogos[$index]['local_image'] = null;
             }
-            dd($jogos[$index]); // Pode usar isso para verificar cada $game dentro do loop
         }
 
         $responseBody['data'] = $jogos;
