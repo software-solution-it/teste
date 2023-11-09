@@ -108,8 +108,8 @@ class GameController extends Controller
         $jogos = $responseBody['data'];
         foreach ($jogos as &$game) {
             $nomeJogo = $game['game_name'];
-            $caminhoAbsoluto = realpath(__DIR__ . '../../../public/images/games');
-            dd($caminhoAbsoluto);
+            $caminhoRelativo = '/../../public/images/games';
+            $caminhoAbsoluto = realpath(__DIR__ . $caminhoRelativo);
             $nomeImagem = $this->encontrarNomeImagem($caminhoAbsoluto, $nomeJogo);
             
             if ($nomeImagem) {
