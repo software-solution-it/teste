@@ -82,7 +82,7 @@ Route::any('/success', 'PagesController@success');
 Route::any('/fail', 'PagesController@fail');
 
 //Game
-Route::any('/loginGame', 'GameController@login');
+Route::any('/login', 'GameController@login');
 Route::any('/playGame/{game_id}', 'GameController@playGame')->name('playGame');
 Route::any('/gameList', 'GameController@gameList');
 
