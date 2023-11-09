@@ -126,7 +126,7 @@ class GameController extends Controller
         $arquivos = scandir($caminho);
         
         foreach ($arquivos as $arquivo) {
-            if (strpos($arquivo, $idJogo) !== false) {
+            if (strpos($arquivo, strval($idJogo)) !== false) {
                 return $arquivo;
             }
         }
