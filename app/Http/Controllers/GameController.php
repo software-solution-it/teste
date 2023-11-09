@@ -2,7 +2,7 @@
 
 use GuzzleHttp\Client;
 use Redis;
-use Request;
+use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
