@@ -46,8 +46,6 @@ class GameController extends Controller
 
         return response()->json(['message' => $responseBody['message']], $responseBody['code']);
     }
-
-
     
     public function playGame($game_id){
         $api_url = 'https://gaming.stagedc.net';
@@ -55,30 +53,6 @@ class GameController extends Controller
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
         $token = strtoupper(str_random(32));
-
-        $client = new Client([
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-
-        $dataAuth = [
-            'brand_id' => $id_marca,
-            'sign' => strtoupper(md5($id_marca . $token . $chave_api)),
-            'brand_uid' => $brand_uid,
-            'token' => $token,
-            'currency' => 'BRL',
-        ];
-
-        $response2 = $client->request('POST', $api_url . '/login', [
-            'json' => $dataAuth
-        ]);
-
-        $responseBody2 = json_decode($response2->getBody(), true);
-
-        dd($responseBody2);
-
-
 
         $data = [
             'brand_id' => $id_marca,
