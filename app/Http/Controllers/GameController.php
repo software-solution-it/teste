@@ -70,7 +70,7 @@ class GameController extends Controller
             'currency' => 'BRL',
         ];
 
-        $response2 = $client->request('GET', $api_url . '/login', [
+        $response2 = $client->request('POST', $api_url . '/login', [
             'json' => $dataAuth
         ]);
 
