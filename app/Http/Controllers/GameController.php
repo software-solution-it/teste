@@ -116,7 +116,6 @@ class GameController extends Controller
             } else {
                 $game['local_image'] = null;
             }
-            dd($game);
         }
         return response()->json($responseBody);
     }
@@ -127,6 +126,7 @@ class GameController extends Controller
         
         foreach ($arquivos as $arquivo) {
             if (strpos($arquivo, strval($idJogo)) !== false) {
+                dd($arquivo);
                 return $arquivo;
             }
         }
