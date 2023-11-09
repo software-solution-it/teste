@@ -107,26 +107,26 @@ class GameController extends Controller
         // Adiciona a informação das imagens locais
         $jogos = $responseBody['data'];
         foreach ($jogos as &$game) {
-            $nomeJogo = $game['game_name'];
+            $idJogo = $game['game_id'];
             $caminhoPasta = public_path("images/games");
-            $nomeImagem = $this->encontrarNomeImagem($caminhoPasta, $nomeJogo);
+            $nomeImagem = $this->encontrarNomeImagem($caminhoPasta, $idJogo);
             
             if ($nomeImagem) {
                 $game['local_image'] = $nomeImagem;
             } else {
                 $game['local_image'] = null;
             }
+            dd($game);
         }
-        dd($game);
         return response()->json($responseBody);
     }
     
     // Função para encontrar o nome da imagem local
-    private function encontrarNomeImagem($caminho, $nomeJogo) {
+    private function encontrarNomeImagem($caminho, $idJogo) {
         $arquivos = scandir($caminho);
         
         foreach ($arquivos as $arquivo) {
-            if (strpos($arquivo, $nomeJogo) !== false) {
+            if (strpos($arquivo, $idJogo) !== false) {
                 return $arquivo;
             }
         }
