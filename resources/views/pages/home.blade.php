@@ -260,7 +260,7 @@
 
                             <div class="provider-game-slide">
                                 <a href="#">
-                                    Jogo da Casa
+                                    {{ $game['game_name'] }}
                                 </a>
                             </div>
                             <div class="provider-game-slide">
