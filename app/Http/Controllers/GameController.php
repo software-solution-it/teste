@@ -105,7 +105,7 @@ class GameController extends Controller
         $responseBody = json_decode($response->getBody(), true);
         
         // Adiciona a informação das imagens locais
-        $jogos = $responseBody['data']['gameList'];
+        $jogos = $responseBody['data'];
         foreach ($jogos as &$game) {
             $nomeJogo = $game['game_name'];
             $nomeImagem = $this->encontrarNomeImagem("./public/images/games", $nomeJogo);
