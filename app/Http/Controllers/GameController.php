@@ -59,7 +59,7 @@ class GameController extends Controller
 
         $data = [
             'brand_id' => $id_marca,
-            'sign' => md5($id_marca . $brand_uid . $chave_api),
+            'sign' => strtoupper(md5($id_marca . $brand_uid . $chave_api)),
             'brand_uid' => $brand_uid,
             'token' => $chave_api,
             'game_id' => $game_id,
@@ -80,6 +80,8 @@ class GameController extends Controller
         ]);
 
         $responseBody = json_decode($response->getBody(), true);
+
+        dd($responseBody);
 
         if (isset($responseBody['game_url'])) {
             $gameUrl = $responseBody['game_url'];
