@@ -128,7 +128,7 @@ class GameController extends Controller
         
         foreach ($arquivos as $arquivo) {
             if (strpos($arquivo, strval($idJogo)) !== false) {
-                return "images/games" . $arquivo;
+                return "images/games/" . $arquivo;
             }
         }
     
