@@ -119,7 +119,6 @@ class GameController extends Controller
         }
 
         $responseBody['data'] = $jogos;
-        dd($responseBody);
         return response()->json($responseBody);
     }
     
