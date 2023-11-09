@@ -51,7 +51,7 @@ class GameController extends Controller
     
     public function playGame(Request $r){
 
-        $game_id = $r->input('game_id');
+        $game_id = request()->input('game_id');
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
