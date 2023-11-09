@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Str;
 use Redis;
 use Illuminate\Http\Request;
 
@@ -51,7 +52,7 @@ class GameController extends Controller
     
     public function playGame($game_id){
         $api_url = 'https://gaming.stagedc.net';
-        $chave_api = 'C93929113F374C90AB66CD206C901785';
+        $chave_api = Str::uuid();
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
         $token = strtoupper(str_random(32));
