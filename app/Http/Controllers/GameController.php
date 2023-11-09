@@ -14,39 +14,19 @@ class GameController extends Controller
     }
 
     public function login(Request $r){
-
-        dd("Caiu");
-
-        $api_url = 'https://gaming.stagedc.net';
-        $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
-        $brand_uid = 'UserTest1';
 
         $data = [
-            'brand_id' => $id_marca,
-            'sign' => md5($id_marca . $brand_uid . $chave_api),
-            'token' => $chave_api,
-            'brand_uid' => $brand_uid,
-            'currency' => 'BRL'
+            'code' => 1000,
+            'msg' => 'Success',
+            'data' => [
+                'brand_uid' => $id_marca,
+                'currency' => 'BRL',
+                'balance' => 100.000000
+            ]
         ];
 
-        #'language' => 'pt-BR',
-        #'channel' => 'pc',
-        #'country_code' => 'BR'
-
-        $client = new Client([
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-
-        $response = $client->request('POST', $api_url . '/loginUser', [
-            'json' => $data
-        ]);
-
-        $responseBody = json_decode($response->getBody(), true);
-
-        return response()->json(['message' => $responseBody['message']], $responseBody['code']);
+        return $data;
     }
     
     public function playGame($game_id){
