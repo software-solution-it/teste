@@ -78,8 +78,8 @@ class GameController extends Controller
         ]);
 
         $responseBody = json_decode($response->getBody(), true);
-
-        return response()->json($responseBody['data'], $responseBody['code']);
+    
+        return response()->json($responseBody['data'], 200);
     }
 
 
