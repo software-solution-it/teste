@@ -119,7 +119,7 @@ class GameController extends Controller
         }
 
         $responseBody['data'] = $jogos;
-
+        dd($responseBody);
         return response()->json($responseBody);
     }
     
@@ -129,7 +129,6 @@ class GameController extends Controller
         
         foreach ($arquivos as $arquivo) {
             if (strpos($arquivo, strval($idJogo)) !== false) {
-                dd($arquivo);
                 return $arquivo;
             }
         }
