@@ -122,7 +122,6 @@ class GameController extends Controller
         return response()->json($responseBody);
     }
     
-    // Função para encontrar o nome da imagem local
     private function encontrarNomeImagem($caminho, $idJogo) {
         $arquivos = scandir($caminho);
         
@@ -132,7 +131,7 @@ class GameController extends Controller
             }
         }
     
-        return 'images/games/150259_Desert_Shark.png'; // Se não encontrar nenhuma correspondência
+        return "";
     }
 
 
