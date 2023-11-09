@@ -21,7 +21,7 @@ class AuthController extends Controller
         parent::__construct();
     }
 
-    public function login(Request $request)
+    public function loginUser(Request $request)
     {
         // Validate if request is fom Ajax
         if (!$request->ajax()) return response()->json(['success' => false, 'msg' => 'Request need be ajax!', 'type' => 'error'], 400);
