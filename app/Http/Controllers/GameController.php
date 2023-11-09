@@ -15,6 +15,8 @@ class GameController extends Controller
 
     public function login(Request $r){
 
+        dd("Caiu");
+
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
