@@ -53,7 +53,7 @@ class GameController extends Controller
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
-        $brand_uid = strtoupper(uniqid('Yes', true));
+        $brand_uid = strtoupper(uniqid('UserTest1', true));
 
         $data = [
             'brand_id' => $id_marca,
