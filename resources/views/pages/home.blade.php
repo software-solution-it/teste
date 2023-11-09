@@ -184,65 +184,6 @@ document.querySelector('.swiper - slide ').style.width = ' calc(50 %) ';
 
 </script>
 </section>
-<div class="index-features">
-    <div class="col-features">
-        <a href="/crash" class="free-to-play" style="background-image: url('/img/bg-1_2x.dc8a421.png');">
-            <span>Jogue Agora o Crash e Lucre até 300x por partida!</span>
-        </a>
-        <a href="/affiliate" style="background-image: url('/img/bg-2_1x.c124441.png');">
-            <span>Lucre com Indicações</span>
-        </a>
-        <a href="javascript:;" style="background-image: url('/img/bg-3_1x.6150cf5.png');">
-            <span>Saques Imediatos</span>
-        </a>
-    </div>
-
-
-    <div class="col-features">
-        <a href="" class="#">
-            {{-- <span>Jogue na Roleta e Multiplique Sua Banca em até 50x</span> --}}
-            <div class="parent-spin-preview">
-                <img width="101" height="77" src="/img/MOEDA_02.png" class="coin coin-1">
-                <img width="79" height="76" src="/img/MOEDA_03.png" class="coin coin-2">
-                <img width="119" height="119" src="/img/MOEDA_04.png" class="coin coin-3">
-                <img width="76" height="77" src="/img/MOEDA_05.png" alt="" class="coin coin-4">
-                <img width="152" height="162" src="/img/MOEDA_05.png" class="coin coin-5">
-                <img width="124" height="126" src="/img/MOEDA_03.png" class="coin coin-6">
-                <div class="spin-preview layer-0">
-                    <img width="405" height="405"
-                        src="/templates/default/img/betnew/spin-preview-layer-0@1x.dd1753f.webp">
-                </div>
-                <div class="spin-preview layer-1">
-                    <img width="276" height="276"
-                        src="/templates/default/img/betnew/spin-preview-layer-1@1x.b9d7398.webp">
-                </div>
-                <div class="spin-preview layer-2">
-                    <img width="233" height="233"
-                        src="/templates/default/img/betnew/spin-preview-layer-2@1x.e4cd111.webp">
-                </div>
-                <div class="spin-preview layer-3">
-                    <img width="233" height="233"
-                        src="/templates/default/img/betnew/spin-preview-layer-3@1x.3d0893e.webp">
-                </div>
-                <div class="spin-preview layer-4">
-                    <img width="194" height="194" src="/img/roleta.png">
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-features">
-        <a href="javascript:;" style="background-image: url(/img/bg-4_1x.56ae9bd.png);">
-            <span>Depósitos Imediatos</span>
-        </a>
-        <a href="/mines" class="free-to-play" style="background-image: url(/img/bg-5_1x.0006b1c.png);">
-            <span>Lucre Muito no Mines</span>
-        </a>
-        <a href="javascript:;" style="background-image: url(/img/bg-6_1x.8938de0.png);">
-            <span>Sistema 100% FairPlay</span>
-        </a>
-    </div>
-</div>
 
 <div class="index-features2">
     <div class="one-category">
@@ -292,6 +233,7 @@ document.querySelector('.swiper - slide ').style.width = ' calc(50 %) ';
         </div>
     </div>
 </div>
+
 @if(Auth::user())
 <script>
     $('.banner-slot').click(function (e) {
