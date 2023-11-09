@@ -84,7 +84,7 @@ class GameController extends Controller
             'brand_id' => $id_marca,
             'sign' => strtoupper(md5($id_marca . $brand_uid . $chave_api)),
             'brand_uid' => $brand_uid,
-            'token' => $chave_api,
+            'token' => $token,
             'game_id' => $game_id,
             'currency' => 'BRL',
             'language' => 'pt-BR',
