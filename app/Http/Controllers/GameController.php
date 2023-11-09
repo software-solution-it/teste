@@ -98,7 +98,7 @@ class GameController extends Controller
 
         $data = [
             'brand_id' => $id_marca,
-            'sign' => strtoupper(md5($id_marca . $chave_api)),
+            'sign' => md5($id_marca . $chave_api),
         ];
 
         $client = new Client([
