@@ -258,7 +258,7 @@ document.querySelector('.swiper - slide ').style.width = ' calc(50 %) ';
 
         <div class="swiper game-swiper">
             <div class="swiper-wrapper" style="height: 100px;"> <!-- Defina a altura desejada em pixels -->
-                @foreach($jogos['data'] as $game)
+                @foreach($jogos as $game)
                 <div class="swiper-slide">
                     <div class="game-slide">
                         <div class="img-game-slide" style="background-image: url({{ $game['game_icon'] }});">

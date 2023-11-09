@@ -58,7 +58,8 @@ class PagesController extends Controller
 
        $gameController = new GameController();
 
-       $jogos = $gameController->gameList();;
+       $response = $gameController->gameList();
+       $jogos = $response->json()['data'];
 
        return view('pages.home', compact('jogos'));
 
