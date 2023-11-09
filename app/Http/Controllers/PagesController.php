@@ -60,6 +60,7 @@ class PagesController extends Controller
 
        $response = $gameController->gameList();
        $jogos = $response->getData(true)['data'];
+       dd($jogos);
 
        return view('pages.home', compact('jogos'));
 
