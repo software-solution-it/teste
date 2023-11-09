@@ -5904,6 +5904,7 @@ a.view-all {
 
 .play-game-slide {
     width: calc(40% + 20px);
+    margin-top: 60px;
     min-width: 42px;
     background-color: #d1113f;
     border-radius: 50%;
@@ -5955,6 +5956,7 @@ a.view-all {
 
 .provider-game-slide {
     transform: scale(.9);
+    margin-bottom: 13px;
     transition: opacity .1s ease-in-out, transform .1s ease-in-out;
     text-transform: capitalize;
     font-size: 13px;
