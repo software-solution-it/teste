@@ -132,7 +132,7 @@ class GameController extends Controller
             }
         }
     
-        return null; // Se não encontrar nenhuma correspondência
+        return 'images/games/150259_Desert_Shark.png'; // Se não encontrar nenhuma correspondência
     }
 
 
