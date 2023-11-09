@@ -113,7 +113,6 @@ class GameController extends Controller
         
             if ($nomeImagem) {
                 $jogos[$index]['local_image'] = $nomeImagem;
-                dd($jogos[$index]);
             } else {
                 $jogos[$index]['local_image'] = null;
             }
@@ -129,7 +128,7 @@ class GameController extends Controller
         
         foreach ($arquivos as $arquivo) {
             if (strpos($arquivo, strval($idJogo)) !== false) {
-                return $arquivo;
+                return "images/games" . $arquivo;
             }
         }
     
