@@ -248,16 +248,16 @@
                             <div class="meta-game-slide new">new</div>
                         </div>
                         <div class="hover-game-slide">
-                            <form action="{{ route('playGame') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="game_id" value="{{ $game['game_id'] }}">
-                                <button type="submit" class="play-game-slide">
-                                    <svg focusable="false" aria-hidden="true" class="">
-                                        <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
-                                            class="svg-use"></use>
-                                    </svg>
-                                </button>
-                            </form>
+                        <form action="{{ route('playGame', ['game_id' => $game['game_id']]) }}" method="post">
+    @csrf
+    <button type="submit" class="play-game-slide">
+        <svg focusable="false" aria-hidden="true" class="">
+            <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
+                class="svg-use"></use>
+        </svg>
+    </button>
+</form>
+
                             <div class="provider-game-slide">
                                 <a href="#">
                                     Jogo da Casa
