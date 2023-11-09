@@ -243,7 +243,7 @@
                 @foreach($jogos as $game)
                 <div class="swiper-slide">
                     <div class="game-slide">
-                        <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
+                        <div class="img-game-slide" style="background-image: url({{ isset($game['local_image']) ? asset($game['local_image']) : '' }});">
                         </div>
                         <div class="hover-game-slide">
                         <form action="{{ route('playGame', ['game_id' => $game['game_id']]) }}" method="post">
