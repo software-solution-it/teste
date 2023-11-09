@@ -112,12 +112,11 @@ class GameController extends Controller
             $nomeImagem = $this->encontrarNomeImagem($caminhoPasta, $idJogo);
             if ($nomeImagem) {
                 $game['local_image'] = $nomeImagem;
+                dd($game);
             } else {
                 $game['local_image'] = null;
             }
         }
-
-        dd($jogos);
 
         $responseBody['data'] = $jogos;
         return response()->json($responseBody);
