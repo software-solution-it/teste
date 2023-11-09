@@ -56,27 +56,27 @@ class GameController extends Controller
         $brand_uid = 'UserTest1';
         $token = strtoupper(str_random(32));
 
-        $client = new Client([
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        #$client = new Client([
+        #    'headers' => [
+        #        'Content-Type' => 'application/json'
+        #    ]
+        #]);
 
-        $dataAuth = [
-            'brand_id' => $id_marca,
-            'sign' => strtoupper(md5($id_marca . $token . $chave_api)),
-            'brand_uid' => $brand_uid,
-            'token' => $chave_api,
-            'currency' => 'BRL',
-        ];
+        #$dataAuth = [
+        #    'brand_id' => $id_marca,
+        #    'sign' => strtoupper(md5($id_marca . $token . $chave_api)),
+        #    'brand_uid' => $brand_uid,
+        #    'token' => $chave_api,
+        #    'currency' => 'BRL',
+        #];
 
-        $response2 = $client->request('POST', $api_url . '/login', [
-            'json' => $dataAuth
-        ]);
+        #$response2 = $client->request('POST', $api_url . '/login', [
+        #    'json' => $dataAuth
+        #]);
 
-        $responseBody2 = json_decode($response2->getBody(), true);
+        #$responseBody2 = json_decode($response2->getBody(), true);
 
-        dd($responseBody2);
+        #dd($responseBody2);
 
 
 
