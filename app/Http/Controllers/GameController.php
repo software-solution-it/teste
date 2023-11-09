@@ -108,7 +108,7 @@ class GameController extends Controller
         $jogos = $responseBody['data'];
         foreach ($jogos as &$game) {
             $nomeJogo = $game['game_name'];
-            $nomeImagem = $this->encontrarNomeImagem("./public/images/games", $nomeJogo);
+            $nomeImagem = $this->encontrarNomeImagem("../../public/images/games", $nomeJogo);
             
             if ($nomeImagem) {
                 $game['local_image'] = $nomeImagem;
