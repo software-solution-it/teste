@@ -78,8 +78,9 @@ class GameController extends Controller
         ]);
 
         $responseBody = json_decode($response->getBody(), true);
-    
-        return response()->json($responseBody['data'], 200);
+
+        $gameUrl = $responseBody['data']['game_url'];
+        return redirect($gameUrl);
     }
 
 
