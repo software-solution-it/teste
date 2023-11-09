@@ -110,8 +110,8 @@ class GameController extends Controller
             $idJogo = $game['game_id'];
             $caminhoPasta = public_path("images/games");
             $nomeImagem = $this->encontrarNomeImagem($caminhoPasta, $idJogo);
-            
             if ($nomeImagem) {
+                dd($nomeImagem . $idJogo);
                 $game['local_image'] = $nomeImagem;
             } else {
                 $game['local_image'] = null;
