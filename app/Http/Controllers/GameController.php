@@ -116,9 +116,8 @@ class GameController extends Controller
             } else {
                 $jogos[$index]['local_image'] = null;
             }
+            dd($jogos[$index]); // Pode usar isso para verificar cada $game dentro do loop
         }
-
-        dd($jogos); // Pode usar isso para verificar cada $game dentro do loop
 
         $responseBody['data'] = $jogos;
         return response()->json($responseBody);
