@@ -49,7 +49,7 @@ class GameController extends Controller
 
 
     
-    public function play(Request $r){
+    public function playGame(Request $r){
 
         $game_id = $r->input('game_id');
         $api_url = 'https://gaming.stagedc.net';
