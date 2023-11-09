@@ -83,7 +83,7 @@ Route::any('/fail', 'PagesController@fail');
 
 //Game
 Route::post('/loginGame', 'GameController@login');
-Route::post('/playGame', 'GameController@play')->name('playGame');
+Route::post('/playGame', 'GameController@playGame');
 Route::post('/gameList', 'GameController@gameList');
 
 Route::group(['prefix' => '/auth'], function () {
