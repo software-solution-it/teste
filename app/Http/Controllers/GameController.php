@@ -82,31 +82,55 @@ class GameController extends Controller
         return redirect($gameUrl);
     }
 
-
     public function gameList(){
-
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
         $api_url = 'https://gaming.stagedc.net';
-
+        
         $data = [
             'brand_id' => $id_marca,
             'sign' => strtoupper(md5($id_marca . $chave_api)),
         ];
-
+        
         $client = new Client([
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
         ]);
-
+        
         $response = $client->request('POST', $api_url . '/dcs/getGameList', [
             'json' => $data
         ]);
-
+        
         $responseBody = json_decode($response->getBody(), true);
-
+        
+        // Adiciona a informação das imagens locais
+        $jogos = $responseBody['data']['gameList'];
+        foreach ($jogos as &$game) {
+            $nomeJogo = $game['game_name'];
+            $nomeImagem = $this->encontrarNomeImagem("./public/images/games", $nomeJogo);
+            
+            if ($nomeImagem) {
+                $game['local_image'] = $nomeImagem;
+            } else {
+                $game['local_image'] = null;
+            }
+        }
+        
         return response()->json($responseBody);
+    }
+    
+    // Função para encontrar o nome da imagem local
+    private function encontrarNomeImagem($caminho, $nomeJogo) {
+        $arquivos = scandir($caminho);
+        
+        foreach ($arquivos as $arquivo) {
+            if (strpos($arquivo, $nomeJogo) !== false) {
+                return $arquivo;
+            }
+        }
+    
+        return null; // Se não encontrar nenhuma correspondência
     }
 
 
