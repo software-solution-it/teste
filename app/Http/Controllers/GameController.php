@@ -38,7 +38,7 @@ class GameController extends Controller
             ]
         ]);
 
-        $response = $client->request('POST', $api_url . '/login', [
+        $response = $client->request('POST', $api_url . '/loginUser', [
             'json' => $data
         ]);
 
