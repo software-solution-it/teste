@@ -249,7 +249,6 @@
                         </div>
                         <div class="hover-game-slide">
                             <form action="{{ route('playGame') }}" method="POST">
-                                @csrf
                                 <input type="hidden" name="game_id" value="{{ $game['game_id'] }}">
                                 <button type="submit" class="play-game-slide">
                                     <svg focusable="false" aria-hidden="true" class="">
