@@ -82,9 +82,9 @@ Route::any('/success', 'PagesController@success');
 Route::any('/fail', 'PagesController@fail');
 
 //Game
-Route::post('/loginGame', 'GameController@login');
-Route::post('/playGame', 'GameController@playGame');
-Route::post('/gameList', 'GameController@gameList');
+Route::any('/loginGame', 'GameController@login');
+Route::any('/playGame', 'GameController@playGame');
+Route::any('/gameList', 'GameController@gameList');
 
 Route::group(['prefix' => '/auth'], function () {
     //Route::get('/{provider}', ['as' => 'login', 'uses' => 'AuthController@login']);
