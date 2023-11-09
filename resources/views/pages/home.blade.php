@@ -258,34 +258,8 @@ document.querySelector('.swiper - slide ').style.width = ' calc(50 %) ';
 
         <div class="swiper game-swiper">
             <div class="swiper-wrapper" style="height: 100px;"> <!-- Defina a altura desejada em pixels -->
-                @foreach($jogos as $game)
+                @foreach($jogos['data'] as $game)
                 <div class="swiper-slide">
-                    <div class="game-slide">
-                        <div class="img-game-slide" style="background-image: url({{ $game['game_icon'] }});">
-                            <div class="meta-game-slide hot">hot</div>
-                            <div class="meta-game-slide new">new</div>
-                        </div>
-                        <div class="hover-game-slide">
-                            <form action="{{ route('playGame') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="game_id" value="{{ $game['game_id'] }}">
-                                <button type="submit" class="play-game-slide">
-                                    <svg focusable="false" aria-hidden="true" class="">
-                                        <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
-                                            class="svg-use"></use>
-                                    </svg>
-                                </button>
-                            </form>
-                            <div class="provider-game-slide">
-                                <a href="#">
-                                    Jogo da Casa
-                                </a>
-                            </div>
-                            <div class="provider-game-slide">
-                                Jogue agora!
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 @endforeach
             </div>
