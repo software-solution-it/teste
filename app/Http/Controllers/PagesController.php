@@ -56,7 +56,12 @@ class PagesController extends Controller
     public function home()
     {
 
-       return view('pages.home');
+       $gameController = new GameController();
+
+       $response = $gameController->gameList();
+       $jogos = $response->getData(true)['data'];
+
+       return view('pages.home', compact('jogos'));
 
     }
 

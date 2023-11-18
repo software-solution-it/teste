@@ -255,15 +255,38 @@
             </a>
         </div>
 
-        <div class="swiper-container">
-    <div class="swiper-wrapper" style="height: 100px;">
-        <!-- Seu loop Blade aqui -->
-    </div>
+        <div class="swiper game-swiper">
+            <div class="swiper-wrapper" style="height: 100px;"> <!-- Defina a altura desejada em pixels -->
+                @foreach($jogos as $game)
+                <div class="swiper-slide">
+                    <div class="game-slide">
+                        <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
+                        </div>
+                        <div class="hover-game-slide">
+                        <form action="{{ route('playGame', ['game_id' => $game['game_id']]) }}" method="post">
+    @csrf
+    <button type="submit" class="play-game-slide">
+        <svg focusable="false" aria-hidden="true" class="">
+            <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
+                class="svg-use"></use>
+        </svg>
+    </button>
+</form>
 
-    <!-- Adicione navegação personalizada -->
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div>
+                            <div class="provider-game-slide">
+                                <a href="#">
+                                    {{ $game['game_name'] }}
+                                </a>
+                            </div>
+                            <div class="provider-game-slide">
+                                Jogue agora!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
     </div>
 </div>
 @if(Auth::user())
