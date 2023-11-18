@@ -3,6 +3,7 @@
 <link href="css/normalize.css" rel="stylesheet" type="text/css">
 <link href="css/components.css" rel="stylesheet" type="text/css"> <link href="css/homes.css" rel="stylesheet"
     type="text/css"> <link rel="stylesheet" href="/css/introduction.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
 <link rel="stylesheet" href="https://unpkg.com/flickity@2.3.0/dist/flickity.css"> @section('content') <script> if
     (window.innerWidth> 600) { document.querySelector('.swiper - slide ').style.width=' calc(50 %) '; } </script>
@@ -53,6 +54,22 @@
 </div>
 
 <style>
+
+    .swiper-button-next,
+    .swiper-button-prev {
+    width: 40px;
+    height: 40px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    }
     .tamanho {
         flex: 0 0 0;
         max-width: 100%;
@@ -238,38 +255,15 @@
             </a>
         </div>
 
-        <div class="swiper game-swiper">
-            <div class="swiper-wrapper" style="height: 100px;"> <!-- Defina a altura desejada em pixels -->
-                @foreach($jogos as $game)
-                <div class="swiper-slide">
-                    <div class="game-slide">
-                        <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
-                        </div>
-                        <div class="hover-game-slide">
-                        <form action="{{ route('playGame', ['game_id' => $game['game_id']]) }}" method="post">
-    @csrf
-    <button type="submit" class="play-game-slide">
-        <svg focusable="false" aria-hidden="true" class="">
-            <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
-                class="svg-use"></use>
-        </svg>
-    </button>
-</form>
+        <div class="swiper-container">
+    <div class="swiper-wrapper" style="height: 100px;">
+        <!-- Seu loop Blade aqui -->
+    </div>
 
-                            <div class="provider-game-slide">
-                                <a href="#">
-                                    {{ $game['game_name'] }}
-                                </a>
-                            </div>
-                            <div class="provider-game-slide">
-                                Jogue agora!
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
+    <!-- Adicione navegação personalizada -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
     </div>
 </div>
 @if(Auth::user())
