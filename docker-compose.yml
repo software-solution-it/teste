@@ -7,8 +7,12 @@ services:
       - redis
     ports:
       - "8080:80"  # Mapeie a porta 80 do contêiner para a porta 8080 do host
-    dns:
-      - 1.1.1.1  # Configuração de DNS personalizado
+      - "443:443"  # Mapeie a porta 443 do contêiner para a porta 443 do host
+    env_file:
+      - .env
+    volumes:
+      - ./ssl:/etc/apache2/ssl  # Mapeie a pasta 'ssl' local para '/etc/apache2/ssl' no contêiner
+
   redis:
     image: redis
     restart: always
