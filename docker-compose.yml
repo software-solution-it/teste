@@ -9,7 +9,11 @@ services:
       - .env
     volumes:
       - ./ssl:/etc/apache2/ssl
-
+    deploy:
+      resources:
+        limits:
+          cpus: '6'
+          memory: 4G 
   redis:
     image: redis
     restart: always
