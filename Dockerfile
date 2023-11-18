@@ -1,8 +1,8 @@
 # Use a imagem base com PHP 7.4 e Apache
 FROM php:7.4-apache
 
-# Habilita o módulo do Apache para rewrite e SSL
-RUN a2enmod rewrite ssl
+# Habilita o módulo do Apache para rewrite (removendo o módulo SSL)
+RUN a2enmod rewrite && service apache2 restart
 
 # Instala as extensões PHP necessárias
 RUN docker-php-ext-install pdo pdo_mysql
@@ -22,19 +22,16 @@ RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 
-# Copia os arquivos de certificado SSL e chave privada
-COPY ssl/cert.pem /etc/apache2/ssl/cert.pem
-COPY ssl/privkey.pem /etc/apache2/ssl/privkey.pem
+COPY .htaccess /var/www/html/
 
-# Configuração do VirtualHost do Apache para servir o conteúdo da pasta public com SSL
-COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
+# Configuração do VirtualHost do Apache para servir o conteúdo da pasta public sem SSL
+COPY ./000-default-http.conf /etc/apache2/sites-available/000-default.conf
 
-# Ativa o site SSL e desativa o site padrão
+# Ativa o site sem SSL e desativa o site padrão
 RUN a2ensite 000-default && a2dissite 000-default
 
-# Exponha as portas 80 e 443
+# Exponha a porta 80
 EXPOSE 80
-EXPOSE 443
 
 # Inicialize o servidor Apache
 CMD ["apache2-foreground"]
