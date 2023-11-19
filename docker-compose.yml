@@ -19,6 +19,8 @@ services:
       - ./:/var/www/html
     networks:
       - my_network
+    command: >
+      bash -c "docker-php-ext-install pdo_mysql && php-fpm"
 
   redis:
     image: redis
