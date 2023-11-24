@@ -5780,6 +5780,35 @@ a.view-all {
 }
 
 
+.game-swiper2 .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16.8%;
+}
+
+.game-swiper2 .swiper-button-next,
+.game-swiper2 .swiper-button-prev {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #4CAF50; /* Cor de fundo */
+    color: white; /* Cor do ícone */
+    border-radius: 50%; /* Para tornar o botão redondo */
+    font-size: 70px; /* Tamanho do ícone */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Efeito de transição */
+}
+
+.game-swiper2 .swiper-button-next:hover,
+.game-swiper2 .swiper-button-prev:hover {
+    background-color: #45a049; /* Cor de fundo ao passar o mouse */
+}
+
+
+
 .game-slide {
     margin-right: 16px;
     position: relative;

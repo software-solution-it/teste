@@ -257,7 +257,7 @@
             </a>
         </div>
 
-        <div class="swiper-container swiper game-swiper">
+        <div class="swiper-container swiper game-swiper2">
     <div class="swiper-wrapper">
         @php
             $chunkedJogos = array_chunk($jogos, 6);
