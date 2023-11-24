@@ -1,18 +1,16 @@
-# Use a imagem oficial do PHP 7.4 FPM
 FROM php:7.4-fpm
 
-# Defina o diretório de trabalho
-WORKDIR /var/www/html
-
-# Instale as extensões necessárias
+# Instalação das extensões necessárias
 RUN docker-php-ext-install pdo_mysql
 
-# Defina as permissões adequadas
+# Criação do diretório /var/www/html/storage
+RUN mkdir -p /var/www/html/storage
+
+# Aplicação das permissões necessárias
 RUN chmod -R 775 /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/storage
 
-# Exponha a porta 9000 para o Nginx
-EXPOSE 9000
+# Restante das configurações do Dockerfile, se houver
 
-# Comando padrão para iniciar o PHP-FPM
+# Comando para iniciar o php-fpm
 CMD ["php-fpm"]
