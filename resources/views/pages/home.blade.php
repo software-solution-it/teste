@@ -389,23 +389,39 @@
 @endif
 
 <script>
-    var swiper1 = new Swiper('.game-swiper1', {
-        slidesPerView: 'auto',
+var swiper = new Swiper('.game-swiper1', {
+        slidesPerView: 8,
         slidesPerColumn: 3,
         spaceBetween: 10,
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        breakpoints: {
+            600: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 1,
+            }
+        }
     });
 
     var swiper2 = new Swiper('.game-swiper2', {
-        slidesPerView: 'auto',
+        slidesPerView: 8,
         slidesPerColumn: 3,
         spaceBetween: 10,
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            600: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 1,
+            }
         },
         controller: {
             control: swiper1,
