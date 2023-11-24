@@ -271,7 +271,8 @@
                                     <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
                                     </div>
                                 @else
-                                    <!-- Tratar caso $game['local_image'] não seja uma string -->
+                                <div class="img-game-slide" style="background-image: url('images/games/150004_Royal Mint.png');">
+                                    </div>
                                 @endif
 
                                 <div class="hover-game-slide">
