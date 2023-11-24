@@ -259,13 +259,8 @@
 
         <div class="swiper-container swiper game-swiper2">
     <div class="swiper-wrapper">
-        @php
-            $chunkedJogos = array_chunk($jogos, 6);
-        @endphp
-
-        @foreach($chunkedJogos as $chunk)
             <div class="swiper-slide">
-                @foreach($chunk as $game)
+                @foreach($jogos as $game)
                     <div class="game-slide">
                         @if(isset($game['local_image']) && is_string($game['local_image']))
                             <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});"></div>
