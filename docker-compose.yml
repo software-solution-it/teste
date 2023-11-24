@@ -17,9 +17,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - ./:/var/www/html
-      - .env:/var/www/html/.env
     depends_on:
       - redis
     networks:
