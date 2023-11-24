@@ -182,6 +182,8 @@
     })(jQuery);
 
 </script>
+
+
 </section>
 <div class="index-features">
     <div class="col-features">
@@ -255,47 +257,54 @@
             </a>
         </div>
 
-        <div class="swiper game-swiper">
-            <div class="swiper-wrapper" style="height: 100px;"> <!-- Defina a altura desejada em pixels -->
-            @foreach($jogos as $game)
-    <div class="swiper-slide">
-        <div class="game-slide">
-            @if(isset($game['local_image']) && is_string($game['local_image']))
-                <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
-                </div>
-            @else
-                <div></div>
-            @endif
+        <div class="swiper-container">
+    <div class="swiper-wrapper">
+        @php
+            $chunkedJogos = array_chunk($jogos, 6);
+        @endphp
 
-            <div class="hover-game-slide">
-                <form action="{{ route('playGame', ['game_id' => $game['game_id'] ?? null]) }}" method="post">
-                    @csrf
-                    <button type="submit" class="play-game-slide">
-                        <svg focusable="false" aria-hidden="true" class="">
-                            <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
-                                class="svg-use"></use>
-                        </svg>
-                    </button>
-                </form>
-
-                <div class="provider-game-slide">
-                    <a href="#">
-                        @if(isset($game['game_name']) && is_string($game['game_name']))
-                            {{ $game['game_name'] }}
+        @foreach($chunkedJogos as $chunk)
+            <div class="swiper-slide">
+                @foreach($chunk as $game)
+                    <div class="game-slide">
+                        @if(isset($game['local_image']) && is_string($game['local_image']))
+                            <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});"></div>
                         @else
-                            Nome do Jogo Não Disponível
+                            <div></div>
                         @endif
-                    </a>
-                </div>
-                <div class="provider-game-slide">
-                    Jogue agora!
-                </div>
+
+                        <div class="hover-game-slide">
+                            <form action="{{ route('playGame', ['game_id' => $game['game_id'] ?? null]) }}" method="post">
+                                @csrf
+                                <button type="submit" class="play-game-slide">
+                                    <svg focusable="false" aria-hidden="true" class="">
+                                        <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play" class="svg-use"></use>
+                                    </svg>
+                                </button>
+                            </form>
+
+                            <div class="provider-game-slide">
+                                <a href="#">
+                                    @if(isset($game['game_name']) && is_string($game['game_name']))
+                                        {{ $game['game_name'] }}
+                                    @else
+                                        Nome do Jogo Não Disponível
+                                    @endif
+                                </a>
+                            </div>
+                            <div class="provider-game-slide">
+                                Jogue agora!
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        </div>
+        @endforeach
     </div>
-@endforeach
-            </div>
-        </div>
+    <!-- Adicione as setas de navegação do Swiper -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
     </div>
 </div>
 @if(Auth::user())
@@ -326,6 +335,20 @@
     });
 </script>
 @endif
+
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        slidesPerColumn: 3,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+
+
 <style>
     .banners-slots {
         padding: 10px 0px;
