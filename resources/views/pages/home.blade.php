@@ -22,19 +22,6 @@
                 kwaiq.page(' contentView'); kwaiq.page(); </script>
 
 
-<script>
-    var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-
-    var slidesPerChunk = 6; // Padrão para desktop
-
-    if (windowWidth <= 600) {
-        slidesPerChunk = 3;
-    } else if (windowWidth <= 1024) {
-        slidesPerChunk = 1;
-    }
-</script>
-
-
 <div class="container ">
 
 
@@ -271,10 +258,32 @@
 
         <div class="swiper-container swiper game-swiper1">
             <div class="swiper-wrapper">
+            <script id="chunkedNumberScript">
+    var chunkedNumber = 6; // Default value
+    // Add your logic to change chunkedNumber based on screen size
+    if (window.innerWidth >= 1360) {
+        chunkedNumber = 6;
+    } else if (window.innerWidth >= 1080) {
+        chunkedNumber = 3;
+    } else if (window.innerWidth < 600) {
+        chunkedNumber = 1;
+    }
+</script>
+
+
                 @php
-                    $slidesPerChunk = isset($slidesPerChunk) ? $slidesPerChunk : 12;
-                    $chunkedJogos = array_chunk($jogos1, $slidesPerChunk);
+                    $chunkedJogos = array_chunk($jogos1, $chunkedNumber);
                 @endphp
+
+
+
+                <script>
+    var chunkedNumberElement = document.getElementById('chunkedNumberScript');
+    var chunkedNumber = chunkedNumberElement ? chunkedNumberElement.chunkedNumber : 6;
+
+    // Now you can use the chunkedNumber variable wherever you need it in your script
+    console.log('Current chunkedNumber:', chunkedNumber);
+</script>
 
                 @foreach($chunkedJogos as $chunk)
                     <div class="swiper-slide">
