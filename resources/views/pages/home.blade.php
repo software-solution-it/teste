@@ -257,7 +257,7 @@
             </a>
         </div>
 
-        <div class="swiper-container swiper game-swiper2">
+        <div class="swiper-container swiper game-swiper1">
             <div class="swiper-wrapper">
                 @php
                     $chunkedJogos = array_chunk($jogos1, 6);
@@ -394,13 +394,26 @@
 @endif
 
 <script>
-    var swiper = new Swiper('.swiper-container', {
+    var swiper1 = new Swiper('.game-swiper1', {
         slidesPerView: 1,
         slidesPerColumn: 3,
         spaceBetween: 10,
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
+        },
+    });
+
+    var swiper2 = new Swiper('.game-swiper2', {
+        slidesPerView: 1,
+        slidesPerColumn: 3,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        controller: {
+            control: swiper1, // Sincroniza com o swiper1
         },
     });
 </script>
