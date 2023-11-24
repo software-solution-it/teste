@@ -260,7 +260,7 @@
         <div class="swiper-container swiper game-swiper2">
             <div class="swiper-wrapper">
                 @php
-                    $chunkedJogos = array_chunk($jogos, 6);
+                    $chunkedJogos = array_chunk($jogos, 12); // Alterado para 12 para duas linhas de 6
                 @endphp
 
                 @foreach($chunkedJogos as $chunk)
@@ -271,8 +271,7 @@
                                     <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
                                     </div>
                                 @else
-                                <div class="img-game-slide" style="background-image: url('images/games/150004_Royal Mint.png');">
-                                    </div>
+                                    <!-- Tratar caso $game['local_image'] não seja uma string -->
                                 @endif
 
                                 <div class="hover-game-slide">
