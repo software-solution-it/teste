@@ -258,7 +258,8 @@
 
         <div class="swiper-container swiper game-swiper1">
             <div class="swiper-wrapper">
-            <script id="chunkedNumberScript">
+            <!-- Blade template code -->
+<script id="chunkedNumberScript">
     var chunkedNumber = 6; // Default value
     // Add your logic to change chunkedNumber based on screen size
     if (window.innerWidth >= 1360) {
@@ -270,20 +271,16 @@
     }
 </script>
 
+@php
+    $chunkedJogos = array_chunk($jogos1, '<script>document.write(chunkedNumber)</script>');
+@endphp
 
-                @php
-                    $chunkedJogos = array_chunk($jogos1, $chunkedNumber);
-                @endphp
-
-
-
-                <script>
-    var chunkedNumberElement = document.getElementById('chunkedNumberScript');
-    var chunkedNumber = chunkedNumberElement ? chunkedNumberElement.chunkedNumber : 6;
-
-    // Now you can use the chunkedNumber variable wherever you need it in your script
+<script>
+    // Use chunkedNumber directly in Blade script
+    var chunkedNumber = {!! json_encode('<script>document.write(chunkedNumber)</script>', JSON_HEX_TAG) !!};
     console.log('Current chunkedNumber:', chunkedNumber);
 </script>
+
 
                 @foreach($chunkedJogos as $chunk)
                     <div class="swiper-slide">
