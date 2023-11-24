@@ -273,7 +273,7 @@
 
 @php
     // Use intval to convert the string to an integer
-    $chunkedNumber = intval('<script>document.write(chunkedNumber)</script>');
+    $chunkedNumber = max(1, intval('<script>document.write(chunkedNumber)</script>'));
     $chunkedJogos = array_chunk($jogos1, $chunkedNumber);
 @endphp
 
