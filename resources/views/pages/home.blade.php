@@ -399,6 +399,20 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            992: {
+                slidesPerView: 4,
+            },
+            1200: {
+                slidesPerView: 6,
+            },
+        },
     });
 
     var swiper2 = new Swiper('.game-swiper2', {
@@ -409,8 +423,22 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            992: {
+                slidesPerView: 4,
+            },
+            1200: {
+                slidesPerView: 6,
+            },
+        },
         controller: {
-            control: swiper1, // Sincroniza com o swiper1
+            control: swiper1,
         },
     });
 </script>
