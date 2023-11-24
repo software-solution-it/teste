@@ -14,7 +14,9 @@ services:
       - my_network
 
   php-fpm:
-    image: php:7.4-fpm
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./:/var/www/html
       - .env:/var/www/html/.env
@@ -22,8 +24,6 @@ services:
       - redis
     networks:
       - my_network
-    command: >
-      bash -c "docker-php-ext-install pdo_mysql && php-fpm && chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html/storage && chown -R www-data:www-data /var/www/html/storage"
 
   redis:
     image: "redis:latest"
