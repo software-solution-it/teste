@@ -5,6 +5,7 @@ RUN docker-php-ext-install pdo_mysql
 
 # Criação do diretório /var/www/html/storage
 RUN mkdir -p /var/www/html/storage
+RUN mkdir -p /var/www/html/storage/framework/views/
 
 # Aplicação das permissões necessárias
 RUN chmod -R 775 /var/www/html/storage \
