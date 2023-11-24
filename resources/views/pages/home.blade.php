@@ -59,14 +59,13 @@
     .swiper-button-prev {
     width: 40px;
     height: 40px;
-    background-color: #000;
     color: #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 50%;
+    top: 56%;
     transform: translateY(-50%);
     cursor: pointer;
     }
@@ -410,7 +409,7 @@
             prevEl: '.swiper-button-prev',
         },
         controller: {
-            control: swiper1, // Sincroniza com o swiper1
+            control: swiper1,
         },
     });
 </script>

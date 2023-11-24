@@ -5806,6 +5806,11 @@ a.view-all {
     background-color: #45a049; /* Cor de fundo ao passar o mouse */
 }
 
+@media (max-width: 1350px){
+.swiper-wrapper {
+    flex-wrap: nowrap !important;
+}
+}
 
 .game-swiper1 .swiper-slide {
     display: flex;
