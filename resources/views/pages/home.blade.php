@@ -272,12 +272,14 @@
 </script>
 
 @php
-    $chunkedJogos = array_chunk($jogos1, '<script>document.write(chunkedNumber)</script>');
+    // Use intval to convert the string to an integer
+    $chunkedNumber = intval('<script>document.write(chunkedNumber)</script>');
+    $chunkedJogos = array_chunk($jogos1, $chunkedNumber);
 @endphp
 
 <script>
     // Use chunkedNumber directly in Blade script
-    var chunkedNumber = {!! json_encode('<script>document.write(chunkedNumber)</script>', JSON_HEX_TAG) !!};
+    var chunkedNumber = {!! json_encode($chunkedNumber, JSON_HEX_TAG) !!};
     console.log('Current chunkedNumber:', chunkedNumber);
 </script>
 
