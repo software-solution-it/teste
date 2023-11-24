@@ -5759,11 +5759,6 @@ a.view-all {
     width: 16.8%;
 }
 
-.game-swiper .swiper-button-next,
-.game-swiper .swiper-button-prev {
-    display: none;
-}
-
 .game-slide {
     margin-right: 16px;
     position: relative;
