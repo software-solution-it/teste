@@ -5780,7 +5780,8 @@ a.view-all {
 
 
 .game-swiper2 .swiper-slide {
-    display: block;
+    display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     width: 16.8%;
@@ -5807,7 +5808,8 @@ a.view-all {
 
 
 .game-swiper1 .swiper-slide {
-    display: block;
+    display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     width: 16.8%;
