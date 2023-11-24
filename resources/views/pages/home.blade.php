@@ -294,7 +294,6 @@
                     </div>
                 @endforeach
             </div>
-        @endforeach
     </div>
     <!-- Adicione as setas de navegação do Swiper -->
     <div class="swiper-button-next"></div>
