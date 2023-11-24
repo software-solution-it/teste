@@ -304,9 +304,6 @@
                     </div>
                 @endforeach
             </div>
-            <!-- Adicione as setas de navegação do Swiper -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
         </div>
 
 
@@ -358,10 +355,10 @@
                 @endforeach
             </div>
             <!-- Adicione as setas de navegação do Swiper -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
         </div>
     </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
 </div>
 
 @if(Auth::user())
