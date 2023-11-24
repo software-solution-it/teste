@@ -15,7 +15,9 @@ COPY .env /var/www/html/.env
 
 # Define as permissões necessárias
 RUN chmod -R 775 storage \
-    && chown -R www-data:www-data storage
+    && chown -R www-data:www-data storage \
+    && cd /var/www/html/public/images/games \
+    && rename 's/"//g' *
 
 # Comando para iniciar o PHP-FPM
 CMD ["php-fpm"]
