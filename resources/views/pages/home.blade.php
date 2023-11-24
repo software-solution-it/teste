@@ -5,8 +5,7 @@
     type="text/css"> <link rel="stylesheet" href="/css/introduction.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
-<link rel="stylesheet" href="https://unpkg.com/flickity@2.3.0/dist/flickity.css"> @section('content') <script> if
-    (window.innerWidth> 600) { document.querySelector('.swiper - slide ').style.width=' calc(50 %) '; } </script>
+<link rel="stylesheet" href="https://unpkg.com/flickity@2.3.0/dist/flickity.css"> @section('content') 
     <script src="js/homes.js" type="text/javascript">
 </script>
 
@@ -259,7 +258,7 @@
         <div class="swiper-container swiper game-swiper1">
             <div class="swiper-wrapper">
                 @php
-                    $chunkedJogos = array_chunk($jogos1, 6);
+                    $chunkedJogos = array_chunk($jogos1, 8);
                 @endphp
 
                 @foreach($chunkedJogos as $chunk)
@@ -391,7 +390,7 @@
 
 <script>
     var swiper1 = new Swiper('.game-swiper1', {
-        slidesPerView: 1,
+        slidesPerView: 'auto',
         slidesPerColumn: 3,
         spaceBetween: 10,
         navigation: {
@@ -401,7 +400,7 @@
     });
 
     var swiper2 = new Swiper('.game-swiper2', {
-        slidesPerView: 1,
+        slidesPerView: 'auto',
         slidesPerColumn: 3,
         spaceBetween: 10,
         navigation: {
