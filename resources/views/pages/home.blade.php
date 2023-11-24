@@ -259,41 +259,47 @@
 
         <div class="swiper-container swiper game-swiper2">
             <div class="swiper-wrapper">
-                @foreach($jogos as $game)
+                @php
+                    $chunkedJogos = array_chunk($jogos, 6);
+                @endphp
+
+                @foreach($chunkedJogos as $chunk)
                     <div class="swiper-slide">
-                        <div class="game-slide">
-                            @if(isset($game['local_image']) && is_string($game['local_image']))
-                                <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
-                                </div>
-                            @else
-                                <!-- Tratar caso $game['local_image'] não seja uma string -->
-                            @endif
+                        @foreach($chunk as $game)
+                            <div class="game-slide">
+                                @if(isset($game['local_image']) && is_string($game['local_image']))
+                                    <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
+                                    </div>
+                                @else
+                                    <!-- Tratar caso $game['local_image'] não seja uma string -->
+                                @endif
 
-                            <div class="hover-game-slide">
-                                <form action="{{ route('playGame', ['game_id' => $game['game_id'] ?? null]) }}" method="post">
-                                    @csrf
-                                    <button type="submit" class="play-game-slide">
-                                        <svg focusable="false" aria-hidden="true" class="">
-                                            <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
-                                                class="svg-use"></use>
-                                        </svg>
-                                    </button>
-                                </form>
+                                <div class="hover-game-slide">
+                                    <form action="{{ route('playGame', ['game_id' => $game['game_id'] ?? null]) }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="play-game-slide">
+                                            <svg focusable="false" aria-hidden="true" class="">
+                                                <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
+                                                    class="svg-use"></use>
+                                            </svg>
+                                        </button>
+                                    </form>
 
-                                <div class="provider-game-slide">
-                                    <a href="#">
-                                        @if(isset($game['game_name']) && is_string($game['game_name']))
-                                            {{ $game['game_name'] }}
-                                        @else
-                                            Nome do Jogo Não Disponível
-                                        @endif
-                                    </a>
-                                </div>
-                                <div class="provider-game-slide">
-                                    Jogue agora!
+                                    <div class="provider-game-slide">
+                                        <a href="#">
+                                            @if(isset($game['game_name']) && is_string($game['game_name']))
+                                                {{ $game['game_name'] }}
+                                            @else
+                                                Nome do Jogo Não Disponível
+                                            @endif
+                                        </a>
+                                    </div>
+                                    <div class="provider-game-slide">
+                                        Jogue agora!
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 @endforeach
             </div>
