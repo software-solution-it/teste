@@ -259,8 +259,7 @@
         <div class="swiper-container swiper game-swiper1">
             <div class="swiper-wrapper">
             <!-- Blade template code -->
-<script id="chunkedNumberScript">
-    var chunkedNumber = 6; // Default value
+<script id="chunkedNumberScript" data-chunked-number="6">
     // Add your logic to change chunkedNumber based on screen size
     if (window.innerWidth >= 1360) {
         chunkedNumber = 6;
@@ -269,11 +268,14 @@
     } else if (window.innerWidth < 600) {
         chunkedNumber = 1;
     }
+
+    // Set the value as a data attribute
+    document.getElementById('chunkedNumberScript').setAttribute('data-chunked-number', chunkedNumber);
 </script>
 
 @php
-    // Use intval to convert the string to an integer
-    $chunkedNumber = max(1, intval('<script>document.write(chunkedNumber)</script>'));
+    // Retrieve the value from the data attribute
+    $chunkedNumber = max(1, intval('<script>document.getElementById("chunkedNumberScript").getAttribute("data-chunked-number")</script>'));
     $chunkedJogos = array_chunk($jogos1, $chunkedNumber);
 @endphp
 
