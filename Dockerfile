@@ -9,8 +9,6 @@ COPY . /var/www/html
 COPY .env /var/www/html/.env
 
 RUN chmod -R 775 storage \
-    && chown -R www-data:www-data storage \
-    && cd /var/www/html/public/images/games \
-    && for file in *; do mv "$file" `echo $file | tr -d '"'`; done
+    && chown -R www-data:www-data storage
 
 CMD ["php-fpm"]
