@@ -270,7 +270,7 @@
                                     <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
                                     </div>
                                 @else
-                                <div class="img-game-slide" style="background-image: url('images/games/150004_Royal Mint.png');">
+                                <div class="img-game-slide" style="background-image: url('');">
                                     </div>
                                 @endif
 
