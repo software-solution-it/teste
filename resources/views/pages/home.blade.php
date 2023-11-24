@@ -260,52 +260,100 @@
         <div class="swiper-container swiper game-swiper2">
             <div class="swiper-wrapper">
                 @php
-                    $chunkedJogos = array_chunk($jogos, 12); // Dividindo em grupos de 12 jogos por slide
+                    $chunkedJogos = array_chunk($jogos1, 6);
                 @endphp
 
                 @foreach($chunkedJogos as $chunk)
                     <div class="swiper-slide">
-                        <div class="swiper-row">
-                            @for($i = 0; $i < 2; $i++) <!-- Loop para criar duas linhas -->
-                                <div class="swiper-col">
-                                    @foreach(array_slice($chunk, $i * 6, 6) as $game)
-                                        <div class="game-slide">
-                                            @if(isset($game['local_image']) && is_string($game['local_image']))
-                                                <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
-                                                </div>
+                        @foreach($chunk as $game)
+                            <div class="game-slide">
+                                @if(isset($game['local_image']) && is_string($game['local_image']))
+                                    <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
+                                    </div>
+                                @else
+                                <div class="img-game-slide" style="background-image: url('images/games/150004_Royal Mint.png');">
+                                    </div>
+                                @endif
+
+                                <div class="hover-game-slide">
+                                    <form action="{{ route('playGame', ['game_id' => $game['game_id'] ?? null]) }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="play-game-slide">
+                                            <svg focusable="false" aria-hidden="true" class="">
+                                                <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
+                                                    class="svg-use"></use>
+                                            </svg>
+                                        </button>
+                                    </form>
+
+                                    <div class="provider-game-slide">
+                                        <a href="#">
+                                            @if(isset($game['game_name']) && is_string($game['game_name']))
+                                                {{ $game['game_name'] }}
                                             @else
-                                                <!-- Tratar caso $game['local_image'] não seja uma string -->
+                                                Nome do Jogo Não Disponível
                                             @endif
-
-                                            <div class="hover-game-slide">
-                                                <form action="{{ route('playGame', ['game_id' => $game['game_id'] ?? null]) }}" method="post">
-                                                    @csrf
-                                                    <button type="submit" class="play-game-slide">
-                                                        <svg focusable="false" aria-hidden="true" class="">
-                                                            <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
-                                                                class="svg-use"></use>
-                                                        </svg>
-                                                    </button>
-                                                </form>
-
-                                                <div class="provider-game-slide">
-                                                    <a href="#">
-                                                        @if(isset($game['game_name']) && is_string($game['game_name']))
-                                                            {{ $game['game_name'] }}
-                                                        @else
-                                                            Nome do Jogo Não Disponível
-                                                        @endif
-                                                    </a>
-                                                </div>
-                                                <div class="provider-game-slide">
-                                                    Jogue agora!
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                        </a>
+                                    </div>
+                                    <div class="provider-game-slide">
+                                        Jogue agora!
+                                    </div>
                                 </div>
-                            @endfor
-                        </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+            <!-- Adicione as setas de navegação do Swiper -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+
+
+        <div class="swiper-container swiper game-swiper2">
+            <div class="swiper-wrapper">
+                @php
+                    $chunkedJogos = array_chunk($jogos2, 6);
+                @endphp
+
+                @foreach($chunkedJogos as $chunk)
+                    <div class="swiper-slide">
+                        @foreach($chunk as $game)
+                            <div class="game-slide">
+                                @if(isset($game['local_image']) && is_string($game['local_image']))
+                                    <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
+                                    </div>
+                                @else
+                                <div class="img-game-slide" style="background-image: url('images/games/150004_Royal Mint.png');">
+                                    </div>
+                                @endif
+
+                                <div class="hover-game-slide">
+                                    <form action="{{ route('playGame', ['game_id' => $game['game_id'] ?? null]) }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="play-game-slide">
+                                            <svg focusable="false" aria-hidden="true" class="">
+                                                <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
+                                                    class="svg-use"></use>
+                                            </svg>
+                                        </button>
+                                    </form>
+
+                                    <div class="provider-game-slide">
+                                        <a href="#">
+                                            @if(isset($game['game_name']) && is_string($game['game_name']))
+                                                {{ $game['game_name'] }}
+                                            @else
+                                                Nome do Jogo Não Disponível
+                                            @endif
+                                        </a>
+                                    </div>
+                                    <div class="provider-game-slide">
+                                        Jogue agora!
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 @endforeach
             </div>
@@ -315,7 +363,6 @@
         </div>
     </div>
 </div>
-
 
 @if(Auth::user())
 <script>
