@@ -322,7 +322,7 @@
         <div class="swiper-container swiper game-swiper2">
             <div class="swiper-wrapper">
                 @php
-                    $chunkedJogos = array_chunk($jogos2, 6);
+                    $chunkedJogos = array_chunk($jogos2, 1);
                 @endphp
 
                 @foreach($chunkedJogos as $chunk)
@@ -404,7 +404,7 @@
 
 <script>
     var swiper1 = new Swiper('.game-swiper1', {
-        slidesPerView: 2,
+        slidesPerView: 6,
         slidesPerColumn: 3,
         spaceBetween: 10,
         navigation: {
@@ -414,7 +414,7 @@
     });
 
     var swiper2 = new Swiper('.game-swiper2', {
-        slidesPerView: 2,
+        slidesPerView: 6,
         slidesPerColumn: 3,
         spaceBetween: 10,
         navigation: {
