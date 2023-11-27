@@ -404,7 +404,7 @@
 
 <script>
     var swiper1 = new Swiper('.game-swiper1', {
-        slidesPerView: 6,
+        slidesPerView: getSlidesPerView(),
         slidesPerColumn: 3,
         spaceBetween: 10,
         navigation: {
@@ -414,7 +414,7 @@
     });
 
     var swiper2 = new Swiper('.game-swiper2', {
-        slidesPerView: 6,
+        slidesPerView: getSlidesPerView(),
         slidesPerColumn: 3,
         spaceBetween: 10,
         navigation: {
@@ -425,7 +425,24 @@
             control: swiper1,
         },
     });
+
+    function getSlidesPerView() {
+        if (window.innerWidth < 768) {
+            return 3;
+        } else {
+            return 6;
+        }
+    }
+
+    window.addEventListener('resize', function () {
+        swiper1.params.slidesPerView = getSlidesPerView();
+        swiper1.update();
+
+        swiper2.params.slidesPerView = getSlidesPerView();
+        swiper2.update();
+    });
 </script>
+
 
 
 <style>
