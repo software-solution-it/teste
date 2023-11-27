@@ -428,7 +428,7 @@
 
     function getSlidesPerView() {
         if (window.innerWidth < 768) {
-            return 3;
+            return 2;
         } else {
             return 6;
         }
