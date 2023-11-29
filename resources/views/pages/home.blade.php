@@ -280,7 +280,7 @@
                         @foreach($chunk as $game)
                             <div class="game-slide">
                                 @if(isset($game['local_image']) && is_string($game['local_image']))
-                                    <div class="img-game-slide" style="background-image: url({{ $game['local_image'] }});">
+                                <div class="img-game-slide" style="background-image: url('{{ $game['local_image'] }}'); background-position: center; background-size: cover;">
                                     </div>
                                 @else
                                 <div class="img-game-slide" style="background-image: url('');">
