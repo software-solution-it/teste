@@ -96,14 +96,17 @@ class GameController extends Controller
             $idJogo = $game['game_id'];
             $caminhoPasta = public_path("images/games");
             $nomeImagem = $this->encontrarNomeImagem($caminhoPasta, $idJogo);
-        
+    
             if ($nomeImagem) {
                 $jogos[$index]['local_image'] = str_replace(["'", ' ', " "], '', $nomeImagem);
             } else {
                 $jogos[$index]['local_image'] = null;
             }
         }
-
+        $jogos = array_filter($jogos, function ($game) {
+            return $game['local_image'] !== null;
+        });
+    
         $responseBody['data'] = $jogos;
         return response()->json($responseBody);
     }
