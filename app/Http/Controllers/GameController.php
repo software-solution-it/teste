@@ -98,7 +98,7 @@ class GameController extends Controller
             $nomeImagem = $this->encontrarNomeImagem($caminhoPasta, $idJogo);
     
             if ($nomeImagem) {
-                $jogos[$index]['local_image'] = str_replace(["'", ' ', " "], '', $nomeImagem);
+                $jogos[$index]['local_image'] = str_replace(["'", ' ', " ", "(NFD)"], '', $nomeImagem);
             } else {
                 $jogos[$index]['local_image'] = null;
             }
