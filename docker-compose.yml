@@ -17,6 +17,7 @@ services:
   certbot:
     image: certbot/certbot
     volumes:
+      - ./certbot-webroot:/var/www/certbot
       - ./certbot.ini:/etc/letsencrypt/cli.ini
     depends_on:
       - nginx
