@@ -14,19 +14,31 @@ class GameController extends Controller
     }
 
     public function login(Request $r){
-        $brand_uid = 'UserTest1';
-    
+        $brand_id = $r->input('brand_id');
+        $sign = $r->input('sign');
+        $token = $r->input('token');
+        $brand_uid = $r->input('brand_uid');
+        $currency = $r->input('currency');
+
+        Log::info('Login Request:', [
+            'brand_id' => $brand_id,
+            'sign' => $sign,
+            'token' => $token,
+            'brand_uid' => $brand_uid,
+            'currency' => $currency,
+        ]);
+
         $data = [
             'code' => 1000,
             'msg' => 'Success',
             'data' => [
                 'brand_uid' => $brand_uid,
-                'currency' => 'BRL',
-                'balance' => 100.000000
+                'currency' => $currency,
+                'balance' => 52.25
             ]
         ];
-    
-        return response()->json($data);
+
+        return $data;
     }
     
     public function playGame($game_id){
