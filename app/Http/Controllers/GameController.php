@@ -14,23 +14,19 @@ class GameController extends Controller
     }
 
     public function login(Request $r){
-        $brand_id = $r->input('brand_id');
-        $sign = $r->input('sign');
-        $token = $r->input('token');
-        $brand_uid = $r->input('brand_uid');
-        $currency = $r->input('currency');
-
+        $brand_uid = 'UserTest1';
+    
         $data = [
             'code' => 1000,
             'msg' => 'Success',
             'data' => [
                 'brand_uid' => $brand_uid,
-                'currency' => $currency,
+                'currency' => 'BRL',
                 'balance' => 100.000000
             ]
         ];
-
-        return $data;
+    
+        return response()->json($data);
     }
     
     public function playGame($game_id){
