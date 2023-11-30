@@ -21,7 +21,9 @@ services:
       - /etc/letsencrypt
     depends_on:
       - nginx
-    command: certonly --webroot --webroot-path=/var/www/certbot --email gustavo.ribeiro@software-solution-it.com --agree-tos --no-eff-email -d betxoficial.com
+    command: >
+      /bin/sh -c "mkdir -p /var/www/certbot && certbot certonly --webroot --webroot-path=/var/www/certbot --email gustavo.ribeiro@software-solution-it.com --agree-tos --no-eff-email -d betxoficial.com"
+
     networks:
       - my_network
 
