@@ -21,6 +21,7 @@ services:
       - ./certbot.ini:/etc/letsencrypt/cli.ini
     depends_on:
       - nginx
+    command: certonly --webroot
     networks:
       - my_network
 
