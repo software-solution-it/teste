@@ -30,6 +30,9 @@ services:
       - .env
     networks:
       - my_network
-      
+
 networks:
   my_network:
+
+volumes:
+  mysql_data:
