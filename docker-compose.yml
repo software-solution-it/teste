@@ -8,8 +8,20 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - .:/var/www/html
+      - /etc/letsencrypt
     depends_on:
       - php-fpm
+    networks:
+      - my_network
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot-webroot:/var/www/certbot
+      - /etc/letsencrypt
+    depends_on:
+      - nginx
+    command: certonly --webroot --webroot-path=/var/www/certbot --email seu-email@example.com --agree-tos --no-eff-email -d seu-domínio.com
     networks:
       - my_network
 
