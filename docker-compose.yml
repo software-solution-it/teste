@@ -1,6 +1,18 @@
 version: '3'
 
 services:
+  nginx:
+    image: nginx
+    ports:
+      - "9000:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - .:/var/www/html
+    depends_on:
+      - php-fpm
+    networks:
+      - my_network
+
   php-fpm:
     build:
       context: .
