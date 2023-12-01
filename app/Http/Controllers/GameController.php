@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Log;
 class GameController extends Controller
 {
 
+    private $usuarios;
+
     public function __construct()
     {
         parent::__construct();
@@ -22,11 +24,11 @@ class GameController extends Controller
         $currency = $r->input('currency');
 
         Log::info('Controller called', [
-            'str2' => $this->user
+            'str2' => $this->usuarios
         ]);
 
         Log::info('Controller called', [
-            'str' => floatval($this->user->balance)
+            'str' => floatval($this->usuarios->balance)
         ]);
 
         $originalString = $this->user->balance;
@@ -161,6 +163,7 @@ class GameController extends Controller
         $id_marca = 'S119001';
         $brand_uid = $this->user->username;
         $token = strtoupper(str_random(32));
+        $this->usuarios = $this->user;
 
         $data = [
             'brand_id' => $id_marca,
