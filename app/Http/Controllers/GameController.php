@@ -23,7 +23,6 @@ class GameController extends Controller
         $currency = $r->input('currency');
 
         Log::info('login called', [
-            '$authUser->balance' => (float)$this->user->balance,
             'currency' => $currency,
             'brand_uid' => $brand_uid
         ]);
@@ -34,7 +33,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => (float)$this->user->balance
+                'balance' => 100
             ]
         ];
 
