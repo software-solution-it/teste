@@ -163,7 +163,12 @@ class GameController extends Controller
         $id_marca = 'S119001';
         $brand_uid = $this->user->username;
         $token = strtoupper(str_random(32));
+
         $this->usuarios = $this->user;
+
+        Log::info('Controller called', [
+            'usuarios' => floatval($this->usuarios)
+        ]);
 
         $data = [
             'brand_id' => $id_marca,
