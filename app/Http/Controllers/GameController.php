@@ -21,7 +21,13 @@ class GameController extends Controller
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
         $originalString = "52.52";
-        $convertedDecimal = number_format((float) $originalString, 6, '.', '');
+        $val = str_replace(",",".",$originalString);
+        $val = preg_replace('/\.(?=.*\.)/', '', $originalString);
+
+        Log::info('Controller called', [
+            'str' => floatval($val)
+        ]);
+
 
         $data = [
             'code' => 1000,
@@ -29,7 +35,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $convertedDecimal
+                'balance' => floatval($val)
             ]
         ];
 
