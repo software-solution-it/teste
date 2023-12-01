@@ -244,11 +244,11 @@ wrapper2 {
 }
 
 .green-bg {
-    background: #d1113f !important
+    background: #d2691e !important
 }
 
 .color-green {
-    color: #d1113f !important
+    color: #d2691e !important
 }
 
 .pink-bg {
@@ -363,7 +363,7 @@ wrapper2 {
 }
 
 .positive {
-    color: #d1113f !important
+    color: #d2691e !important
 }
 
 .heading {
@@ -588,7 +588,7 @@ wrapper2 {
 }
 
 .input-field.input-green:not([readonly]):focus {
-    border-color: #d1113f
+    border-color: #d2691e
 }
 
 .input-field::-webkit-input-placeholder {
@@ -704,7 +704,7 @@ wrapper2 {
 
 .buttons-group .btn-action:hover {
     background: #373e4c;
-    color: #d1113f
+    color: #d2691e
 }
 
 .buttons-group .btn-action.isActive {
@@ -1187,7 +1187,7 @@ wrapper2 {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    background: #d1113f;
+    background: #d2691e;
 }
 
 .btn2 {
@@ -1222,7 +1222,7 @@ wrapper2 {
 }
 
 .btn:hover {
-    background: #d1113f;
+    background: #d2691e;
     color: inherit;
 
 }
@@ -1316,7 +1316,7 @@ wrapper2 {
 }
 
 .btn:not(.btn-light).btn-primary {
-    background: #d1113f
+    background: #d2691e
 }
 
 .btn:not(.btn-light).btn-primary:not(.disabled):hover {
@@ -1333,7 +1333,7 @@ wrapper2 {
 }
 
 .btn:not(.btn-light).btn-green {
-    background: #d1113f
+    background: #d2691e
 }
 
 .btn:not(.btn-light).btn-green:not(.disabled):hover {
@@ -1503,8 +1503,8 @@ wrapper2 {
 }
 
 .btn.btn-light.btn-green.isActive {
-    background: #d1113f;
-    border-color: #d1113f;
+    background: #d2691e;
+    border-color: #d2691e;
     color: #fff
 }
 
@@ -1547,7 +1547,7 @@ wrapper2 {
 }
 
 .btn.btn-light.btn-yellow:not(.disabled):not(.isActive):hover {
-    border-color: #d1113f;
+    border-color: #d2691e;
 }
 
 .btn.btn-light.btn-yellow.isActive {
@@ -1915,7 +1915,7 @@ wrapper2 {
 }
 
 .animated-number.isPositive .animated-block {
-    color: #d1113f;
+    color: #d2691e;
     animation-direction: reverse
 }
 
@@ -2020,7 +2020,7 @@ wrapper2 {
 }
 
 .deposit-wrap .dropdown > .btn .selected.balance svg {
-    fill: #d1113f
+    fill: #d2691e
 }
 
 .deposit-wrap .dropdown > .btn .selected.bonus svg {
@@ -2063,11 +2063,11 @@ wrapper2 {
 }
 
 .deposit-wrap .balance-item.balance svg {
-    fill: #d1113f
+    fill: #d2691e
 }
 
 .deposit-wrap .balance-item.balance .value {
-    color: #d1113f
+    color: #d2691e
 }
 
 .deposit-wrap .balance-item.bonus svg {
@@ -2223,7 +2223,7 @@ wrapper2 {
 .top-nav li a.isActive,
 .top-nav li a:focus,
 .top-nav li a:hover {
-    background: #d1113f;
+    background: #d2691e;
     color: #fff
 }
 
@@ -2601,7 +2601,7 @@ svg.icon-external {
 }
 
 .intro-left h1 span {
-    color: #d1113f;
+    color: #d2691e;
 }
 
 .intro-left h2 {
@@ -3638,7 +3638,7 @@ svg.icon-external {
     margin-top: -6px;
     width: 0;
     height: 0;
-    border-right: 6px solid #d1113f;
+    border-right: 6px solid #d2691e;
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent
 }
@@ -3671,7 +3671,7 @@ svg.icon-external {
 }
 
 .button-like:hover svg {
-    fill: #d1113f;
+    fill: #d2691e;
     opacity: 1
 }
 
@@ -3713,7 +3713,7 @@ svg.icon-external {
 }
 
 .message-game .message-info .payout.win {
-    color: #d1113f
+    color: #d2691e
 }
 
 .message-game .message-info .payout.lose {
@@ -5425,7 +5425,7 @@ svg.icon-external {
 
 .bet-number .bet-wrap .tied,
 .bet-number .bet-wrap .won {
-    color: #d1113f
+    color: #d2691e
 }
 
 .bet-number .bet-wrap .lost {
@@ -6752,7 +6752,7 @@ a.one-btn-swap.active svg {
     color: #7f8596;
     -webkit-justify-content: flex-start;
     justify-content: flex-start;
-    border-color: #d1113f;
+    border-color: #d2691e;
     border-width: 2px;
 }
 
@@ -6828,9 +6828,9 @@ a.one-btn-swap.active svg {
 
 .deposit-modal-component .input-with-icon {
     padding-left: 30px;
-    border-color: #d1113f;
+    border-color: #d2691e;
     border-width: 2px;
-    border-color: #d1113f;
+    border-color: #d2691e;
     border-width: 2px;
 }
 
@@ -7001,7 +7001,7 @@ a.one-btn-swap.active svg {
     border-radius: 6px;
     padding: 15px;
     margin: 18px 0 0;
-    border: 1px solid #d1113f;
+    border: 1px solid #d2691e;
     text-align: center
 }
 
@@ -7009,13 +7009,13 @@ a.one-btn-swap.active svg {
     outline: none;
     cursor: pointer;
     background: transparent;
-    color: #d1113f;
+    color: #d2691e;
     border: 0;
     border-bottom: 1px solid transparent
 }
 
 .deposit-modal-component .problem-block button:hover {
-    border-bottom: 1px solid #d1113f
+    border-bottom: 1px solid #d2691e
 }
 
 .caption-line {
@@ -8281,7 +8281,7 @@ a.one-btn-swap.active svg {
 
 .game-tooltip.won .badge .text {
     color: #2b313f;
-    background: #d1113f
+    background: #d2691e
 }
 
 .game-tooltip .badge .text {
@@ -8297,11 +8297,11 @@ a.one-btn-swap.active svg {
 
 .game-tooltip.won {
     color: #828f9a;
-    border-color: #d1113f;
+    border-color: #d2691e;
 }
 
 .game-tooltip.won .profit {
-    color: #d1113f
+    color: #d2691e
 }
 
 .game-tooltip.lost {
@@ -8398,7 +8398,7 @@ a.one-btn-swap.active svg {
 }
 
 .game-tooltip .btn-change {
-    color: #d1113f;
+    color: #d2691e;
     white-space: nowrap;
     border-bottom: 1px dashed;
     padding: 0;
@@ -8453,7 +8453,7 @@ a.one-btn-swap.active svg {
 
 .button-group__content .btn.isActive {
     color: #fff;
-    background: #d1113f;
+    background: #d2691e;
     border-color: #86eb00;
     border: 3px;
     border-style: groove;
