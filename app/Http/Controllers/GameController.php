@@ -12,6 +12,9 @@ class GameController extends Controller
     public function __construct()
     {
         parent::__construct();
+        Log::info('GameController constructor called', [
+            'user' => $this->user,
+        ]);
         $this->redis = Redis::connection();
     }
 
