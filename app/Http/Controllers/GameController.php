@@ -179,11 +179,14 @@ class GameController extends Controller
     }
     
     public function playGame($game_id){
-    if ($this->user != null) {
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
+        if ($this->user->username != null) {
         $brand_uid = $this->user->username;
+        }else{
+        $brand_uid = strtoupper(str_random(12)); 
+        }
         $token = strtoupper(str_random(32));
 
         $data = [
@@ -212,7 +215,6 @@ class GameController extends Controller
 
         $gameUrl = $responseBody['data']['game_url'];
         return redirect($gameUrl);
-    }
     }
 
     public function gameList(){
