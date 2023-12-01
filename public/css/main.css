@@ -3604,13 +3604,13 @@ svg.icon-external {
 }
 
 .one-menu a:hover {
-    background-color: #d1113f;
+    background-image: linear-gradient(45deg, #d2691e 5%, #ffaa80 100%);
 }
 
 
 .side-nav li a:hover {
     color: #fff;
-    background-color: #d1113f;
+    background-image: linear-gradient(45deg, #d2691e 5%, #ffaa80 100%);
 }
 
 .side-nav li .side-nav-tooltip {
@@ -5984,7 +5984,7 @@ a.view-all {
     width: calc(40% + 20px);
     margin-top: 65px;
     min-width: 42px;
-    background-color: #d1113f;
+    background-image: linear-gradient(45deg, #d2691e 5%, #ffaa80 100%);
     border-radius: 50%;
     display: block;
 }
