@@ -89,7 +89,7 @@ Route::any('/endWager', 'GameController@endWager')->name('endWager');
 Route::any('/appendWager', 'GameController@appendWager')->name('appendWager');
 Route::any('/cancelWager', 'GameController@cancelWager')->name('cancelWager');
 Route::any('/gameList', 'GameController@gameList');
-
+Route::any('/sessaoData', 'GameController@sessaoData')->name('sessaoData');
 
 Route::group(['prefix' => '/auth'], function () {
     //Route::get('/{provider}', ['as' => 'login', 'uses' => 'AuthController@login']);

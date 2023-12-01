@@ -141,10 +141,17 @@ class GameController extends Controller
     
         return $response;
     }
+
+    public function viewSessionData(Request $request)
+    {
+        $sessionData = $request->session()->all();
+    
+        return response()->json($sessionData);
+    }
     
     public function playGame($game_id){
-        $api_url = 'https://gaming.stagedc.net';
-        $chave_api = 'C93929113F374C90AB66CD206C901785';
+        $api_url = env('API_GAME_URL');;
+        $chave_api = env('API_GAME_KEY');;
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
         $token = strtoupper(str_random(32));
