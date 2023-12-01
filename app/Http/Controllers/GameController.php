@@ -146,7 +146,7 @@ class GameController extends Controller
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
-        $brand_uid = 'UserTest1';
+        $brand_uid = $this->user->username;
         $token = strtoupper(str_random(32));
 
         Log::info('Controller called', [
