@@ -20,6 +20,8 @@ class GameController extends Controller
         $token = $r->input('token');
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
+        $originalString = "52.52";
+        $convertedDecimal = number_format((float) $originalString, 6, '.', '');
 
         $data = [
             'code' => 1000,
@@ -27,7 +29,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => 52.25
+                'balance' => $convertedDecimal
             ]
         ];
 
