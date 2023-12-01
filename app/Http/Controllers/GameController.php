@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 class GameController extends Controller
 {
 
-    private $usuarios;
+    private $balance;
 
     public function __construct()
     {
@@ -24,14 +24,14 @@ class GameController extends Controller
         $currency = $r->input('currency');
 
         Log::info('Controller called', [
-            'str2' => $this->usuarios
+            'str2' => $this->balance
         ]);
 
         Log::info('Controller called', [
-            'str' => floatval($this->usuarios->balance)
+            'str' => floatval($this->balance)
         ]);
 
-        $originalString = $this->user->balance;
+        $originalString = $this->balance;
         $val = str_replace(",",".",$originalString);
         $val = preg_replace('/\.(?=.*\.)/', '', $originalString);
 
@@ -164,10 +164,10 @@ class GameController extends Controller
         $brand_uid = $this->user->username;
         $token = strtoupper(str_random(32));
 
-        $this->usuarios = $this->user;
+        $this->balance = $this->user->balance;
 
         Log::info('Controller called', [
-            'usuarios' => floatval($this->usuarios)
+            'usuarios' => floatval($this->user->balance)
         ]);
 
         $data = [
