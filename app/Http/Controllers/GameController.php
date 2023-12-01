@@ -15,6 +15,9 @@ class GameController extends Controller
     }
 
     public function login(Request $r){
+        $brand_id = $r->input('brand_id');
+        $sign = $r->input('sign');
+        $token = $r->input('token');
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
 
@@ -24,7 +27,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => (float)$this->user->balance
+                'balance' => 52.25
             ]
         ];
 
@@ -54,7 +57,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => (float)$this->user->balance - 10
+                'balance' => 52.25
             ]
         ];
     
@@ -80,7 +83,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => (float)$this->user->balance
+                'balance' => 52.25
             ]
         ];
     
@@ -107,7 +110,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => (float)$this->user->balance
+                'balance' => 52.25
             ]
         ];
     
@@ -143,8 +146,13 @@ class GameController extends Controller
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
-        $brand_uid = $this->user->username;
+        $brand_uid = 'UserTest1';
         $token = strtoupper(str_random(32));
+
+        Log::info('Controller called', [
+            'userCache' => (float)$this->user->balance,
+            'userCache2' => $this->user->username
+        ]);
 
         $data = [
             'brand_id' => $id_marca,
