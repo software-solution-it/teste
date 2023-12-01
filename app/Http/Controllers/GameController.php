@@ -58,23 +58,8 @@ class GameController extends Controller
         $bet_type = $request->input('bet_type');
         $is_endround = $request->input('is_endround');
         $user = User::where('username', $brand_uid)->first();
-        
-        Log::info('Controller called', [
-            'brand_id' => $brand_id,
-            'sign' => $sign,
-            'token' => $token,
-            'brand_uid' => $brand_uid,
-            'currency' => $currency,
-            'amount' => $amount,
-            'jackpot_contribution' => $jackpot_contribution,
-            'game_id' => $game_id,
-            'game_name' => $game_name,
-            'round_id' => $round_id,
-            'wager_id' => $wager_id,
-            'provider' => $provider,
-            'bet_type' => $bet_type,
-            'is_endround' => $is_endround,
-        ]);
+
+        $user->update(['balance' => $user->balance - $amount]);
 
         $response = [
             'code' => 1000,
@@ -82,7 +67,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => 52.25
+                'balance' => $user->balance
             ]
         ];
     
@@ -101,6 +86,21 @@ class GameController extends Controller
         $provider = $request->input('provider');
         $is_endround = $request->input('is_endround');
         $game_result = $request->input('game_result');
+        $user = User::where('username', $brand_uid)->first();
+
+        Log::info('Controller called', [
+            'brand_id' => $brand_id,
+            'sign' => $sign,
+            'brand_uid' => $brand_uid,
+            'currency' => $currency,
+            'amount' => $amount,
+            'round_id' => $round_id,
+            'wager_id' => $wager_id,
+            'provider' => $provider,
+            'game_result' => $game_result,
+        ]);
+
+        $user->update(['balance' => $user->balance + $amount]);
     
         $response = [
             'code' => 1000,
@@ -108,7 +108,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => 52.25
+                'balance' => $user->balance
             ]
         ];
     
