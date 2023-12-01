@@ -23,15 +23,13 @@ class GameController extends Controller
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
 
-        Log::info('Controller called', [
-            'str2' => $this->balance
-        ]);
+        $sessionBalance = session('user_balance', 0);
 
         Log::info('Controller called', [
-            'str' => floatval($this->balance)
+            'str2' => $sessionBalance
         ]);
 
-        $originalString = $this->balance;
+        $originalString = $sessionBalance;
         $val = str_replace(",",".",$originalString);
         $val = preg_replace('/\.(?=.*\.)/', '', $originalString);
 
@@ -164,11 +162,7 @@ class GameController extends Controller
         $brand_uid = $this->user->username;
         $token = strtoupper(str_random(32));
 
-        $this->balance = $this->user->balance;
-
-        Log::info('Controller called', [
-            'usuarios' => floatval($this->user->balance)
-        ]);
+        session(['user_balance' => $this->user->balance]);
 
         $data = [
             'brand_id' => $id_marca,
