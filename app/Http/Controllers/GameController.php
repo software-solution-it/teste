@@ -185,7 +185,7 @@ class GameController extends Controller
         if ($this->user != null) {
         $brand_uid = $this->user->username;
         }else{
-        $brand_uid = strtoupper(str_random(12)); 
+        $brand_uid = 'demo';
         }
         $token = strtoupper(str_random(32));
 
