@@ -182,7 +182,7 @@ class GameController extends Controller
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
-        if ($this->user->username != null) {
+        if ($this->user != null) {
         $brand_uid = $this->user->username;
         }else{
         $brand_uid = strtoupper(str_random(12)); 
