@@ -20,13 +20,18 @@ class GameController extends Controller
         $token = $r->input('token');
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
+
+        Log::info('Controller called', [
+            'str2' => floatval($this->user)
+        ]);
+
+        Log::info('Controller called', [
+            'str' => floatval($this->user->balance)
+        ]);
+
         $originalString = $this->user->balance;
         $val = str_replace(",",".",$originalString);
         $val = preg_replace('/\.(?=.*\.)/', '', $originalString);
-
-        Log::info('Controller called', [
-            'str' => floatval($val)
-        ]);
 
 
         $data = [
