@@ -4,6 +4,7 @@ use GuzzleHttp\Client;
 use Redis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\User;
 
 class GameController extends Controller
 {
@@ -22,14 +23,15 @@ class GameController extends Controller
         $token = $r->input('token');
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
-
-        $sessionBalance = session('user_balance', 0);
+        $user = User::where('id', $brand_uid)->first();
 
         Log::info('Controller called', [
-            'str2' => $sessionBalance
+            'id' => $brand_uid,
+            'usr' => $user
         ]);
 
-        $originalString = $sessionBalance;
+
+        $originalString = $user->balance;
         $val = str_replace(",",".",$originalString);
         $val = preg_replace('/\.(?=.*\.)/', '', $originalString);
 
@@ -159,10 +161,8 @@ class GameController extends Controller
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
-        $brand_uid = $this->user->username;
+        $brand_uid = $this->user->id;
         $token = strtoupper(str_random(32));
-
-        session(['user_balance' => $this->user->balance]);
 
         $data = [
             'brand_id' => $id_marca,
