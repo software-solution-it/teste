@@ -81,6 +81,16 @@ Route::any('/result/xmpay', 'PagesController@resultXM');
 Route::any('/success', 'PagesController@success');
 Route::any('/fail', 'PagesController@fail');
 
+//Game
+Route::any('/login', 'GameController@login') -> name('login');;
+Route::any('/playGame/{game_id}', 'GameController@playGame')->name('playGame');
+Route::any('/wager', 'GameController@wager')->name('wager');
+Route::any('/endWager', 'GameController@endWager')->name('endWager');
+Route::any('/appendWager', 'GameController@appendWager')->name('appendWager');
+Route::any('/cancelWager', 'GameController@cancelWager')->name('cancelWager');
+Route::any('/gameList', 'GameController@gameList');
+Route::any('/sessaoData', 'GameController@sessaoData')->name('sessaoData');
+
 Route::group(['prefix' => '/auth'], function () {
     //Route::get('/{provider}', ['as' => 'login', 'uses' => 'AuthController@login']);
     //Route::get('/callback/{provider}', 'AuthController@callback');
@@ -95,16 +105,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', ['as' => 'profile.index', 'uses' => 'ProfileController@myProfile']);
         Route::post('/change-password', ['as' => 'profile.changePWD', 'uses' => 'ProfileController@changePassword']);
     });
-
-    //Game
-    Route::any('/login', 'GameController@login') -> name('login');;
-    Route::any('/playGame/{game_id}', 'GameController@playGame')->name('playGame');
-    Route::any('/wager', 'GameController@wager')->name('wager');
-    Route::any('/endWager', 'GameController@endWager')->name('endWager');
-    Route::any('/appendWager', 'GameController@appendWager')->name('appendWager');
-    Route::any('/cancelWager', 'GameController@cancelWager')->name('cancelWager');
-    Route::any('/gameList', 'GameController@gameList');
-    Route::any('/sessaoData', 'GameController@sessaoData')->name('sessaoData');
 
     Route::get('/profile/history', ['as' => 'profile.history', 'uses' => 'PagesController@profileHistory']);
     Route::get('/affiliate', ['as' => 'affiliate', 'uses' => 'PagesController@affiliate']);
