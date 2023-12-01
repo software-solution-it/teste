@@ -22,7 +22,7 @@ class GameController extends Controller
         $currency = $r->input('currency');
 
         Log::info('Controller called', [
-            'str2' => floatval($this->user)
+            'str2' => $this->user
         ]);
 
         Log::info('Controller called', [
