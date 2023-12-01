@@ -142,7 +142,7 @@ class GameController extends Controller
         return $response;
     }
 
-    public function viewSessionData(Request $request)
+    public function sessaoData(Request $request)
     {
         $sessionData = $request->session()->all();
     
