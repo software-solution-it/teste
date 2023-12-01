@@ -35,9 +35,6 @@ class Controller extends BaseController
     {
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
-            Log::info('Controller called', [
-                'userCache' => $this->user,
-            ]);
             view()->share('u', $this->user);
             return $next($request);
         });

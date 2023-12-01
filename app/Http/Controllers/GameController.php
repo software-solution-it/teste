@@ -170,14 +170,16 @@ class GameController extends Controller
     
     public function playGame($game_id){
 
-        $api_url = env('API_GAME_URL');
-        $chave_api = env('API_GAME_KEY');
+        $api_url = 'https://gaming.stagedc.net';
+        $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
-        $brand_uid = $this->user->username;
+        $brand_uid = 'UserTest1';
         $token = strtoupper(str_random(32));
 
         Log::info('endWager called', [
             'API_GAME_KEY' => env('API_GAME_KEY'),
+            'API_GAME_URL' => env('API_GAME_URL'),
+            'username' => $this->user->username,
         ]);
 
         $data = [
