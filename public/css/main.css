@@ -3543,7 +3543,7 @@ svg.icon-external {
 }
 
 .support-menu a:hover {
-    background-color: #d1113f;
+    background-image: linear-gradient(45deg, #d2691e 5%, #ffaa80 100%);
 
 }
 
