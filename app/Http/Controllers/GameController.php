@@ -63,6 +63,59 @@ class GameController extends Controller
         return $response;
     }
 
+    public function endWager(Request $request){
+
+        $brand_id = $request->input('brand_id');
+        $sign = $request->input('sign');
+        $brand_uid = $request->input('brand_uid');
+        $currency = $request->input('currency');
+        $amount = $request->input('amount');
+        $round_id = $request->input('round_id');
+        $wager_id = $request->input('wager_id');
+        $provider = $request->input('provider');
+        $is_endround = $request->input('is_endround');
+        $game_result = $request->input('game_result');
+    
+        $response = [
+            'code' => 1000,
+            'msg' => 'Success',
+            'data' => [
+                'brand_uid' => $brand_uid,
+                'currency' => $currency,
+                'balance' => 52.25
+            ]
+        ];
+    
+        return $response;
+    }
+
+    public function appendWager(Request $request){
+
+        $brand_id = $request->input('brand_id');
+        $sign = $request->input('sign');
+        $brand_uid = $request->input('brand_uid');
+        $currency = $request->input('currency');
+        $amount = $request->input('amount');
+        $game_id = $request->input('game_id');
+        $game_name = $request->input('game_name');
+        $round_id = $request->input('round_id');
+        $wager_id = $request->input('wager_id');
+        $provider = $request->input('provider');
+        $description = $request->input('description');
+        $is_endround = $request->input('is_endround');
+    
+        $response = [
+            'code' => 1000,
+            'msg' => 'Success',
+            'data' => [
+                'brand_uid' => $brand_uid,
+                'currency' => $currency,
+                'balance' => 52.25
+            ]
+        ];
+    
+        return $response;
+    }
 
     public function cancelWager(Request $request){
         $brand_id = $request->input('brand_id');
