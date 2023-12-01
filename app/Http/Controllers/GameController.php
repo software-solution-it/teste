@@ -27,7 +27,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => number_format((float)$this->user->balance, 2, '.', '')
+                'balance' => floatval($this->user->balance)
             ]
         ];
 
