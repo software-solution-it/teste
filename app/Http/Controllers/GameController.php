@@ -23,6 +23,12 @@ class GameController extends Controller
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
 
+        Log::info('login called', [
+            '$authUser->balance' => $authUser->balance,
+            'currency' => $currency,
+            'brand_uid' => $brand_uid
+        ]);
+
         $data = [
             'code' => 1000,
             'msg' => 'Success',
