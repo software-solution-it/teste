@@ -43,33 +43,30 @@ class GameController extends Controller
     }
 
     public function wager(Request $request){
-        $brand_id = $request->input('brand_id');
-        $sign = $request->input('sign');
-        $token = $request->input('token');
         $brand_uid = $request->input('brand_uid');
         $currency = $request->input('currency');
         $amount = $request->input('amount');
-        $jackpot_contribution = $request->input('jackpot_contribution');
-        $game_id = $request->input('game_id');
-        $game_name = $request->input('game_name');
-        $round_id = $request->input('round_id');
-        $wager_id = $request->input('wager_id');
-        $provider = $request->input('provider');
-        $bet_type = $request->input('bet_type');
-        $is_endround = $request->input('is_endround');
         $user = User::where('username', $brand_uid)->first();
-
-        $user->update(['balance' => $user->balance - $amount]);
-
-        $response = [
-            'code' => 1000,
-            'msg' => 'Success',
-            'data' => [
-                'brand_uid' => $brand_uid,
-                'currency' => $currency,
-                'balance' => $user->balance
-            ]
-        ];
+    
+        if ($user && $user->balance >= $amount) {
+            $user->update(['balance' => $user->balance - $amount]);
+    
+            $response = [
+                'code' => 1000,
+                'msg' => 'Success',
+                'data' => [
+                    'brand_uid' => $brand_uid,
+                    'currency' => $currency,
+                    'balance' => $user->balance
+                ]
+            ];
+        } else {
+            $response = [
+                'code' => 5003,
+                'msg' => 'Insufficient funds',
+                'data' => null
+            ];
+        }
     
         return $response;
     }
@@ -128,16 +125,28 @@ class GameController extends Controller
         $provider = $request->input('provider');
         $description = $request->input('description');
         $is_endround = $request->input('is_endround');
+
+        $user = User::where('username', $brand_uid)->first();
+
+        if ($user && $user->balance >= $amount) {
+            $user->update(['balance' => $user->balance - $amount]);
     
-        $response = [
-            'code' => 1000,
-            'msg' => 'Success',
-            'data' => [
-                'brand_uid' => $brand_uid,
-                'currency' => $currency,
-                'balance' => 52.25
-            ]
-        ];
+            $response = [
+                'code' => 1000,
+                'msg' => 'Success',
+                'data' => [
+                    'brand_uid' => $brand_uid,
+                    'currency' => $currency,
+                    'balance' => $user->balance
+                ]
+            ];
+        } else {
+            $response = [
+                'code' => 5003,
+                'msg' => 'Insufficient funds',
+                'data' => null
+            ];
+        }
     
         return $response;
     }
@@ -152,6 +161,8 @@ class GameController extends Controller
         $provider = $request->input('provider');
         $wager_type = $request->input('wager_type');
         $is_endround = $request->input('is_endround');
+
+        $user = User::where('username', $brand_uid)->first();
     
     
         $response = [
@@ -160,7 +171,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => 52.25
+                'balance' => $user->balance
             ]
         ];
     
