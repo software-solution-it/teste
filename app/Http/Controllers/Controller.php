@@ -19,6 +19,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Redis;
+use Illuminate\Support\Facades\Log;
 //use Auth;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -34,6 +35,9 @@ class Controller extends BaseController
     {
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
+            Log::info('Controller called', [
+                'userCache' => $this->user,
+            ]);
             view()->share('u', $this->user);
             return $next($request);
         });
