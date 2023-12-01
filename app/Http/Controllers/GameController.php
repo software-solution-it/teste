@@ -179,7 +179,7 @@ class GameController extends Controller
     }
     
     public function playGame($game_id){
-    if ($this->user->username != null) {
+    if ($this->user != null) {
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
