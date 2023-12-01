@@ -12,9 +12,6 @@ class GameController extends Controller
     public function __construct()
     {
         parent::__construct();
-        Log::info('GameController constructor called', [
-            'user' => $this->user,
-        ]);
         $this->redis = Redis::connection();
     }
 
@@ -183,6 +180,10 @@ class GameController extends Controller
     }
     
     public function playGame($game_id){
+
+        Log::info('GameController constructor called', [
+            'user' => $this->user,
+        ]);
 
         $api_url = env('API_GAME_URL');;
         $chave_api = env('API_GAME_KEY');;
