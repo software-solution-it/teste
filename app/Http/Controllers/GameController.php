@@ -25,16 +25,9 @@ class GameController extends Controller
         $currency = $r->input('currency');
         $user = User::where('username', $brand_uid)->first();
 
-        Log::info('Controller called', [
-            'id' => $brand_uid,
-            'usr' => $user
-        ]);
-
-
         $originalString = $user->balance;
         $val = str_replace(",",".",$originalString);
         $val = preg_replace('/\.(?=.*\.)/', '', $originalString);
-
 
         $data = [
             'code' => 1000,
@@ -64,7 +57,24 @@ class GameController extends Controller
         $provider = $request->input('provider');
         $bet_type = $request->input('bet_type');
         $is_endround = $request->input('is_endround');
-    
+        $user = User::where('username', $brand_uid)->first();
+        
+        Log::info('Controller called', [
+            'brand_id' => $brand_id,
+            'sign' => $sign,
+            'token' => $token,
+            'brand_uid' => $brand_uid,
+            'currency' => $currency,
+            'amount' => $amount,
+            'jackpot_contribution' => $jackpot_contribution,
+            'game_id' => $game_id,
+            'game_name' => $game_name,
+            'round_id' => $round_id,
+            'wager_id' => $wager_id,
+            'provider' => $provider,
+            'bet_type' => $bet_type,
+            'is_endround' => $is_endround,
+        ]);
 
         $response = [
             'code' => 1000,
