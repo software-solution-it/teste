@@ -20,7 +20,6 @@ class GameController extends Controller
         $token = $r->input('token');
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
-        $convertedFloat = (float) number_format($this->user->balance, 2, '.', '');
 
         $data = [
             'code' => 1000,
@@ -28,7 +27,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $convertedFloat
+                'balance' => 52.25
             ]
         ];
 
