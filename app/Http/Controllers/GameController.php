@@ -23,11 +23,7 @@ class GameController extends Controller
         $currency = $r->input('currency');
 
         Log::info('login called', [
-            '$authUser' => $this->user,
-        ]);
-
-        Log::info('login called', [
-            '$authUser->balance' => $this->user->balance,
+            '$authUser->balance' => (float)$this->user->balance,
             'currency' => $currency,
             'brand_uid' => $brand_uid
         ]);
@@ -38,7 +34,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $this->user->balance
+                'balance' => (float)$this->user->balance
             ]
         ];
 
@@ -68,7 +64,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $this->user->balance
+                'balance' => (float)$this->user->balance
             ]
         ];
     
@@ -76,7 +72,6 @@ class GameController extends Controller
     }
 
     public function endWager(Request $request){
-        $authUser = Auth::user();
         $brand_id = $request->input('brand_id');
         $sign = $request->input('sign');
         $brand_uid = $request->input('brand_uid');
@@ -100,12 +95,6 @@ class GameController extends Controller
             'is_endround' => $request->input('is_endround'),
             'game_result' => $request->input('game_result'),
         ]);
-
-        $authUser->update([
-            'balance' => $authUser->balance + $amount
-        ]);
-    
-        Auth::setUser($authUser);
     
         $response = [
             'code' => 1000,
@@ -113,7 +102,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $authUser->balance
+                'balance' => (float)$this->user->balance
             ]
         ];
     
@@ -140,7 +129,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $this->user->balance
+                'balance' => (float)$this->user->balance
             ]
         ];
     
@@ -165,7 +154,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $this->user->balance
+                'balance' => (float)$this->user->balance
             ]
         ];
     
@@ -181,15 +170,15 @@ class GameController extends Controller
     
     public function playGame($game_id){
 
-        Log::info('GameController constructor called', [
-            'user' => $this->user,
-        ]);
-
-        $api_url = env('API_GAME_URL');;
-        $chave_api = env('API_GAME_KEY');;
+        $api_url = env('API_GAME_URL');
+        $chave_api = env('API_GAME_KEY');
         $id_marca = 'S119001';
         $brand_uid = $this->user->username;
         $token = strtoupper(str_random(32));
+
+        Log::info('endWager called', [
+            'API_GAME_KEY' => env('API_GAME_KEY'),
+        ]);
 
         $data = [
             'brand_id' => $id_marca,
