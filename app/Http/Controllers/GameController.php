@@ -23,7 +23,7 @@ class GameController extends Controller
         $token = $r->input('token');
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
-        $user = User::where('id', $brand_uid)->first();
+        $user = User::where('username', $brand_uid)->first();
 
         Log::info('Controller called', [
             'id' => $brand_uid,
@@ -161,7 +161,7 @@ class GameController extends Controller
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
-        $brand_uid = $this->user->id;
+        $brand_uid = $this->user->username;
         $token = strtoupper(str_random(32));
 
         $data = [
