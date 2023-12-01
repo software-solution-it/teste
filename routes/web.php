@@ -84,8 +84,8 @@ Route::any('/fail', 'PagesController@fail');
 //Game
 Route::any('/login', 'GameController@login') -> name('login');;
 Route::any('/playGame/{game_id}', 'GameController@playGame')->name('playGame');
-Route::any('/wager', 'GameController@playGame')->name('wager');
-Route::any('/cancelWager', 'GameController@playGame')->name('cancelWager');
+Route::any('/wager', 'GameController@wager')->name('wager');
+Route::any('/cancelWager', 'GameController@cancelWager')->name('cancelWager');
 Route::any('/gameList', 'GameController@gameList');
 
 Route::group(['prefix' => '/auth'], function () {
