@@ -3,8 +3,6 @@
 use GuzzleHttp\Client;
 use Redis;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class GameController extends Controller
 {
@@ -22,18 +20,13 @@ class GameController extends Controller
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
 
-        Log::info('login called', [
-            'currency' => $currency,
-            'brand_uid' => $brand_uid
-        ]);
-
         $data = [
             'code' => 1000,
             'msg' => 'Success',
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => 100
+                'balance' => 52.25
             ]
         ];
 
@@ -63,7 +56,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => (float)$this->user->balance
+                'balance' => 52.25
             ]
         ];
     
@@ -71,6 +64,7 @@ class GameController extends Controller
     }
 
     public function endWager(Request $request){
+
         $brand_id = $request->input('brand_id');
         $sign = $request->input('sign');
         $brand_uid = $request->input('brand_uid');
@@ -81,19 +75,6 @@ class GameController extends Controller
         $provider = $request->input('provider');
         $is_endround = $request->input('is_endround');
         $game_result = $request->input('game_result');
-
-        Log::info('endWager called', [
-            'brand_id' => $request->input('brand_id'),
-            'sign' => $request->input('sign'),
-            'brand_uid' => $request->input('brand_uid'),
-            'currency' => $request->input('currency'),
-            'amount' => $request->input('amount'),
-            'round_id' => $request->input('round_id'),
-            'wager_id' => $request->input('wager_id'),
-            'provider' => $request->input('provider'),
-            'is_endround' => $request->input('is_endround'),
-            'game_result' => $request->input('game_result'),
-        ]);
     
         $response = [
             'code' => 1000,
@@ -101,7 +82,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => (float)$this->user->balance
+                'balance' => 52.25
             ]
         ];
     
@@ -109,6 +90,7 @@ class GameController extends Controller
     }
 
     public function appendWager(Request $request){
+
         $brand_id = $request->input('brand_id');
         $sign = $request->input('sign');
         $brand_uid = $request->input('brand_uid');
@@ -128,7 +110,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => (float)$this->user->balance
+                'balance' => 52.25
             ]
         ];
     
@@ -153,33 +135,20 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => (float)$this->user->balance
+                'balance' => 52.25
             ]
         ];
     
         return $response;
     }
-
-    public function sessaoData(Request $request)
-    {
-        $sessionData = $request->session()->all();
     
-        return response()->json($sessionData);
-    }
     
     public function playGame($game_id){
-
-        $api_url = 'https://gaming.stagedc.net';
-        $chave_api = 'C93929113F374C90AB66CD206C901785';
+        $api_url = env('API_GAME_URL');;
+        $chave_api = env('API_GAME_KEY');;
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
         $token = strtoupper(str_random(32));
-
-        Log::info('endWager called', [
-            'API_GAME_KEY' => env('API_GAME_KEY'),
-            'API_GAME_URL' => env('API_GAME_URL'),
-            'username' => $this->user->username,
-        ]);
 
         $data = [
             'brand_id' => $id_marca,
