@@ -32,6 +32,62 @@ class GameController extends Controller
 
         return $data;
     }
+
+    public function wager(Request $request){
+        $brand_id = $request->input('brand_id');
+        $sign = $request->input('sign');
+        $token = $request->input('token');
+        $brand_uid = $request->input('brand_uid');
+        $currency = $request->input('currency');
+        $amount = $request->input('amount');
+        $jackpot_contribution = $request->input('jackpot_contribution');
+        $game_id = $request->input('game_id');
+        $game_name = $request->input('game_name');
+        $round_id = $request->input('round_id');
+        $wager_id = $request->input('wager_id');
+        $provider = $request->input('provider');
+        $bet_type = $request->input('bet_type');
+        $is_endround = $request->input('is_endround');
+    
+
+        $response = [
+            'code' => 1000,
+            'msg' => 'Success',
+            'data' => [
+                'brand_uid' => $brand_uid,
+                'currency' => $currency,
+                'balance' => 52.25
+            ]
+        ];
+    
+        return $response;
+    }
+
+
+    public function cancelWager(Request $request){
+        $brand_id = $request->input('brand_id');
+        $sign = $request->input('sign');
+        $brand_uid = $request->input('brand_uid');
+        $currency = $request->input('currency');
+        $round_id = $request->input('round_id');
+        $wager_id = $request->input('wager_id');
+        $provider = $request->input('provider');
+        $wager_type = $request->input('wager_type');
+        $is_endround = $request->input('is_endround');
+    
+    
+        $response = [
+            'code' => 1000,
+            'msg' => 'Success',
+            'data' => [
+                'brand_uid' => $brand_uid,
+                'currency' => $currency,
+                'balance' => 52.25
+            ]
+        ];
+    
+        return $response;
+    }
     
     public function playGame($game_id){
         $api_url = 'https://gaming.stagedc.net';
