@@ -15,9 +15,6 @@ class GameController extends Controller
     }
 
     public function login(Request $r){
-        $brand_id = $r->input('brand_id');
-        $sign = $r->input('sign');
-        $token = $r->input('token');
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
 
@@ -27,7 +24,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => 52.25
+                'balance' => (float)$this->user->balance
             ]
         ];
 
@@ -57,7 +54,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => 52.25
+                'balance' => (float)$this->user->balance - 10
             ]
         ];
     
@@ -83,7 +80,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => 52.25
+                'balance' => (float)$this->user->balance
             ]
         ];
     
@@ -110,7 +107,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => 52.25
+                'balance' => (float)$this->user->balance
             ]
         ];
     
@@ -146,12 +143,8 @@ class GameController extends Controller
         $api_url = 'https://gaming.stagedc.net';
         $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
-        $brand_uid = 'UserTest1';
+        $brand_uid = $this->user->username;
         $token = strtoupper(str_random(32));
-
-        Log::info('Controller called', [
-            'userCache' => $this->user,
-        ]);
 
         $data = [
             'brand_id' => $id_marca,
