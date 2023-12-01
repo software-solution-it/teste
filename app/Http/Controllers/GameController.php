@@ -20,7 +20,7 @@ class GameController extends Controller
         $token = $r->input('token');
         $brand_uid = $r->input('brand_uid');
         $currency = $r->input('currency');
-        $originalString = "52.52";
+        $originalString = $this->user->balance;
         $val = str_replace(",",".",$originalString);
         $val = preg_replace('/\.(?=.*\.)/', '', $originalString);
 
