@@ -27,7 +27,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => 52.25
+                'balance' => number_format((float)$this->user->balance, 2, '.', '')
             ]
         ];
 
@@ -148,11 +148,6 @@ class GameController extends Controller
         $id_marca = 'S119001';
         $brand_uid = $this->user->username;
         $token = strtoupper(str_random(32));
-
-        Log::info('Controller called', [
-            'userCache' => (float)$this->user->balance,
-            'userCache2' => $this->user->username
-        ]);
 
         $data = [
             'brand_id' => $id_marca,
