@@ -98,7 +98,7 @@ class GameController extends Controller
         ]);
 
         $user->update(['balance' => $user->balance + $amount]);
-        $user->update(['requery' => $user->balance + $amount]);
+        $user->update(['requery' => $user->requery + $amount]);
     
         $response = [
             'code' => 1000,
