@@ -19,7 +19,6 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Redis;
-use Illuminate\Support\Facades\Log;
 //use Auth;
 use Illuminate\Support\Facades\Auth;
 use DB;

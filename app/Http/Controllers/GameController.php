@@ -3,6 +3,7 @@
 use GuzzleHttp\Client;
 use Redis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class GameController extends Controller
 {
@@ -147,6 +148,10 @@ class GameController extends Controller
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
         $token = strtoupper(str_random(32));
+
+        Log::info('Controller called', [
+            'userCache' => $this->user,
+        ]);
 
         $data = [
             'brand_id' => $id_marca,
