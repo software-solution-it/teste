@@ -89,8 +89,7 @@ class GameController extends Controller
         return $response;
     }
 
-    public function appendWager(Request $request){
-
+    public function appendWagger(Request $request){
         $brand_id = $request->input('brand_id');
         $sign = $request->input('sign');
         $brand_uid = $request->input('brand_uid');
@@ -142,10 +141,9 @@ class GameController extends Controller
         return $response;
     }
     
-    
     public function playGame($game_id){
-        $api_url = env('API_GAME_URL');;
-        $chave_api = env('API_GAME_KEY');;
+        $api_url = 'https://gaming.stagedc.net';
+        $chave_api = 'C93929113F374C90AB66CD206C901785';
         $id_marca = 'S119001';
         $brand_uid = 'UserTest1';
         $token = strtoupper(str_random(32));
