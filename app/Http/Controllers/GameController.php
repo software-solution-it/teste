@@ -16,7 +16,6 @@ class GameController extends Controller
     }
 
     public function login(Request $r){
-        $authUser = Auth::user();
         $brand_id = $r->input('brand_id');
         $sign = $r->input('sign');
         $token = $r->input('token');
@@ -24,11 +23,11 @@ class GameController extends Controller
         $currency = $r->input('currency');
 
         Log::info('login called', [
-            '$authUser' => Auth::user(),
+            '$authUser' => $this->user,
         ]);
 
         Log::info('login called', [
-            '$authUser->balance' => $authUser->balance,
+            '$authUser->balance' => $this->user->balance,
             'currency' => $currency,
             'brand_uid' => $brand_uid
         ]);
@@ -39,7 +38,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $authUser->balance
+                'balance' => $this->user->balance
             ]
         ];
 
@@ -47,7 +46,6 @@ class GameController extends Controller
     }
 
     public function wager(Request $request){
-        $authUser = Auth::user();
         $brand_id = $request->input('brand_id');
         $sign = $request->input('sign');
         $token = $request->input('token');
@@ -70,7 +68,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $authUser->balance
+                'balance' => $this->user->balance
             ]
         ];
     
@@ -123,7 +121,6 @@ class GameController extends Controller
     }
 
     public function appendWager(Request $request){
-        $authUser = Auth::user();
         $brand_id = $request->input('brand_id');
         $sign = $request->input('sign');
         $brand_uid = $request->input('brand_uid');
@@ -143,7 +140,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $authUser->balance
+                'balance' => $this->user->balance
             ]
         ];
     
@@ -151,7 +148,6 @@ class GameController extends Controller
     }
 
     public function cancelWager(Request $request){
-        $authUser = Auth::user();
         $brand_id = $request->input('brand_id');
         $sign = $request->input('sign');
         $brand_uid = $request->input('brand_uid');
@@ -169,7 +165,7 @@ class GameController extends Controller
             'data' => [
                 'brand_uid' => $brand_uid,
                 'currency' => $currency,
-                'balance' => $authUser->balance
+                'balance' => $this->user->balance
             ]
         ];
     
@@ -184,12 +180,11 @@ class GameController extends Controller
     }
     
     public function playGame($game_id){
-        $authUser = Auth::user();
 
         $api_url = env('API_GAME_URL');;
         $chave_api = env('API_GAME_KEY');;
         $id_marca = 'S119001';
-        $brand_uid = $authUser->username;
+        $brand_uid = $this->user->username;
         $token = strtoupper(str_random(32));
 
         $data = [
