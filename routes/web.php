@@ -91,6 +91,9 @@ Route::any('/cancelWager', 'GameController@cancelWager')->name('cancelWager');
 Route::any('/gameList', 'GameController@gameList');
 Route::any('/sessaoData', 'GameController@sessaoData')->name('sessaoData');
 
+//GameBR
+Route::any('/salsa/webhook', 'GameController@webhook')->name('webhook');
+
 Route::group(['prefix' => '/auth'], function () {
     //Route::get('/{provider}', ['as' => 'login', 'uses' => 'AuthController@login']);
     //Route::get('/callback/{provider}', 'AuthController@callback');

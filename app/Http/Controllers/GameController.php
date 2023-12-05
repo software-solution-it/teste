@@ -178,6 +178,11 @@ class GameController extends Controller
     
         return $response;
     }
+
+    public function webhook(Request $request){
+        info('Webhook request received', ['request' => $request->all()]);
+        return $request->all();
+    }
     
     public function playGame($game_id){
         $api_url = 'https://gaming.stagedc.net';
