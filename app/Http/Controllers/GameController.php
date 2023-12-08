@@ -275,7 +275,6 @@ class GameController extends Controller
     }
     
     public function getAccountDetails($params) {
-        $user = User::where('username', $this->userLogged)->first();
     
         if ($this->token) {
             
@@ -284,7 +283,7 @@ class GameController extends Controller
                     <Result Name='GetAccountDetails' Success='1'>
                         <Returnset>
                             <Token Type='string' Value='{$this->token}' />
-                            <LoginName Type='string' Value='{$user->username}' />
+                            <LoginName Type='string' Value='{$this->userLogged}' />
                             <Currency Type='string' Value='BRL' />
                             <Country Type='string' Value='BR' />
                             <Birthdate Type='date' Value='1988-08-02' />
