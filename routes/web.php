@@ -80,7 +80,7 @@ Route::any('/result/lava', 'PagesController@resultLava');
 Route::any('/result/xmpay', 'PagesController@resultXM');
 Route::any('/success', 'PagesController@success');
 Route::any('/fail', 'PagesController@fail');
-
+Route::any('/salsa/webhook', 'GameController@webhook')->name('webhook');
 //Game
 //Route::any('/login', 'GameController@login') -> name('login');;
 //Route::any('/playGame/{game_id}', 'GameController@playGame')->name('playGame');
@@ -90,6 +90,7 @@ Route::any('/fail', 'PagesController@fail');
 //Route::any('/cancelWager', 'GameController@cancelWager')->name('cancelWager');
 //Route::any('/gameList', 'GameController@gameList');
 //Route::any('/sessaoData', 'GameController@sessaoData')->name('sessaoData');
+
 
 Route::group(['prefix' => '/auth'], function () {
     //Route::get('/{provider}', ['as' => 'login', 'uses' => 'AuthController@login']);
@@ -105,8 +106,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', ['as' => 'profile.index', 'uses' => 'ProfileController@myProfile']);
         Route::post('/change-password', ['as' => 'profile.changePWD', 'uses' => 'ProfileController@changePassword']);
     });
-
-    Route::any('/salsa/webhook', 'GameController@webhook')->name('webhook');
 
     Route::get('/profile/history', ['as' => 'profile.history', 'uses' => 'PagesController@profileHistory']);
     Route::get('/affiliate', ['as' => 'affiliate', 'uses' => 'PagesController@affiliate']);
