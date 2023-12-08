@@ -5,12 +5,11 @@
     <link rel="stylesheet" href="/css/tower.css">
 
     <style>
-        /* Adicionando estilos para ocupar uma grande parte da tela e manter aspecto quadrado */
         .tower_tower__1ms3K {
             position: relative;
-            width: 60vw; /* Largura em relação à largura da tela - ajuste conforme necessário */
-            height: 60vw; /* Altura em relação à largura da tela - ajuste conforme necessário */
-            margin: 5vh auto; /* Margens superior e inferior de 5% da altura da tela, centralizado horizontalmente */
+            width: 54vw; 
+            height: 40vw;
+            margin: 5vh auto; 
             overflow: hidden;
         }
 
