@@ -5,17 +5,16 @@
     <link rel="stylesheet" href="/css/tower.css">
 
     <style>
-        /* Adicionando estilos para ocupar toda a tela e manter aspecto quadrado */
+        /* Adicionando estilos para ocupar uma grande parte da tela e manter aspecto quadrado */
         .tower_tower__1ms3K {
             position: relative;
-            width: 100%;
+            width: 60vw; /* Largura em relação à largura da tela - ajuste conforme necessário */
+            height: 60vw; /* Altura em relação à largura da tela - ajuste conforme necessário */
+            margin: 5vh auto; /* Margens superior e inferior de 5% da altura da tela, centralizado horizontalmente */
             overflow: hidden;
         }
 
         .tower_tower__1ms3K iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             border: 0; /* Remova a borda se desejar */
