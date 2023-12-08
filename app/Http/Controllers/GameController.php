@@ -207,7 +207,10 @@ class GameController extends Controller
         $params = $array['Method']['Params'];
 
         $this->token = $params['Token']['@attributes']['Value'];
-        $uuidParaRecuperar = $this->token;
+        $uuidParaRecuperar = trim($this->token);
+        if (Uuid::isValid($uuidParaRecuperar)) {
+            $this->userLogged = Uuid::fromString($uuidParaRecuperar)->toString();
+        }
         $this->userLogged= Uuid::uuid5(Uuid::NAMESPACE_DNS, $uuidParaRecuperar)->getNode();
         $data = json_decode(base64_decode($this->token), true);
 
