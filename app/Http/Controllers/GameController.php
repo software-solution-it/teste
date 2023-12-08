@@ -3,6 +3,8 @@
 use GuzzleHttp\Client;
 use Redis;
 use Illuminate\Http\Request;
+use RecursiveIteratorIterator;
+use RecursiveArrayIterator;
 use Illuminate\Support\Facades\Log;
 use App\User;
 use Ramsey\Uuid\Uuid;
@@ -248,8 +250,15 @@ class GameController extends Controller
     }
 
     public function compareHash($params, $token) {
-        $key = "Gustavo2 ";
+        $key = "Gustavo2 ";        
+        Log::info('compareHash called', [
+            '$params' => $params,
+        ]);
         $flattenedParams = $this->flattenArray($params);
+        Log::info('compareHash called', [
+            '$params222222' => $flattenedParams,
+        ]);
+
         $computedHash = hash('sha256', $flattenedParams . $key);
     
         return hash_equals($computedHash, $token);
