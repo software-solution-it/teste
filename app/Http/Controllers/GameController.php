@@ -26,6 +26,7 @@ class GameController extends Controller
 
         Log::info('User called', [
             'user' => $this->user->username,
+            '$uuid' => $uuid,
         ]);
 
         return view('pages.superHotBingo', compact('uuid'));
@@ -206,7 +207,7 @@ class GameController extends Controller
         $params = $array['Method']['Params'];
 
         $this->token = $params['Token']['@attributes']['Value'];
-        $uuidParaRecuperar = $this->token->toString();
+        $uuidParaRecuperar = $this->token;
         $this->userLogged= Uuid::uuid5(Uuid::NAMESPACE_DNS, $uuidParaRecuperar)->getNode();
         $data = json_decode(base64_decode($this->token), true);
 
