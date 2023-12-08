@@ -248,11 +248,21 @@ class GameController extends Controller
     }
 
     public function compareHash($params, $token) {
-        $key = "fc8b096c103702de9fa03833993f91dd";
-        $paramsValue = implode('', $params);
-        $computedHash = hash('sha256', $paramsValue . $key);
+        $key = "Gustavo2 ";
+        $flattenedParams = $this->flattenArray($params);
+        $computedHash = hash('sha256', $flattenedParams . $key);
     
         return hash_equals($computedHash, $token);
+    }
+
+    protected function flattenArray($array) {
+        $result = [];
+    
+        foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($array)) as $value) {
+            $result[] = $value;
+        }
+    
+        return implode('', $result);
     }
     
     public function getAccountDetails($params) {
