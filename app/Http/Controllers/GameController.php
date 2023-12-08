@@ -5,8 +5,7 @@ use Redis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\User;
-use Illuminate\Support\Facades\Auth;
-
+use Auth;
 class GameController extends Controller
 {
 
@@ -185,6 +184,7 @@ class GameController extends Controller
 
     public function webhook(Request $request)
     {
+        $user = Auth::user();
         $xmlstring = $request->getContent();
 
         $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
@@ -201,7 +201,7 @@ class GameController extends Controller
             'data' => $data,
             'token' => $this->token,
             'method' => $method,
-            'user' => $this->user,
+            'user' => $user,
         ]);
 
         switch ($method):
