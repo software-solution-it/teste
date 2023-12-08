@@ -10,6 +10,7 @@ class GameController extends Controller
 {
 
     private $balance;
+    private $token;
 
     public function __construct()
     {
@@ -178,11 +179,307 @@ class GameController extends Controller
     
         return $response;
     }
+    
 
-    public function webhook(Request $request){
-        info('Webhook request received', ['request' => $request->all()]);
-        return $request->all();
+    public function webhook(Request $request)
+    {
+        $xmlstring = $request->getContent();
+
+        $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
+        $json = json_encode($xml);
+        $array = json_decode($json, true);
+
+        $method = $array['Method']['@attributes']['Name'];
+        $params = $array['Method']['Params'];
+
+        $this->token = $params['Token']['@attributes']['Value'];
+        $data = json_decode(base64_decode($this->token), true);
+
+        Log::info('Webhook called', [
+            'data' => $this->$data,
+            'token' => $this->token,
+            'method' => $method,
+        ]);
+
+        switch ($method):
+
+            case 'GetAccountDetails':
+                return $this->GetAccountDetails($params);
+                break;
+
+            case 'GetBalance':
+                return $this->GetBalance($params);
+                break;
+
+            case 'PlaceBet':
+                return $this->PlaceBet($params);
+                break;
+
+            case 'AwardWinnings':
+                return $this->AwardWinnings($params);
+                break;
+
+            case 'RefundBet':
+                return $this->RefundBet($params);
+                break;
+
+            case 'ChangeGameToken':
+                return $this->ChangeGameToken($params);
+                break;
+            default:
+                return 'nada encontrado.';
+
+        endswitch;
     }
+
+    public function compareHash($params, $token) {
+        $key = "fc8b096c103702de9fa03833993f91dd";
+        $paramsValue = implode('', $params);
+        $computedHash = hash('sha256', $paramsValue . $key);
+    
+        return hash_equals($computedHash, $token);
+    }
+    
+    public function getAccountDetails($params) {
+        $user = User::where('username', $this->user->username)->first();
+    
+        if ($this->token) {
+            if ($this->compareHash($params, $this->token)) {
+                $response = "<PKT>
+                    <Result Name='GetAccountDetails' Success='1'>
+                        <Returnset>
+                            <Token Type='string' Value='{$this->token}' />
+                            <LoginName Type='string' Value='{$user->username}' />
+                            <Currency Type='string' Value='BRL' />
+                            <Country Type='string' Value='BR' />
+                            <Birthdate Type='date' Value='1988-08-02' />
+                            <Registration Type='date' Value='2010-05-05' />
+                            <Gender Type='string' Value='m' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            } else {
+                $response = "<PKT>
+                    <Result Name='GetAccountDetails' Success='0'>
+                        <Returnset>
+                            <Error Value='Invalid Hash.' />
+                            <ErrorCode Value='7000' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            }
+        } else {
+            $response = "<PKT>
+                <Result Name='GetAccountDetails' Success='0'>
+                    <Returnset>
+                        <Error Value='Error retrieving Token.' />
+                        <ErrorCode Value='1' />
+                    </Returnset>
+                </Result>
+            </PKT>";
+        }
+    
+        return $response;
+    }
+    
+
+    public function GetBalance($params){
+        $user = User::where('username', $this->user->username)->first();
+    
+        if ($this->token) {
+            if ($this->compareHash($params, $this->token)) {
+                $response = "<PKT>
+                    <Result Name='GetBalance' Success='1'>
+                        <Returnset>
+                            <Token Type='string' Value='{$this->token}' />
+                            <Balance Type='string' Value='{$user->balance}' />
+                            <Currency Type='string' Value='BRL' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            } else {
+                $response = "<PKT>
+                    <Result Name='GetBalance' Success='0'>
+                        <Returnset>
+                            <Error Value='Invalid Hash.' />
+                            <ErrorCode Value='7000' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            }
+        } else {
+            $response = "<PKT>
+                <Result Name='GetBalance' Success='0'>
+                    <Returnset>
+                        <Error Value='Insufficient funds.' />
+                        <ErrorCode Value='6' />
+                    </Returnset>
+                </Result>
+            </PKT>";
+        }
+    
+        return $response;
+    }
+
+    public function PlaceBet($params){
+        $user = User::where('username', $this->user->username)->first();
+    
+        if ($this->token) {
+            if ($this->compareHash($params, $this->token)) {
+                $response = "<PKT>
+                    <Result Name='PlaceBet' Success='1'>
+                        <Returnset>
+                            <Token Type='string' Value='{$this->token}' />
+                            <Balance Type='int' Value='{$user->balance}' />
+                            <Currency Type='string' Value='BRL' />
+                            <ExtTransactionID Type='long' Value='$params->TransactionID' />
+                            <AlreadyProcessed Type='bool' Value='true' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            } else {
+                $response = "<PKT>
+                    <Result Name='PlaceBet' Success='0'>
+                        <Returnset>
+                            <Error Value='Invalid Hash.' />
+                            <ErrorCode Value='7000' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            }
+        } else {
+            $response = "<PKT>
+                <Result Name='PlaceBet' Success='0'>
+                    <Returnset>
+                        <Error Value='Transaction not found.' />
+                        <ErrorCode Value='7' />
+                    </Returnset>
+                </Result>
+            </PKT>";
+        }
+    
+        return $response;
+    }
+
+    public function AwardWinnings($params){
+        $user = User::where('username', $this->user->username)->first();
+    
+        if ($this->token) {
+            if ($this->compareHash($params, $this->token)) {
+                $response = "<PKT>
+                    <Result Name='AwardWinnings' Success='1'>
+                        <Returnset>
+                            <Token Type='string' Value='{$this->token}' />
+                            <Balance Type='int' Value='{$user->balance}' />
+                            <Currency Type='string' Value='BRL' />
+                            <ExtTransactionID Type='long' Value='$params->TransactionID' />
+                            <AlreadyProcessed Type='bool' Value='true' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            } else {
+                $response = "<PKT>
+                    <Result Name='AwardWinnings' Success='0'>
+                        <Returnset>
+                            <Error Value='Invalid Hash.' />
+                            <ErrorCode Value='7000' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            }
+        } else {
+            $response = "<PKT>
+                <Result Name='AwardWinnings' Success='0'>
+                    <Returnset>
+                        <Error Value='Transaction not found.' />
+                        <ErrorCode Value='7' />
+                    </Returnset>
+                </Result>
+            </PKT>";
+        }
+    
+        return $response;
+    }
+
+    public function RefundBet($params){
+        $user = User::where('username', $this->user->username)->first();
+    
+        if ($this->token) {
+            if ($this->compareHash($params, $this->token)) {
+                $response = "<PKT>
+                    <Result Name='RefundBet' Success='1'>
+                        <Returnset>
+                            <Token Type='string' Value='{$this->token}' />
+                            <Balance Type='int' Value='{$user->balance}' />
+                            <Currency Type='string' Value='BRL' />
+                            <ExtTransactionID Type='long' Value='{$params['TransactionID']}' />
+                            <AlreadyProcessed Type='bool' Value='true' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            } else {
+                $response = "<PKT>
+                    <Result Name='RefundBet' Success='0'>
+                        <Returnset>
+                            <Error Value='Invalid Hash.' />
+                            <ErrorCode Value='7000' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            }
+        } else {
+            $response = "<PKT>
+                <Result Name='RefundBet' Success='0'>
+                    <Returnset>
+                        <Error Value='Transaction not found.' />
+                        <ErrorCode Value='7' />
+                        <Balance Type='int' Value='10000' />
+                        <Currency Type='string' Value='BRL' />
+                    </Returnset>
+                </Result>
+            </PKT>";
+        }
+    
+        return $response;
+    }
+
+    public function ChangeGameToken($params){
+        $user = User::where('username', $this->user->username)->first();
+    
+        if ($this->token) {
+            if ($this->compareHash($params, $this->token)) {
+                $response = "<PKT>
+                    <Result Name='ChangeGameToken' Success='1'>
+                        <Returnset>
+                            <NewToken Type='string' Value='{$params['NewGameReference']}' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            } else {
+                $response = "<PKT>
+                    <Result Name='ChangeGameToken' Success='0'>
+                        <Returnset>
+                            <Error Value='Invalid Hash.' />
+                            <ErrorCode Value='7000' />
+                        </Returnset>
+                    </Result>
+                </PKT>";
+            }
+        } else {
+            $response = "<PKT>
+                <Result Name='ChangeGameToken' Success='0'>
+                    <Returnset>
+                        <Error Value='Transaction not found.' />
+                        <ErrorCode Value='7' />
+                    </Returnset>
+                </Result>
+            </PKT>";
+        }
+    
+        return $response;
+    }
+
+    
     
     public function playGame($game_id){
         $api_url = 'https://gaming.stagedc.net';
