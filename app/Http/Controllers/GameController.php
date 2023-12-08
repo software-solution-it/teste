@@ -332,7 +332,7 @@ class GameController extends Controller
                     <Result Name='GetBalance' Success='1'>
                         <Returnset>
                             <Token Type='string' Value='{$this->token}' />
-                            <Balance Type='string' Value='{$user->balance}' />
+                            <Balance Type='int' Value='{$user->balance}' />
                             <Currency Type='string' Value='BRL' />
                         </Returnset>
                     </Result>
