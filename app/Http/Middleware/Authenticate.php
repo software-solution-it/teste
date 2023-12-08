@@ -16,7 +16,7 @@ class Authenticate extends Middleware
     {
         if (!$request->expectsJson())
         {
-            return route('login', 'manual'); // vkontakte
+            return route('loginUser', 'manual'); // vkontakte
         }
     }
 }
