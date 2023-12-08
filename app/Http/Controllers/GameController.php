@@ -16,8 +16,13 @@ class GameController extends Controller
 
     public function __construct()
     {
-        $this->user = Auth::user();
         parent::__construct();
+    
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            return $next($request);
+        });
+        
         $this->redis = Redis::connection();
     }
 
