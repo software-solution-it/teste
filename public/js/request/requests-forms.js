@@ -17,7 +17,7 @@ $(document).on('click', '#buttonLoginAccount', function () {
     }, 500);*/
 
     $.ajax({
-        url: '/auth/loginUser',
+        url: '/auth/login',
         type: 'post',
         data: {
             email: emailValue,

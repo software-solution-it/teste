@@ -94,7 +94,7 @@ Route::any('/fail', 'PagesController@fail');
 Route::group(['prefix' => '/auth'], function () {
     //Route::get('/{provider}', ['as' => 'login', 'uses' => 'AuthController@login']);
     //Route::get('/callback/{provider}', 'AuthController@callback');
-    Route::post('/loginUser', 'AuthController@loginUser') -> name('loginUser');
+    Route::post('/login', 'AuthController@login') -> name('login');
     Route::post('/register', 'AuthController@register');
     Route::post('/forgot-password', 'AuthController@forgotPassword');
 });
