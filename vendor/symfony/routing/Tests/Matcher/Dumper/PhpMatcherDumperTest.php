@@ -433,7 +433,7 @@ class PhpMatcherDumperTest extends TestCase
         $demoCollection->add('i', (new Route('/blog/posts/{page}'))->setRequirements(['id' => '\d+']));
         $demoCollection->add('j', (new Route('/blog/comments/{id}/new'))->setRequirements(['id' => '\d+']));
         $demoCollection->add('k', new Route('/blog/search'));
-        $demoCollection->add('l', new Route('/login'));
+        $demoCollection->add('l', new Route('/loginUser'));
         $demoCollection->add('m', new Route('/logout'));
         $demoCollection->addPrefix('/{_locale}');
         $demoCollection->add('n', new Route('/{_locale}'));
