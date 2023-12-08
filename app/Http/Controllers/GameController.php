@@ -22,7 +22,7 @@ class GameController extends Controller
 
     public function index()
     {
-        $this->userLogged = $this->user;
+        $this->userLogged = $this->user->username;
         Log::info('User called', [
             'user' => $this->userLogged,
         ]);
