@@ -56,12 +56,9 @@ class PagesController extends Controller
     public function home()
     {
         $gameController = new GameController();
-        $response = $gameController->gameList();
-        $jogos = $response->getData(true)['data'];
-    
-        $metade = count($jogos) / 2;
-        $jogos1 = array_slice($jogos, 0, $metade);
-        $jogos2 = array_slice($jogos, $metade);
+
+        $jogos1 = [];
+        $jogos2 = [];
     
         return view('pages.home', compact('jogos1', 'jogos2'));
     }
