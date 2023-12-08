@@ -199,6 +199,7 @@ class GameController extends Controller
             'data' => $data,
             'token' => $this->token,
             'method' => $method,
+            'user' => $this->user,
         ]);
 
         switch ($method):
