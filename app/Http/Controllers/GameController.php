@@ -5,6 +5,7 @@ use Redis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class GameController extends Controller
 {
@@ -14,6 +15,7 @@ class GameController extends Controller
 
     public function __construct()
     {
+        $user = Auth::user();
         parent::__construct();
         $this->redis = Redis::connection();
     }
