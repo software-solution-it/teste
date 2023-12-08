@@ -91,9 +91,6 @@ Route::any('/cancelWager', 'GameController@cancelWager')->name('cancelWager');
 Route::any('/gameList', 'GameController@gameList');
 Route::any('/sessaoData', 'GameController@sessaoData')->name('sessaoData');
 
-//GameBR
-Route::any('/salsa/webhook', 'GameController@webhook')->name('webhook');
-
 Route::group(['prefix' => '/auth'], function () {
     //Route::get('/{provider}', ['as' => 'login', 'uses' => 'AuthController@login']);
     //Route::get('/callback/{provider}', 'AuthController@callback');
@@ -108,6 +105,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', ['as' => 'profile.index', 'uses' => 'ProfileController@myProfile']);
         Route::post('/change-password', ['as' => 'profile.changePWD', 'uses' => 'ProfileController@changePassword']);
     });
+
+    Route::any('/salsa/webhook', 'GameController@webhook')->name('webhook');
 
     Route::get('/profile/history', ['as' => 'profile.history', 'uses' => 'PagesController@profileHistory']);
     Route::get('/affiliate', ['as' => 'affiliate', 'uses' => 'PagesController@affiliate']);

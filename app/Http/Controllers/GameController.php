@@ -12,16 +12,10 @@ class GameController extends Controller
 
     private $balance;
     private $token;
-    protected $user;
 
     public function __construct()
     {
         parent::__construct();
-    
-        $this->middleware(function ($request, $next) {
-            $this->user = Auth::user();
-            return $next($request);
-        });
         
         $this->redis = Redis::connection();
     }
