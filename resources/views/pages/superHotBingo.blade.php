@@ -11,7 +11,7 @@
 
                 <div class="tower_tower__1ms3K">
                     <iframe
-                        src="https://api-test.salsagator.com/game?token={{ $userLogged }} &pn=playbet-staging&lang=pt&game=superHotBingo"
+                        src="https://api-test.salsagator.com/game?token=teste2&pn=playbet-staging&lang=en&game=superHotBingo"
                         frameborder="0" style="width:100%; height:100%;"></iframe>
                 </div>
                 <div class="hits_Hits__1OApa">
