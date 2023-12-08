@@ -196,7 +196,7 @@ class GameController extends Controller
         $data = json_decode(base64_decode($this->token), true);
 
         Log::info('Webhook called', [
-            'data' => $this->$data,
+            'data' => $data,
             'token' => $this->token,
             'method' => $method,
         ]);
