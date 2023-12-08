@@ -318,7 +318,8 @@ class GameController extends Controller
             'GetAccountDetails' => $response,
         ]);
     
-        return $response;
+        return response($response)
+        ->header('Content-Type', 'text/xml; charset=UTF-8');
     }
     
 
@@ -361,7 +362,8 @@ class GameController extends Controller
             'GetAccountDetails1' => $response,
         ]);
     
-        return $response;
+        return response($response)
+        ->header('Content-Type', 'text/xml; charset=UTF-8');
     }
 
     public function PlaceBet($params){
@@ -405,7 +407,8 @@ class GameController extends Controller
             'GetAccountDetails2' => $response,
         ]);
     
-        return $response;
+        return response($response)
+        ->header('Content-Type', 'text/xml; charset=UTF-8');
     }
 
     public function AwardWinnings($params){
@@ -449,7 +452,8 @@ class GameController extends Controller
             'GetAccountDetails3' => $response,
         ]);
     
-        return $response;
+        return response($response)
+        ->header('Content-Type', 'text/xml; charset=UTF-8');
     }
 
     public function RefundBet($params){
@@ -491,7 +495,8 @@ class GameController extends Controller
             </PKT>";
         }
     
-        return $response;
+        return response($response)
+        ->header('Content-Type', 'text/xml; charset=UTF-8');
     }
 
     public function ChangeGameToken($params){
@@ -527,7 +532,8 @@ class GameController extends Controller
             </PKT>";
         }
     
-        return $response;
+        return response($response)
+        ->header('Content-Type', 'text/xml; charset=UTF-8');
     }
 
     
