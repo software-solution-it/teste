@@ -12,7 +12,7 @@ class GameController extends Controller
 
     private $balance;
     private $token;
-    private $user;
+    protected $user;
 
     public function __construct()
     {
