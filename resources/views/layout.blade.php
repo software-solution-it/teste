@@ -268,7 +268,7 @@ crossorigin="anonymous">
                                     </div>
                                     Mines</a>
                             </div>
-
+                            <!--
                             <div class="one-menu">
                                 <a href="/superHotBingo">
                                     <div class="img-one-menu">
@@ -278,6 +278,7 @@ crossorigin="anonymous">
                                     </div>
                                     superHotBingo</a>
                             </div>
+                            !-->
 
 
                             <div class="one-menu">
