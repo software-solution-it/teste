@@ -323,7 +323,6 @@ class GameController extends Controller
     
 
     public function GetBalance($params){
-        $user = User::where('username', $this->userLogged)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -331,7 +330,7 @@ class GameController extends Controller
                     <Result Name='GetBalance' Success='1'>
                         <Returnset>
                             <Token Type='string' Value='{$this->token}' />
-                            <Balance Type='int' Value='{$user->balance}' />
+                            <Balance Type='int' Value='10000' />
                             <Currency Type='string' Value='BRL' />
                         </Returnset>
                     </Result>
