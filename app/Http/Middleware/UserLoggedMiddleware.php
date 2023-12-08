@@ -18,7 +18,7 @@ class UserLoggedMiddleware
     {
         if (Auth::check()) {
             $userLogged = Auth::user()->username;
-            $request->userLogged = $userLogged;
+            app()->instance('userLogged', $userLogged);
         }
 
         return $next($request);

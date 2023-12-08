@@ -22,8 +22,10 @@ class GameController extends Controller
 
     public function index()
     {
+        $userLogged = app('userLogged');
+
         Log::info('User called', [
-            'user' => $this->userLogged,
+            'user' => $userLogged,
         ]);
 
         return view('pages.superHotBingo');
