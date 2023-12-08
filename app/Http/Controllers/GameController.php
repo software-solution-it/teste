@@ -9,6 +9,7 @@ use Auth;
 class GameController extends Controller
 {
 
+    private $userLogged;
     private $balance;
     private $token;
 
@@ -21,8 +22,9 @@ class GameController extends Controller
 
     public function index()
     {
+        $this->userLogged = $this->user;
         Log::info('User called', [
-            'user' => $this->user,
+            'user' => $this->userLogged,
         ]);
 
         return view('pages.superHotBingo');
@@ -209,7 +211,7 @@ class GameController extends Controller
             'data' => $data,
             'token' => $this->token,
             'method' => $method,
-            'user' => $this->user,
+            'user' => $this->userLogged,
         ]);
 
         switch ($method):
@@ -252,7 +254,7 @@ class GameController extends Controller
     }
     
     public function getAccountDetails($params) {
-        $user = User::where('username', $this->user->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -295,7 +297,7 @@ class GameController extends Controller
     
 
     public function GetBalance($params){
-        $user = User::where('username', $this->user->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -333,7 +335,7 @@ class GameController extends Controller
     }
 
     public function PlaceBet($params){
-        $user = User::where('username', $this->user->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -373,7 +375,7 @@ class GameController extends Controller
     }
 
     public function AwardWinnings($params){
-        $user = User::where('username', $this->user->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -413,7 +415,7 @@ class GameController extends Controller
     }
 
     public function RefundBet($params){
-        $user = User::where('username', $this->user->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -455,7 +457,7 @@ class GameController extends Controller
     }
 
     public function ChangeGameToken($params){
-        $user = User::where('username', $this->user->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
