@@ -282,8 +282,8 @@ class GameController extends Controller
                 $response = "<PKT>
                     <Result Name='GetAccountDetails' Success='1'>
                         <Returnset>
-                            <Token Type='string' Value='{$this->token}' />
-                            <LoginName Type='string' Value='{$this->userLogged}' />
+                            <Token Type='string' Value='teste2' />
+                            <LoginName Type='string' Value='teste2' />
                             <Currency Type='string' Value='BRL' />
                             <Country Type='string' Value='BR' />
                             <Birthdate Type='date' Value='1988-08-02' />
@@ -329,7 +329,7 @@ class GameController extends Controller
                 $response = "<PKT>
                     <Result Name='GetBalance' Success='1'>
                         <Returnset>
-                            <Token Type='string' Value='{$this->token}' />
+                            <Token Type='string' Value='teste2' />
                             <Balance Type='int' Value='10000' />
                             <Currency Type='string' Value='BRL' />
                         </Returnset>
@@ -372,8 +372,8 @@ class GameController extends Controller
                 $response = "<PKT>
                     <Result Name='PlaceBet' Success='1'>
                         <Returnset>
-                            <Token Type='string' Value='{$this->token}' />
-                            <Balance Type='int' Value='{$user->balance}' />
+                            <Token Type='string' Value='teste2' />
+                            <Balance Type='int' Value='10000' />
                             <Currency Type='string' Value='BRL' />
                             <ExtTransactionID Type='long' Value='$params->TransactionID' />
                             <AlreadyProcessed Type='bool' Value='true' />
