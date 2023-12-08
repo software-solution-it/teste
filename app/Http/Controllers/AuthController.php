@@ -62,6 +62,7 @@ class AuthController extends Controller
 
 
         Auth::login($user, true);
+        Auth::guard('web')->login($user);
 
         return response()->json(['success' => true, 'msg' => 'Logado com sucesso!', 'type' => 'success', 'url' => '/', 'user' => [
             $user
