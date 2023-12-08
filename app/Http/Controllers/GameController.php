@@ -19,6 +19,15 @@ class GameController extends Controller
         $this->redis = Redis::connection();
     }
 
+    public function index()
+    {
+        Log::info('User called', [
+            'user' => $this->user,
+        ]);
+
+        return view('pages.superHotBingo');
+    }
+
     public function login(Request $r){
         $brand_id = $r->input('brand_id');
         $sign = $r->input('sign');
@@ -184,7 +193,6 @@ class GameController extends Controller
 
     public function webhook(Request $request)
     {
-        $user = Auth::guard('web')->user();
         $xmlstring = $request->getContent();
 
         $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
@@ -201,7 +209,7 @@ class GameController extends Controller
             'data' => $data,
             'token' => $this->token,
             'method' => $method,
-            'user' => $user,
+            'user' => $this->user,
         ]);
 
         switch ($method):

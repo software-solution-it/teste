@@ -91,6 +91,7 @@ Route::any('/fail', 'PagesController@fail');
 //Route::any('/gameList', 'GameController@gameList');
 //Route::any('/sessaoData', 'GameController@sessaoData')->name('sessaoData');
 Route::any('/salsa/webhook', 'GameController@webhook')->name('webhook');
+Route::get('/superHotBingo', ['as' => 'superHotBingo', 'uses' => 'GameController@index']);
 
 Route::group(['prefix' => '/auth'], function () {
     //Route::get('/{provider}', ['as' => 'login', 'uses' => 'AuthController@login']);

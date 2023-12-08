@@ -269,6 +269,16 @@ crossorigin="anonymous">
                                     Mines</a>
                             </div>
 
+                            <div class="one-menu">
+                                <a href="/superHotBingo">
+                                    <div class="img-one-menu">
+                                        <svg width="24" height="24" focusable="false" aria-hidden="true" class="">
+                                            <use xlink:href="/img/symbols.svg#icon-mines" class="svg-use"></use>
+                                        </svg>
+                                    </div>
+                                    superHotBingo</a>
+                            </div>
+
 
                             <div class="one-menu">
                                 <a href="/coinflip">
