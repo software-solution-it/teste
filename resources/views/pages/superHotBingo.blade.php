@@ -9,7 +9,6 @@
         .tower_tower__1ms3K {
             position: relative;
             width: 100%;
-            padding-bottom: 100%; /* Isso cria um contêiner quadrado */
             overflow: hidden;
         }
 
