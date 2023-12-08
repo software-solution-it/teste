@@ -278,9 +278,6 @@ class GameController extends Controller
         $user = User::where('username', $this->userLogged)->first();
     
         if ($this->token) {
-            Log::info('compareHash called', [
-                '$this->compareHash($params, $this->token)' => $this->compareHash($params, $this->token),
-            ]);
             
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
@@ -316,6 +313,10 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
+
+        Log::info('Response GetAccountDetails', [
+            'GetAccountDetails' => $response,
+        ]);
     
         return $response;
     }
@@ -355,6 +356,10 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
+
+        Log::info('Response GetAccountDetails1', [
+            'GetAccountDetails1' => $response,
+        ]);
     
         return $response;
     }
@@ -395,6 +400,10 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
+
+        Log::info('Response GetAccountDetails2', [
+            'GetAccountDetails2' => $response,
+        ]);
     
         return $response;
     }
@@ -435,6 +444,10 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
+
+        Log::info('Response GetAccountDetails3', [
+            'GetAccountDetails3' => $response,
+        ]);
     
         return $response;
     }
