@@ -9,7 +9,6 @@ use Ramsey\Uuid\Uuid;
 use Auth;
 class GameController extends Controller
 {
-    private $userLogged;
     private $balance;
     private $token;
 
@@ -22,14 +21,13 @@ class GameController extends Controller
     public function index()
     {
 
-        $uuid = Uuid::uuid5(Uuid::NAMESPACE_DNS, $this->user->username);
+        $userLogged = $this->user->username;
 
         Log::info('User called', [
             'user' => $this->user->username,
-            '$uuid' => $uuid,
         ]);
 
-        return view('pages.superHotBingo', compact('uuid'));
+        return view('pages.superHotBingo', compact('userLogged'));
     }
 
     public function login(Request $r){
@@ -207,18 +205,14 @@ class GameController extends Controller
         $params = $array['Method']['Params'];
 
         $this->token = $params['Token']['@attributes']['Value'];
-        $uuidParaRecuperar = trim($this->token);
-        if (Uuid::isValid($uuidParaRecuperar)) {
-            $this->userLogged = Uuid::fromString($uuidParaRecuperar)->toString();
-        }
-        $this->userLogged= Uuid::uuid5(Uuid::NAMESPACE_DNS, $uuidParaRecuperar)->getNode();
+        $userLogged = $this->token;
         $data = json_decode(base64_decode($this->token), true);
 
         Log::info('Webhook called', [
             'data' => $data,
             'token' => $this->token,
             'method' => $method,
-            'user' => $this->userLogged,
+            'user' => $userLogged,
         ]);
 
         switch ($method):
@@ -261,7 +255,7 @@ class GameController extends Controller
     }
     
     public function getAccountDetails($params) {
-        $user = User::where('username', $this->userLogged->username)->first();
+        $user = User::where('username', $userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -304,7 +298,7 @@ class GameController extends Controller
     
 
     public function GetBalance($params){
-        $user = User::where('username', $this->userLogged->username)->first();
+        $user = User::where('username', $userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -342,7 +336,7 @@ class GameController extends Controller
     }
 
     public function PlaceBet($params){
-        $user = User::where('username', $this->userLogged->username)->first();
+        $user = User::where('username', $userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -382,7 +376,7 @@ class GameController extends Controller
     }
 
     public function AwardWinnings($params){
-        $user = User::where('username', $this->userLogged->username)->first();
+        $user = User::where('username', $userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -422,7 +416,7 @@ class GameController extends Controller
     }
 
     public function RefundBet($params){
-        $user = User::where('username', $this->userLogged->username)->first();
+        $user = User::where('username', $userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -464,7 +458,7 @@ class GameController extends Controller
     }
 
     public function ChangeGameToken($params){
-        $user = User::where('username', $this->userLogged->username)->first();
+        $user = User::where('username', $userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
