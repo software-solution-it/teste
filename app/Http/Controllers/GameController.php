@@ -5,10 +5,10 @@ use Redis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\User;
+use Ramsey\Uuid\Uuid;
 use Auth;
 class GameController extends Controller
 {
-
     private $userLogged;
     private $balance;
     private $token;
@@ -16,19 +16,19 @@ class GameController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('user.logged');
         $this->redis = Redis::connection();
     }
 
     public function index()
     {
-        $this->userLogged = app('userLogged');
+
+        $uuid = Uuid::uuid5(Uuid::NAMESPACE_DNS, $this->user->username);
 
         Log::info('User called', [
-            'user' => $this->userLogged,
+            'user' => $this->user->username,
         ]);
 
-        return view('pages.superHotBingo');
+        return view('pages.superHotBingo', compact('uuid'));
     }
 
     public function login(Request $r){
@@ -196,7 +196,6 @@ class GameController extends Controller
 
     public function webhook(Request $request)
     {
-        $this->userLogged = app('userLogged');
         $xmlstring = $request->getContent();
 
         $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
@@ -207,6 +206,8 @@ class GameController extends Controller
         $params = $array['Method']['Params'];
 
         $this->token = $params['Token']['@attributes']['Value'];
+        $uuidParaRecuperar = $this->token->toString();
+        $this->userLogged= Uuid::uuid5(Uuid::NAMESPACE_DNS, $uuidParaRecuperar)->getNode();
         $data = json_decode(base64_decode($this->token), true);
 
         Log::info('Webhook called', [
