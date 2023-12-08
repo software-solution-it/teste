@@ -4,7 +4,6 @@ use GuzzleHttp\Client;
 use Redis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 use App\User;
 use Auth;
 class GameController extends Controller
@@ -17,13 +16,15 @@ class GameController extends Controller
     public function __construct()
     {
         parent::__construct();
-        
+        $this->middleware('user.logged');
         $this->redis = Redis::connection();
     }
 
     public function index()
     {
-        Session::put('userLogged', $this->user->username);
+        Log::info('User called', [
+            'user' => $this->userLogged,
+        ]);
 
         return view('pages.superHotBingo');
     }
@@ -193,7 +194,6 @@ class GameController extends Controller
 
     public function webhook(Request $request)
     {
-        $userLogged = Session::get('userLogged');
         $xmlstring = $request->getContent();
 
         $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
@@ -210,7 +210,7 @@ class GameController extends Controller
             'data' => $data,
             'token' => $this->token,
             'method' => $method,
-            'user' => $userLogged,
+            'user' => $this->userLogged,
         ]);
 
         switch ($method):
@@ -253,7 +253,7 @@ class GameController extends Controller
     }
     
     public function getAccountDetails($params) {
-        $user = User::where('username', $userLogged->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -296,7 +296,7 @@ class GameController extends Controller
     
 
     public function GetBalance($params){
-        $user = User::where('username', $userLogged->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -334,7 +334,7 @@ class GameController extends Controller
     }
 
     public function PlaceBet($params){
-        $user = User::where('username', $userLogged->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -374,7 +374,7 @@ class GameController extends Controller
     }
 
     public function AwardWinnings($params){
-        $user = User::where('username', $userLogged->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -414,7 +414,7 @@ class GameController extends Controller
     }
 
     public function RefundBet($params){
-        $user = User::where('username', $userLogged->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
@@ -456,7 +456,7 @@ class GameController extends Controller
     }
 
     public function ChangeGameToken($params){
-        $user = User::where('username', $userLogged->username)->first();
+        $user = User::where('username', $this->userLogged->username)->first();
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
