@@ -184,7 +184,6 @@ class GameController extends Controller
 
     public function webhook(Request $request)
     {
-        $user = Auth::user();
         $xmlstring = $request->getContent();
 
         $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
@@ -201,7 +200,7 @@ class GameController extends Controller
             'data' => $data,
             'token' => $this->token,
             'method' => $method,
-            'user' => $user,
+            'user' => $this->user,
         ]);
 
         switch ($method):
