@@ -213,7 +213,7 @@ class GameController extends Controller
         $this->userLogged = trim($this->token);
 
         Log::info('Response flattenArrayParams', [
-            '$params' => $params,
+            '$params' => $params['Token']['@attributes']['Value'],
         ]);
 
         switch ($method):
