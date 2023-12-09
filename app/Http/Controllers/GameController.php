@@ -23,14 +23,15 @@ class GameController extends Controller
 
     public function index()
     {
-
+        $namespace = Uuid::NAMESPACE_DNS;
+        
         $userLogged = $this->user->username;
-
-        Log::info('User called', [
-            'user' => $this->user->username,
-        ]);
-
-        return view('pages.superHotBingo', compact('userLogged'));
+        
+        $uuid = Uuid::uuid5($namespace, $userLogged)->toString();
+    
+        User::where('username', $userLogged)->update(['salsa_token' => $uuid]);
+    
+        return view('pages.superHotBingo', compact('uuid'));
     }
 
     public function login(Request $r){
@@ -199,7 +200,6 @@ class GameController extends Controller
     public function webhook(Request $request)
     {
         $xmlstring = $request->getContent();
-
         $xml = simplexml_load_string($xmlstring, "SimpleXMLElement", LIBXML_NOCDATA);
         $json = json_encode($xml);
         $array = json_decode($json, true);
@@ -208,6 +208,7 @@ class GameController extends Controller
         $params = $array['Method']['Params'];
 
         $this->token = $params['Token']['@attributes']['Value'];
+        $user = User::where('salsa_token', $this->token)->first();
         $this->userLogged = trim($this->token);
         $data = json_decode(base64_decode($this->token), true);
 
@@ -215,7 +216,7 @@ class GameController extends Controller
             'data' => $data,
             'token' => $this->token,
             'method' => $method,
-            'user' => $this->userLogged,
+            'user' => $user,
         ]);
 
         switch ($method):
