@@ -212,10 +212,6 @@ class GameController extends Controller
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
 
-        Log::info('Response flattenArrayParams', [
-            '$params' => $params['Token']['@attributes']['Value'],
-        ]);
-
         switch ($method):
 
             case 'GetAccountDetails':
@@ -369,7 +365,7 @@ class GameController extends Controller
                             <Token Type='string' Value='$user->salsa_token' />
                             <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
-                            <ExtTransactionID Type='long' Value='$params->TransactionID' />
+                            <ExtTransactionID Type='long' Value='{$params['TransactionID']['@attributes']['Value']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
                         </Returnset>
                     </Result>
@@ -413,7 +409,7 @@ class GameController extends Controller
                             <Token Type='string' Value='$user->salsa_token' />
                             <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
-                            <ExtTransactionID Type='long' Value='$params->TransactionID' />
+                            <ExtTransactionID Type='long' Value='{$params['TransactionID']['@attributes']['Value']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
                         </Returnset>
                     </Result>
@@ -457,7 +453,7 @@ class GameController extends Controller
                             <Token Type='string' Value='$user->salsa_token' />
                             <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
-                            <ExtTransactionID Type='long' Value='$params->TransactionID' />
+                            <ExtTransactionID Type='long' Value='{$params['TransactionID']['@attributes']['Value']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
                         </Returnset>
                     </Result>
