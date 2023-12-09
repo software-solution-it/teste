@@ -275,7 +275,7 @@ class GameController extends Controller
     
         Log::info('Response flattenArrayParams', [
             '$array' => $array,
-            'flattenArrayParams' => $result,
+            'flattenArrayParams' => $result['flattenArrayParams'],
         ]);
 
         return $result;
@@ -385,7 +385,7 @@ class GameController extends Controller
                             <Token Type='string' Value='$user->salsa_token' />
                             <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
-                            <ExtTransactionID Type='long' Value='{$params['TransactionID']}' />
+                            <ExtTransactionID Type='long' Value='{$params['flattenArrayParams']['TransactionID']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
                         </Returnset>
                     </Result>
@@ -429,7 +429,7 @@ class GameController extends Controller
                             <Token Type='string' Value='$user->salsa_token' />
                             <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
-                            <ExtTransactionID Type='long' Value='{$params['TransactionID']}' />
+                            <ExtTransactionID Type='long' Value='{$params['flattenArrayParams']['TransactionID']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
                         </Returnset>
                     </Result>
@@ -473,7 +473,7 @@ class GameController extends Controller
                             <Token Type='string' Value='$user->salsa_token' />
                             <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
-                            <ExtTransactionID Type='long' Value='{$params['TransactionID']}' />
+                            <ExtTransactionID Type='long' Value='{$params['flattenArrayParams']['TransactionID']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
                         </Returnset>
                     </Result>
@@ -512,7 +512,7 @@ class GameController extends Controller
                 $response = "<PKT>
                     <Result Name='ChangeGameToken' Success='1'>
                         <Returnset>
-                            <NewToken Type='string' Value='{$params['NewGameReference']}' />
+                            <NewToken Type='string' Value='{$params['flattenArrayParams']['NewGameReference']}' />
                         </Returnset>
                     </Result>
                 </PKT>";
