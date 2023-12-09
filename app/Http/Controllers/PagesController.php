@@ -54,11 +54,12 @@ class PagesController extends Controller
         return view('pages.deposito');
     }
 
-    public function home()
-    {
-        $jogos = Salsa::all();
-        return view('pages.home', compact('jogos'));
-    }
+public function home()
+{
+    $jogosCollection = Salsa::all();
+    $jogos = $jogosCollection->toArray();
+    return view('pages.home', compact('jogos'));
+}
     
 
     public function depositPaggue($transaction)
