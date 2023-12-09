@@ -448,7 +448,7 @@ class GameController extends Controller
                         </Returnset>
                     </Result>
                 </PKT>";
-                $user->update(['balance' => $user->balance + $params['WinAmount']['@attributes']['Value']]);
+                $user->update(['balance' => $user->balance + $params['RefundAmount']['@attributes']['Value']]);
             } else {
                 $response = "<PKT>
                     <Result Name='RefundBet' Success='0'>
