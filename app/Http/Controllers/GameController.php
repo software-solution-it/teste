@@ -211,31 +211,32 @@ class GameController extends Controller
         $user = User::where('salsa_token', $this->token)->first();
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
+        $flattenedParams = $this->flattenArrayParams($params);
 
         switch ($method):
 
             case 'GetAccountDetails':
-                return $this->GetAccountDetails($params, $user);
+                return $this->GetAccountDetails($flattenedParams, $user);
                 break;
 
             case 'GetBalance':
-                return $this->GetBalance($params, $user);
+                return $this->GetBalance($flattenedParams, $user);
                 break;
 
             case 'PlaceBet':
-                return $this->PlaceBet($params, $user);
+                return $this->PlaceBet($flattenedParams, $user);
                 break;
 
             case 'AwardWinnings':
-                return $this->AwardWinnings($params, $user);
+                return $this->AwardWinnings($flattenedParams, $user);
                 break;
 
             case 'RefundBet':
-                return $this->RefundBet($params, $user);
+                return $this->RefundBet($flattenedParams, $user);
                 break;
 
             case 'ChangeGameToken':
-                return $this->ChangeGameToken($params, $user);
+                return $this->ChangeGameToken($flattenedParams, $user);
                 break;
             default:
                 return 'nada encontrado.';
@@ -264,9 +265,27 @@ class GameController extends Controller
     
         return implode('', $result);
     }
+
+    protected function flattenArrayParams($array) {
+        $result = [];
+    
+        foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($array)) as $key => $value) {
+            $result[$key] = $value;
+        }
+    
+        Log::info('Response flattenArrayParams', [
+            'flattenArrayParams' => $result,
+        ]);
+
+        return $result;
+    }
     
     public function getAccountDetails($params, $user) {
-    
+
+        Log::info('Response TransactionID', [
+            'TransactionID' => $params['TransactionID'],
+        ]);
+
         if ($this->token) {
             
             if ($this->compareHash($params, $user->salsa_token)) {
@@ -365,7 +384,7 @@ class GameController extends Controller
                             <Token Type='string' Value='$user->salsa_token' />
                             <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
-                            <ExtTransactionID Type='long' Value='$params->TransactionID' />
+                            <ExtTransactionID Type='long' Value='{$params['TransactionID']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
                         </Returnset>
                     </Result>
@@ -409,7 +428,7 @@ class GameController extends Controller
                             <Token Type='string' Value='$user->salsa_token' />
                             <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
-                            <ExtTransactionID Type='long' Value='$params->TransactionID' />
+                            <ExtTransactionID Type='long' Value='{$params['TransactionID']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
                         </Returnset>
                     </Result>
@@ -453,7 +472,7 @@ class GameController extends Controller
                             <Token Type='string' Value='$user->salsa_token' />
                             <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
-                            <ExtTransactionID Type='long' Value='$params->TransactionID' />
+                            <ExtTransactionID Type='long' Value='{$params['TransactionID']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
                         </Returnset>
                     </Result>
@@ -492,7 +511,7 @@ class GameController extends Controller
                 $response = "<PKT>
                     <Result Name='ChangeGameToken' Success='1'>
                         <Returnset>
-                            <NewToken Type='string' Value='$params->NewGameReference' />
+                            <NewToken Type='string' Value='{$params['NewGameReference']}' />
                         </Returnset>
                     </Result>
                 </PKT>";
