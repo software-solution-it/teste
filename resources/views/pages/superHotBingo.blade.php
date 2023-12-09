@@ -25,7 +25,7 @@
             <div class="game">
                 <div class="game-component">
                     <div class="tower_tower__1ms3K">
-                    <iframe src="https://api-test.salsagator.com/game?token={{ $uuid }}&pn=playbet-staging&lang=en&game=superHotBingo"></iframe>
+                    <iframe src="{{ $url }}"></iframe>
                     </div>
 
                     @guest

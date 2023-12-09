@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\User;
 use Ramsey\Uuid\Uuid;
 use Auth;
+use App\Salsa;
 class GameController extends Controller
 {
     private $balance;
@@ -19,19 +20,6 @@ class GameController extends Controller
     {
         parent::__construct();
         $this->redis = Redis::connection();
-    }
-
-    public function index()
-    {
-        $namespace = Uuid::NAMESPACE_DNS;
-        
-        $userLogged = $this->user->username;
-        
-        $uuid = Uuid::uuid5($namespace, $userLogged)->toString();
-    
-        User::where('username', $userLogged)->update(['salsa_token' => $uuid]);
-    
-        return $uuid;
     }
 
     public function login(Request $r){
@@ -523,9 +511,27 @@ class GameController extends Controller
 
     
     
-    public function playGame($game_id){
-       
+
+public function playGame($game_id)
+{
+    $namespace = Uuid::NAMESPACE_DNS;
+
+    $userLogged = $this->user->username;
+
+    $game = Salsa::where('id', $game_id)->first();
+
+    if (!$game) {
+        return response()->json(['error' => 'Jogo não encontrado'], 404);
     }
+
+    $token = Uuid::uuid5($namespace, $userLogged)->toString();
+
+    $url = "https://api-test.salsagator.com/game?token=$token&pn={$game->pn}&lang={$game->lang}&game={$game->game}";
+
+    User::where('username', $userLogged)->update(['salsa_token' => $token]);
+
+    return view('pages.superHotBingo', compact('url'));
+}
 
     public function gameList(){
         $chave_api = 'C93929113F374C90AB66CD206C901785';
