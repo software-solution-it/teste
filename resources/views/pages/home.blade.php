@@ -300,8 +300,8 @@
 
                                     <div class="provider-game-slide">
                                         <a href="#">
-                                            @if(isset($game['game_name']) && is_string($game['game_name']))
-                                                {{ $game['game_name'] }}
+                                            @if(isset($game['name']) && is_string($game['name']))
+                                                {{ $game['name'] }}
                                             @else
                                                 Nome do Jogo Não Disponível
                                             @endif
