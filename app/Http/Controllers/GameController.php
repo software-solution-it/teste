@@ -275,7 +275,7 @@ class GameController extends Controller
     
         Log::info('Response flattenArrayParams', [
             '$array' => $array,
-            'flattenArrayParams' => $result[0],
+            'flattenArrayParams' => $result['$array']['Token']['@attributes']['Value'],
         ]);
 
         return $result;
