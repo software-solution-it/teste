@@ -318,7 +318,7 @@
             </div>
         </div>
 
-
+<!--
         <div class="swiper-container swiper game-swiper2">
             <div class="swiper-wrapper">
                 @php
@@ -366,8 +366,8 @@
                     </div>
                 @endforeach
             </div>
-            <!-- Adicione as setas de navegação do Swiper -->
         </div>
+        -->
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
