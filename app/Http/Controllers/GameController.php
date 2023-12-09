@@ -358,7 +358,7 @@ class GameController extends Controller
                         </Returnset>
                     </Result>
                 </PKT>";
-                $user->update(['balance' => $user->balance - $params['BetAmount']['@attributes']['Value'] / 100]);
+                $user->update(['balance' => $user->balance - ($params['BetAmount']['@attributes']['Value'] / 100 )]);
             } else {
                 $response = "<PKT>
                     <Result Name='PlaceBet' Success='0'>
@@ -448,7 +448,7 @@ class GameController extends Controller
                         </Returnset>
                     </Result>
                 </PKT>";
-                $user->update(['balance' => $user->balance + $params['RefundAmount']['@attributes']['Value'] / 100]);
+                $user->update(['balance' => $user->balance + ($params['RefundAmount']['@attributes']['Value'] / 100)]);
             } else {
                 $response = "<PKT>
                     <Result Name='RefundBet' Success='0'>
