@@ -272,7 +272,7 @@
         <div class="swiper-container swiper game-swiper1">
             <div class="swiper-wrapper">
                 @php
-                    $chunkedJogos = array_chunk($jogos1, 1);
+                    $chunkedJogos = array_chunk($jogos, 1);
                 @endphp
 
                 @foreach($chunkedJogos as $chunk)
@@ -288,7 +288,7 @@
                                 @endif
 
                                 <div class="hover-game-slide">
-                                    <form action="{{ route('playGame', ['game_id' => $game['game_id'] ?? null]) }}" method="post">
+                                    <form action="{{ route('playGame', ['game_id' => $game['id'] ?? null]) }}" method="post">
                                         @csrf
                                         <button type="submit" class="play-game-slide">
                                             <svg focusable="false" aria-hidden="true" class="">

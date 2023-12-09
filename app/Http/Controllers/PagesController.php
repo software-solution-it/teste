@@ -15,6 +15,7 @@ use App\Hilo;
 use App\HiloBets;
 use App\Sends;
 use App\Dice;
+use App\Salsa;
 use App\Bonus;
 use App\BonusLog;
 use App\Payments;
@@ -55,12 +56,8 @@ class PagesController extends Controller
 
     public function home()
     {
-        $gameController = new GameController();
-
-        $jogos1 = [];
-        $jogos2 = [];
-    
-        return view('pages.home', compact('jogos1', 'jogos2'));
+        $jogos = Salsa::all();
+        return view('pages.home', compact('jogos'));
     }
     
 

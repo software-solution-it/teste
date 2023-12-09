@@ -31,7 +31,7 @@ class GameController extends Controller
     
         User::where('username', $userLogged)->update(['salsa_token' => $uuid]);
     
-        return view('pages.superHotBingo', compact('uuid'));
+        return $uuid;
     }
 
     public function login(Request $r){
@@ -492,7 +492,7 @@ class GameController extends Controller
                 $response = "<PKT>
                     <Result Name='ChangeGameToken' Success='1'>
                         <Returnset>
-                            <NewToken Type='string' Value='$params->NewGameReference' />
+                            <NewToken Type='string' Value='{$params['NewGameReference']['@attributes']['Value']}' />
                         </Returnset>
                     </Result>
                 </PKT>";
@@ -524,42 +524,7 @@ class GameController extends Controller
     
     
     public function playGame($game_id){
-        $api_url = 'https://gaming.stagedc.net';
-        $chave_api = 'C93929113F374C90AB66CD206C901785';
-        $id_marca = 'S119001';
-        if ($this->user != null) {
-        $brand_uid = $this->user->username;
-        }else{
-        $brand_uid = 'demo';
-        }
-        $token = strtoupper(str_random(32));
-
-        $data = [
-            'brand_id' => $id_marca,
-            'sign' => strtoupper(md5($id_marca . $brand_uid . $chave_api)),
-            'brand_uid' => $brand_uid,
-            'token' => $token,
-            'game_id' => $game_id,
-            'currency' => 'BRL',
-            'language' => 'pt-BR',
-            'channel' => 'pc',
-            'country_code' => 'BR'
-        ];
-
-        $client = new Client([
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
-
-        $response = $client->request('POST', $api_url . '/dcs/loginGame', [
-            'json' => $data
-        ]);
-
-        $responseBody = json_decode($response->getBody(), true);
-
-        $gameUrl = $responseBody['data']['game_url'];
-        return redirect($gameUrl);
+       
     }
 
     public function gameList(){
