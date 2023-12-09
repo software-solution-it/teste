@@ -274,6 +274,7 @@ class GameController extends Controller
         }
     
         Log::info('Response flattenArrayParams', [
+            '$array' => $array,
             'flattenArrayParams' => $result,
         ]);
 
