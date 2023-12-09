@@ -209,13 +209,8 @@ class GameController extends Controller
 
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
+        $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
-
-        Log::info('Webhook called', [
-            'token' => $this->token,
-            'method' => $method,
-            'user' => $user,
-        ]);
 
         switch ($method):
 
@@ -251,12 +246,11 @@ class GameController extends Controller
     public function compareHash($params, $token) {      
         $flattenedParams = $this->flattenArray($params);
 
-        Log::info('compareHash called', [
-            '$params' => $params,
-            '$token' => $token,
-        ]);
-
         $computedHash = hash('sha256', $flattenedParams . $token);
+
+        Log::info('compareHash called', [
+            '$computedHash' => $computedHash,
+        ]);
     
         return  $computedHash;
     }
