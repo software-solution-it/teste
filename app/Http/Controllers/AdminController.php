@@ -50,12 +50,6 @@ class AdminController extends Controller
         parent::__construct();
         DB::connection()->getPdo()->exec('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
         $this->paymentsProviders = $paymentsProviders;
-        $jackpot_easy = Jackpot::where('room', 'easy')->orderBy('id', 'desc')->first();
-        $jackpot_medium = Jackpot::where('room', 'medium')->orderBy('id', 'desc')->first();
-        $jackpot_hard = Jackpot::where('room', 'hard')->orderBy('id', 'desc')->first();
-        view()->share('chances_easy', $this->getChancesOfGame($jackpot_easy->id));
-        view()->share('chances_medium', $this->getChancesOfGame($jackpot_medium->id));
-        view()->share('chances_hard', $this->getChancesOfGame($jackpot_hard->id));
     }
 
     public function index()
@@ -110,88 +104,6 @@ class AdminController extends Controller
         $withdraw = Withdraw::where('user_id', $user->id)->where('status', 1)->sum('value');
         $sends_arr = Sends::where('sender', $user->id)->get();
         $sends_arr_from = Sends::where('receiver', $user->id)->get();
-        $jackpotWin = Jackpot::where(['winner_id' => $user->id])->where('status', 3)->sum('winner_balance');
-        $wheelWin = WheelBets::join('wheel', 'wheel.id', '=', 'wheel_bets.game_id')
-            ->select('wheel.status', 'wheel.id', 'wheel_bets.game_id', 'wheel_bets.win_sum')
-            ->where('wheel.status', 3)
-            ->where('wheel_bets.balance', 'balance')
-            ->where(['wheel_bets.user_id' => $user->id, 'wheel_bets.win' => 1])
-            ->groupBy('wheel_bets.game_id', 'wheel_bets.win_sum')
-            ->get()->sum('win_sum');
-        $wheelLose = WheelBets::join('wheel', 'wheel.id', '=', 'wheel_bets.game_id')
-            ->select('wheel.status', 'wheel.id', 'wheel_bets.game_id', 'wheel_bets.price')
-            ->where('wheel.status', 3)
-            ->where('wheel_bets.balance', 'balance')
-            ->where(['wheel_bets.user_id' => $user->id, 'wheel_bets.win' => 0])
-            ->groupBy('wheel_bets.game_id', 'wheel_bets.price')
-            ->get()->sum('price');
-        $doubleWin = DoubleBets::join('double', 'double.id', '=', 'double_bets.game_id')
-            ->select('double.status', 'double.id', 'double_bets.game_id', 'double_bets.win_sum')
-            ->where('double.status', 3)
-            ->where('double_bets.balance', 'balance')
-            ->where(['double_bets.user_id' => $user->id, 'double_bets.win' => 1])
-            ->groupBy('double_bets.game_id', 'double_bets.win_sum')
-            ->get()->sum('win_sum');
-        $doubleLose = DoubleBets::join('double', 'double.id', '=', 'double_bets.game_id')
-            ->select('double.status', 'double.id', 'double_bets.game_id', 'double_bets.price')
-            ->where('double.status', 3)
-            ->where('double_bets.balance', 'balance')
-            ->where(['double_bets.user_id' => $user->id, 'double_bets.win' => 0])
-            ->groupBy('double_bets.game_id', 'double_bets.price')
-            ->get()->sum('price');
-        $crashWin = CrashBets::join('crash', 'crash.id', '=', 'crash_bets.round_id')
-            ->select('crash.status', 'crash.id', 'crash_bets.round_id', 'crash_bets.won')
-            ->where('crash.status', 2)
-            ->where('crash_bets.balType', 'balance')
-            ->where(['crash_bets.user_id' => $user->id, 'crash_bets.status' => 1])
-            ->groupBy('crash_bets.round_id', 'crash_bets.won')
-            ->get()->sum('won');
-        $coinWin = CoinFlip::where('winner_id', $user->id)->where('balType', 'balance')->sum('bank') / 2;
-        $coinWin = CoinFlip::where('winner_id', $user->id)->where('balType', 'balance')->sum('winner_sum') - $coinWin;
-        $battleWin = BattleBets::join('battle', 'battle.id', '=', 'battle_bets.game_id')
-            ->select('battle.status', 'battle.id', 'battle_bets.game_id', 'battle_bets.price')
-            ->where('battle.status', 3)
-            ->where('battle_bets.balType', 'balance')
-            ->where(['battle_bets.user_id' => $user->id, 'battle_bets.win' => 1])
-            ->groupBy('battle_bets.game_id', 'battle_bets.price')
-            ->get()->sum('price');
-        $battleWin = BattleBets::join('battle', 'battle.id', '=', 'battle_bets.game_id')
-            ->select('battle.status', 'battle.id', 'battle_bets.game_id', 'battle_bets.win_sum')
-            ->where('battle.status', 3)
-            ->where('battle_bets.balType', 'balance')
-            ->where(['battle_bets.user_id' => $user->id, 'battle_bets.win' => 1])
-            ->groupBy('battle_bets.game_id', 'battle_bets.win_sum')
-            ->get()->sum('win_sum') - $battleWin;
-        $diceWin = Dice::where(['user_id' => $user->id, 'balType' => 'balance', 'win' => 1])->sum('win_sum');
-        $betWin = $jackpotWin + $wheelWin + $crashWin + $coinWin + $battleWin + $diceWin;
-
-        $jackpotLose = JackpotBets::join('jackpot', 'jackpot.id', '=', 'jackpot_bets.game_id')
-            ->select('jackpot.status', 'jackpot.id', 'jackpot_bets.game_id', 'jackpot_bets.win', 'jackpot_bets.sum')
-            ->where('jackpot.status', 3)
-            ->where('jackpot_bets.balance', 'balance')
-            ->where(['user_id' => $user->id, 'win' => 0])
-            ->groupBy('jackpot_bets.game_id', 'jackpot_bets.win', 'jackpot_bets.sum')
-            ->get()->sum('sum');
-        $crashLose = CrashBets::join('crash', 'crash.id', '=', 'crash_bets.round_id')
-            ->select('crash.status', 'crash.id', 'crash_bets.round_id', 'crash_bets.price')
-            ->where('crash.status', 2)
-            ->where('crash_bets.balType', 'balance')
-            ->where(['crash_bets.user_id' => $user->id, 'crash_bets.status' => 0])
-            ->groupBy('crash_bets.round_id', 'crash_bets.price')
-            ->get()->sum('price');
-        $coinLose1 = CoinFlip::where('winner_id', '!=', $user->id)->where('balType', 'balance')->where('heads', $user->id)->where('status', 1)->count();
-        $coinLose2 = CoinFlip::where('winner_id', '!=', $user->id)->where('balType', 'balance')->where('tails', $user->id)->where('status', 1)->count();
-        $coinLose = $coinLose1 + $coinLose2;
-        $battleLose = BattleBets::join('battle', 'battle.id', '=', 'battle_bets.game_id')
-            ->select('battle.status', 'battle.id', 'battle_bets.game_id', 'battle_bets.price')
-            ->where('battle.status', 3)
-            ->where('battle_bets.balType', 'balance')
-            ->where(['battle_bets.user_id' => $user->id, 'battle_bets.win' => 0])
-            ->groupBy('battle_bets.game_id', 'battle_bets.price')
-            ->get()->sum('price');
-        $diceLose = Dice::where(['user_id' => $user->id, 'balType' => 'balance', 'win' => 0])->sum('sum');
-        $betLose = $jackpotLose + $wheelLose + $crashLose + $coinLose + $battleLose + $diceLose;
-
         $X = Exchanges::where('user_id', $user->id)->sum('sum');
         $exchanges = round($X ?? 1  / $this->settings->exchange_curs, 2);
 
@@ -1139,39 +1051,6 @@ class AdminController extends Controller
 
     public static function getChancesOfGame($gameid)
     {
-        $game = Jackpot::where('id', $gameid)->first();
-        $users = [];
-        if (!$game) return;
-        $bets = JackpotBets::where('game_id', $game->id)->orderBy('id', 'desc')->get();
-        foreach ($bets as $bet) {
-            $find = 0;
-            foreach ($users as $user) if ($user == $bet->user_id) $find++;
-            if ($find == 0) $users[] = $bet->user_id;
-        }
-
-        // get chances
-        $chances = [];
-        foreach ($users as $user) {
-            $user = User::where('id', $user)->first();
-            $value = JackpotBets::where('game_id', $game->id)->where('user_id', $user->id)->sum('sum');
-            $price = JackpotBets::where('game_id', $game->id)->sum('sum');
-            $chance = round(($value / $price) * 100);
-
-            $chances[] = [
-                'game_id' => $game->id,
-                'id' => $user->id,
-                'username' => $user->username,
-                'avatar' => $user->avatar,
-                'sum' => $value,
-                'chance' => round($chance, 2)
-            ];
-        }
-
-        usort($chances, function ($a, $b) {
-            return ($b['chance'] - $a['chance']);
-        });
-
-        return $chances;
     }
 
     public function curlPE($action, $data)

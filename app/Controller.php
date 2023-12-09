@@ -62,19 +62,11 @@ class Controller extends BaseController
     {
         $countUsers = User::count();
         $countUsersToday = User::where('created_at', '>=', Carbon::today()->setTimezone('America/Sao_Paulo'))->count();
-        $jackpot = Jackpot::where('status', 3)->orderBy('id', 'desc')->count();
-        $wheel = Wheel::where('status', 3)->orderBy('id', 'desc')->count();
-        $crash = Crash::where('status', 2)->orderBy('id', 'desc')->count();
-        $coin = CoinFlip::where('status', 1)->orderBy('id', 'desc')->count();
-        $battle = Battle::where('status', 3)->orderBy('id', 'desc')->count();
-        $dice = Dice::orderBy('id', 'desc')->count();
-        $totalGames = $jackpot + $wheel + $crash + $coin + $battle + $dice;
         $totalWithdraw = Withdraw::where('status', 1)->sum('value');
 
         $data = [
             'countUsers' => $countUsers,
             'countUsersToday' => $countUsersToday,
-            'totalGames' => $totalGames,
             'totalWithdraw' => $totalWithdraw
         ];
         return $data;
