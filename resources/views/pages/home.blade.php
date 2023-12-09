@@ -288,7 +288,7 @@
                                 @endif
 
                                 <div class="hover-game-slide">
-                                <form action="{{ secure(route('playGame', ['game_id' => $game['id'] ?? null])) }}" method="post">
+                                    <form action="{{ route('playGame', ['game_id' => $game['id'] ?? null]) }}" method="post">
                                         @csrf
                                         <button type="submit" class="play-game-slide">
                                             <svg focusable="false" aria-hidden="true" class="">
