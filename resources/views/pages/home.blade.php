@@ -276,45 +276,40 @@
                 @endphp
 
                 @foreach($chunkedJogos as $chunk)
-                    <div class="swiper-slide">
-                        @foreach($chunk as $game)
-                            <div class="game-slide">
-                                @if(isset($game['local_image']) && is_string($game['local_image']))
-                                <div class="img-game-slide" style="background-image: url('{{ $game['local_image'] }}'); background-position: center; background-size: cover;">
-                                    </div>
-                                @else
-                                <div class="img-game-slide" style="background-image: url('');">
-                                    </div>
-                                @endif
+    <div class="swiper-slide">
+        @foreach($chunk as $game)
+            <div class="game-slide">
+                @if(isset($game['local_image']) && is_string($game['local_image']))
+                    <div class="img-game-slide" style="background-image: url('{{ $game['local_image'] }}'); background-position: center; background-size: cover;"></div>
+                @else
+                    <div class="img-game-slide" style="background-image: url('');"></div>
+                @endif
 
-                                <div class="hover-game-slide">
-                                    <form action="{{ route('playGame', ['game_id' => $game['id'] ?? null]) }}" method="post">
-                                        @csrf
-                                        <button type="submit" class="play-game-slide">
-                                            <svg focusable="false" aria-hidden="true" class="">
-                                                <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play"
-                                                    class="svg-use"></use>
-                                            </svg>
-                                        </button>
-                                    </form>
+                <div class="hover-game-slide">
+                    <a href="{{ route('playGame', ['game_id' => $game['id'] ?? null]) }}" class="play-game-slide">
+                        <svg focusable="false" aria-hidden="true" class="">
+                            <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-play" class="svg-use"></use>
+                        </svg>
+                    </a>
 
-                                    <div class="provider-game-slide">
-                                        <a href="#">
-                                            @if(isset($game['name']) && is_string($game['name']))
-                                                {{ $game['name'] }}
-                                            @else
-                                                Nome do Jogo Não Disponível
-                                            @endif
-                                        </a>
-                                    </div>
-                                    <div class="provider-game-slide">
-                                        Jogue agora!
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
+                    <div class="provider-game-slide">
+                        <a href="#">
+                            @if(isset($game['name']) && is_string($game['name']))
+                                {{ $game['name'] }}
+                            @else
+                                Nome do Jogo Não Disponível
+                            @endif
+                        </a>
                     </div>
-                @endforeach
+                    <div class="provider-game-slide">
+                        Jogue agora!
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+@endforeach
+
             </div>
         </div>
     </div>
