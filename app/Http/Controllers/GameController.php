@@ -381,11 +381,11 @@ class GameController extends Controller
                 $user->update(['balance' => $resultValue / 100]);
 
                 Log::info('PlaceBet1', [
-                    '$user->balance' => $user->balance,
+                    '$resultValue' => $resultValue,
                 ]);
 
                 Log::info('PlaceBet2', [
-                    '$params' =>  $params,
+                    '$this->token' =>  $this->token,
                 ]);
 
                 $response = "<PKT>
