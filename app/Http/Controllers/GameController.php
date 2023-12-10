@@ -203,9 +203,9 @@ class GameController extends Controller
                 Log::info('webhook', [
                     '$this->token' =>  $this->token,
                 ]);
-                $user = User::where('hash_salsa', $this->token)->first();
-            }else{
                 $user = User::where('hash_salsa', $params['GameReference']['@attributes']['Value'])->first();
+            }else{
+                $user = User::where('hash_salsa', $this->token)->first();
             }
             $user = User::where('hash_salsa', $params['GameReference']['@attributes']['Value'])->first();
             $user->balance = $user->balance * 100;
