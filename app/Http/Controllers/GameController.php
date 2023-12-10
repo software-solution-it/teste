@@ -205,7 +205,7 @@ class GameController extends Controller
             <Result Name='PlaceBet' Success='0'>
                 <Returnset>
                     <Error Value='Token Expired|Error retrieving Token|Invalid request' />
-                    <ErrorCode Value='8' />
+                    <ErrorCode Value='1|2' />
                     <Balance Type='int' Value='$user->balance' />
                 </Returnset>
             </Result>
