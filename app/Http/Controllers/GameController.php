@@ -306,7 +306,7 @@ class GameController extends Controller
                     <Result Name='GetBalance' Success='1'>
                         <Returnset>
                             <Token Type='string' Value='$user->salsa_token' />
-                            <Balance Type='int' Value='$user->balance' />
+                            <Balance Type='int' Value='800' />
                             <Currency Type='string' Value='BRL' />
                         </Returnset>
                     </Result>
@@ -338,8 +338,6 @@ class GameController extends Controller
 
     public function PlaceBet($params, $user){
 
-        $user->update(['balance' => ($user->balance / 100) - intval($params['BetAmount']['@attributes']['Value']) / 100]);
-
         $resultValue = $user->balance - intval($params['BetAmount']['@attributes']['Value']);
 
         Log::info('Token', [
@@ -354,7 +352,7 @@ class GameController extends Controller
                     <Result Name='PlaceBet' Success='1'>
                         <Returnset>
                             <Token Type='string' Value='$user->salsa_token' />
-                            <Balance Type='int' Value='$resultValue' />
+                            <Balance Type='int' Value='1000' />
                             <Currency Type='string' Value='BRL' />
                             <ExtTransactionID Type='long' Value='{$params['TransactionID']['@attributes']['Value']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
