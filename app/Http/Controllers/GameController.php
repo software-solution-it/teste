@@ -199,11 +199,10 @@ class GameController extends Controller
         $this->hash = $params['Hash']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
         if($user == null){
-            $user = User::where('hash_salsa', $this->hash)->first();
             Log::info('$params', [
-                'Entrou no if' =>  $user->hash_salsa,
-                
+                '$this->hash' =>  $this->hash,
             ]);
+            $user = User::where('hash_salsa', $this->hash)->first();
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
                 <Returnset>
