@@ -196,6 +196,10 @@ class GameController extends Controller
         $params = $array['Method']['Params'];
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
+        Log::info('$params', [
+            '$params' => $params,
+            'Token' => $this->token
+        ]);
         if($user == null){
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
@@ -399,12 +403,6 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
-
-        Log::info('Token', [
-            '$params' => $params,
-            '$response' => $response,
-            '$user' => $user
-        ]);
     
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
