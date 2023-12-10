@@ -350,7 +350,7 @@ class GameController extends Controller
     }
 
     public function PlaceBet($params, $user){
-        $user->update(['balance' => ($user->balance / 100) - intval($params['BetAmount']['@attributes']['Value'])]);
+        $user->update(['balance' => ($user->balance / 100) - ((float)$params['BetAmount']['@attributes']['Value'])]);
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
