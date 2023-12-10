@@ -237,6 +237,11 @@ class GameController extends Controller
 
         $computedHash = hash('sha256', $flattenedParams . $token);
 
+        Log::info('compareHash', [
+            '$flattenedParams' => $flattenedParams,
+        ]);
+
+
         Log::info('compareHash1', [
             '$computedHash' => $computedHash,
         ]);
