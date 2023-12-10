@@ -194,15 +194,15 @@ class GameController extends Controller
 
         $method = $array['Method']['@attributes']['Name'];
         $params = $array['Method']['Params'];
-
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
         if($user == null){
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
                 <Returnset>
-                    <Error Value='Token Expired' />
+                    <Error Value='Token Expired|Error retrieving Token|Invalid request' />
                     <ErrorCode Value='8' />
+                    <Balance Type='int' Value='$this->balance' />
                 </Returnset>
             </Result>
         </PKT>";
@@ -310,6 +310,7 @@ class GameController extends Controller
     
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
+                $this->balance = $user->balance;
                 $response = "<PKT>
                     <Result Name='GetBalance' Success='1'>
                         <Returnset>
