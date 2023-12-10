@@ -197,8 +197,8 @@ class GameController extends Controller
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
         Log::info('$params', [
-            '$params' => $params,
-            'Token' => $this->token
+            'Token' => $this->token,
+            
         ]);
         if($user == null){
             $response = "<PKT>
