@@ -236,8 +236,12 @@ class GameController extends Controller
         $flattenedParams = $this->flattenArray($params);
 
         $computedHash = hash('sha256', $flattenedParams . $token);
-    
-        return  $computedHash;
+
+        if($computedHash == $params['Hash']['@attributes']['Value']){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     protected function flattenArray($array) {
@@ -351,11 +355,9 @@ class GameController extends Controller
                     return response($response)
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
-                if ($this->token == 'gpi-validation') {
+
                     $resultValue = $user->balance;
-                }else{
                     $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
-                }
 
                 $user->update(['balance' => $resultValue / 100]);
 
