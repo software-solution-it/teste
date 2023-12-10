@@ -338,19 +338,17 @@ class GameController extends Controller
 
     public function PlaceBet($params, $user){
 
-        Log::info('Token', [
-            '$user->balance ' => $user->balance,
-            'BetAmount' => intval($params['BetAmount']['@attributes']['Value']) / 100
-        ]);
+        $user->update(['balance' => ($user->balance / 100) - intval($params['BetAmount']['@attributes']['Value']) / 100]);
 
-        $user->update(['balance' => ($user->balance / 100) - intval($params['BetAmount']['@attributes']['Value'])]);
+        $resultValue = $user->balance - intval($params['BetAmount']['@attributes']['Value']);
+
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
                     <Result Name='PlaceBet' Success='1'>
                         <Returnset>
                             <Token Type='string' Value='$user->salsa_token' />
-                            <Balance Type='int' Value='$user->balance' />
+                            <Balance Type='int' Value='$resultValue' />
                             <Currency Type='string' Value='BRL' />
                             <ExtTransactionID Type='long' Value='{$params['TransactionID']['@attributes']['Value']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
