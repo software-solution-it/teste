@@ -381,14 +381,18 @@ class GameController extends Controller
     }
 
     public function AwardWinnings($params, $user){
-        $user->update(['balance' => ($user->balance / 100) + ($params['WinAmount']['@attributes']['Value'] / 100)]);
+
+        $resultValue = $user->balance + $params['WinAmount']['@attributes']['Value'];
+
+        $user->update(['balance' => $resultValue / 100]);
+
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
                     <Result Name='AwardWinnings' Success='1'>
                         <Returnset>
                             <Token Type='string' Value='$user->salsa_token' />
-                            <Balance Type='int' Value='$user->balance' />
+                            <Balance Type='int' Value='$resultValue' />
                             <Currency Type='string' Value='BRL' />
                             <ExtTransactionID Type='long' Value='{$params['TransactionID']['@attributes']['Value']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
