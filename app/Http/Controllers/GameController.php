@@ -338,6 +338,11 @@ class GameController extends Controller
 
     public function PlaceBet($params, $user){
 
+        Log::info('Token', [
+            '$user->balance ' => $user->balance,
+            'BetAmount' => intval($params['BetAmount']['@attributes']['Value'])
+        ]);
+
         $user->update(['balance' => ($user->balance / 100) - intval($params['BetAmount']['@attributes']['Value'])]);
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
