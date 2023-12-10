@@ -15,6 +15,7 @@ class GameController extends Controller
     private $balance;
     private $token;
     private $userLogged;
+    private $hash;
 
     public function __construct()
     {
@@ -195,19 +196,21 @@ class GameController extends Controller
         $method = $array['Method']['@attributes']['Name'];
         $params = $array['Method']['Params'];
         $this->token = $params['Token']['@attributes']['Value'];
+        $this->hash = $params['Hash']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
         Log::info('$params', [
             '$params' => $params,
-            'Token' => $this->token,
+            'Hash' => $this->hash,
             
         ]);
         if($user == null){
+            $user = User::where('hash_token', $this->hash)->first();
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
                 <Returnset>
                     <Error Value='Token Expired|Error retrieving Token|Invalid request' />
                     <ErrorCode Value='8' />
-                    <Balance Type='int' Value='$this->balance' />
+                    <Balance Type='int' Value='$user->balance' />
                 </Returnset>
             </Result>
         </PKT>";
@@ -249,10 +252,12 @@ class GameController extends Controller
         endswitch;
     }
 
-    public function compareHash($params, $token) {      
+    public function compareHash($params, $token, $user) {      
         $flattenedParams = $this->flattenArray($params);
 
         $computedHash = hash('sha256', $flattenedParams . $token);
+
+        $user->update(['hash_salsa' => $computedHash]);
     
         return  $computedHash;
     }
@@ -271,7 +276,7 @@ class GameController extends Controller
     
         if ($this->token) {
             
-            if ($this->compareHash($params, $user->salsa_token)) {
+            if ($this->compareHash($params, $user->salsa_token, $user)) {
                 $response = "<PKT>
                     <Result Name='GetAccountDetails' Success='1'>
                         <Returnset>
@@ -314,7 +319,7 @@ class GameController extends Controller
     public function GetBalance($params, $user){
     
         if ($this->token) {
-            if ($this->compareHash($params, $this->token)) {
+            if ($this->compareHash($params, $this->token, $user)) {
                 $this->balance = $user->balance;
                 $response = "<PKT>
                     <Result Name='GetBalance' Success='1'>
@@ -352,7 +357,7 @@ class GameController extends Controller
 
     public function PlaceBet($params, $user){
         if ($this->token) {
-            if ($this->compareHash($params, $this->token)) {
+            if ($this->compareHash($params, $this->token, $user)) {
                 
                 if($user->balance < $params['BetAmount']['@attributes']['Value']){
                     $response = "<PKT>
@@ -416,7 +421,7 @@ class GameController extends Controller
         $user->update(['balance' => $resultValue / 100]);
 
         if ($this->token) {
-            if ($this->compareHash($params, $this->token)) {
+            if ($this->compareHash($params, $this->token, $user)) {
                 $response = "<PKT>
                     <Result Name='AwardWinnings' Success='1'>
                         <Returnset>
@@ -460,7 +465,7 @@ class GameController extends Controller
         $user->update(['balance' => $resultValue / 100]);
 
         if ($this->token) {
-            if ($this->compareHash($params, $this->token)) {
+            if ($this->compareHash($params, $this->token, $user)) {
                 $response = "<PKT>
                     <Result Name='RefundBet' Success='1'>
                         <Returnset>
@@ -502,7 +507,7 @@ class GameController extends Controller
     public function ChangeGameToken($params, $user){
     
         if ($this->token) {
-            if ($this->compareHash($params, $this->token)) {
+            if ($this->compareHash($params, $this->token, $user)) {
                 $response = "<PKT>
                     <Result Name='ChangeGameToken' Success='1'>
                         <Returnset>
