@@ -512,12 +512,12 @@ public function playGame($game_id)
 
     $token = Uuid::uuid5($namespace, $userLogged)->toString();
 
-    Log::info('Token', [
-        'Send Token to Api' => $this->token,
-    ]);
-
 
     $url = "https://api-test.salsagator.com/game?token=$token&pn={$game->pn}&lang={$game->lang}&game={$game->game}";
+
+    Log::info('Token', [
+        'Send Token to Api' => $token,
+    ]);
 
     User::where('username', $userLogged)->update(['salsa_token' => $token]);
 
