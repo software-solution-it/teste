@@ -198,13 +198,12 @@ class GameController extends Controller
         $this->token = $params['Token']['@attributes']['Value'];
         $this->hash = $params['Hash']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
-        Log::info('$params', [
-            'Hash' => $this->hash,
-            
-        ]);
-        $user->update(['hash_salsa' => $this->hash]);
         if($user == null){
             $user = User::where('hash_salsa', $this->hash)->first();
+            Log::info('$params', [
+                'Entrou no if' =>  $user->hash_salsa,
+                
+            ]);
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
                 <Returnset>
@@ -256,6 +255,8 @@ class GameController extends Controller
         $flattenedParams = $this->flattenArray($params);
 
         $computedHash = hash('sha256', $flattenedParams . $token);
+
+        $user->update(['hash_salsa' => $computedHash]);
     
         return  $computedHash;
     }
