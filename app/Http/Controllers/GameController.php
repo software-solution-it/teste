@@ -237,6 +237,14 @@ class GameController extends Controller
 
         $computedHash = hash('sha256', $flattenedParams . $token);
 
+        Log::info('compareHash1', [
+            '$computedHash' => $computedHash,
+        ]);
+
+        Log::info('compareHash2', [
+            $params => $params,
+        ]);
+
         if($computedHash == $params['Hash']['@attributes']['Value']){
             return true;
         }else{
@@ -360,14 +368,6 @@ class GameController extends Controller
                     $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
 
                 $user->update(['balance' => $resultValue / 100]);
-
-                Log::info('PlaceBet1', [
-                    '$resultValue' => $resultValue,
-                ]);
-
-                Log::info('PlaceBet2', [
-                    '$this->token' =>  $this->token,
-                ]);
 
                 $response = "<PKT>
                     <Result Name='PlaceBet' Success='1'>
