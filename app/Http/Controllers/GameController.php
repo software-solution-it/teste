@@ -232,18 +232,29 @@ class GameController extends Controller
         endswitch;
     }
 
-    public function compareHash($params, $token) {      
+    public function compareHash($params, $token) {   
+
+        unset($params['Hash']);
+
+        Log::info('$params', [
+            '$params' => $params,
+        ]);
+        
         $flattenedParams = $this->flattenArray($params);
+
+        Log::info('$flattenedParams', [
+            '$flattenedParams' => $flattenedParams,
+        ]);
+
+        Log::info('comcat', [
+            'comcat' => $flattenedParams . $token,
+        ]);
 
         $computedHash = hash('sha256', $flattenedParams . $token);
 
 
-        Log::info('compareHash1', [
+        Log::info('$computedHash', [
             '$computedHash' => $computedHash,
-        ]);
-
-        Log::info('compareHash2', [
-            '$params' => $params,
         ]);
 
         if($computedHash == $params['Hash']['@attributes']['Value']){
