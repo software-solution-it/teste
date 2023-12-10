@@ -198,10 +198,14 @@ class GameController extends Controller
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
 
-        if($user == null){
+        if ($this->token == ':token' || strpos($this->token, ':token') || strpos($this->token, 'salsa') !== false) {
             Log::info('$params', [
-                '$this->hash' =>  $params['Hash']['@attributes']['Value'],
+                '$params' =>  $params,
             ]);
+        };
+        
+
+        if($user == null){
             $user = User::where('hash_salsa', $params['Hash']['@attributes']['Value'])->first();
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
@@ -216,10 +220,6 @@ class GameController extends Controller
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
         }
-
-        Log::info('$user->balance', [
-            '$user->balance' =>  $user->balance,
-        ]);
 
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
@@ -255,15 +255,7 @@ class GameController extends Controller
         endswitch;
     }
 
-    public function compareHash($params, $token) {      
-        $flattenedParams = $this->flattenArray($params);
-
-        $computedHash = hash('sha256', $flattenedParams . $token);
-    
-        return  $computedHash;
-    }
-
-    public function updateHasg($params, $token, $user) {      
+    public function updateHash($params, $token, $user) {      
         $flattenedParams = $this->flattenArray($params);
 
         $computedHash = hash('sha256', $flattenedParams . $token);
