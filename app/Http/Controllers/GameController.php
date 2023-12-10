@@ -202,12 +202,6 @@ class GameController extends Controller
             'Token retrieved from webhook' => $this->token,
         ]);
 
-        Log::info('User retrieved from database', ['user' => $user]);
-
-        Log::info('Response GetAccountDetails2', [
-            '$user->balance' => $user->balance,
-        ]);
-
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
 
@@ -343,9 +337,6 @@ class GameController extends Controller
     }
 
     public function PlaceBet($params, $user){
-        Log::info('Response GetAccountDetails2', [
-            'BetAmount' => $params['BetAmount']['@attributes']['Value']
-        ]);
 
         $user->update(['balance' => ($user->balance / 100) - intval($params['BetAmount']['@attributes']['Value'])]);
         if ($this->token) {
@@ -521,13 +512,14 @@ public function playGame($game_id)
 
     $token = Uuid::uuid5($namespace, $userLogged)->toString();
 
+    Log::info('Token', [
+        'Send Token to Api' => $this->token,
+    ]);
+
+
     $url = "https://api-test.salsagator.com/game?token=$token&pn={$game->pn}&lang={$game->lang}&game={$game->game}";
 
     User::where('username', $userLogged)->update(['salsa_token' => $token]);
-
-    Log::info('Response playGame', [
-        'playGame' => $url,
-    ]);
 
     return view('pages.superHotBingo', compact('url'));
 }
