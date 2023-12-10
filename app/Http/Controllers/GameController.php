@@ -222,10 +222,6 @@ class GameController extends Controller
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
 
-        Log::info('$method', [
-            '$method' =>  $method,
-        ]);
-
         switch ($method):
 
             case 'GetAccountDetails':
@@ -376,8 +372,11 @@ class GameController extends Controller
                     return response($response)
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
-                
-                $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
+                if (isset($params['GameReference']) && $params['GameReference']['@attributes']['Value'] == 'gpi-validation') {
+                    $resultValue = $user->balance;
+                }else{
+                    $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
+                }
                 $user->update(['balance' => $resultValue / 100]);
 
                 Log::info('PlaceBet1', [
