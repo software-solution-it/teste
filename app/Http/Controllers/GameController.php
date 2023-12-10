@@ -337,22 +337,28 @@ class GameController extends Controller
     }
 
     public function PlaceBet($params, $user){
-
         if ($this->token) {
+            if ($this->compareHash($params, $this->token)) {
+                
+                if($user->balance < $params['BetAmount']['@attributes']['Value']){
+                    $response = "<PKT>
+                        <Result Name='PlaceBet' Success='0'>
+                            <Returnset>
+                                <Error Value='Not enoght credits|Insufficient funds' />
+                                <ErrorCode Value='6' />
+                                <Balance Type='int' Value='$user->balance' />
+                            </Returnset>
+                        </Result>
+                    </PKT>";
+    
+                    return response($response)
+                    ->header('Content-Type', 'text/xml; charset=UTF-8');
+                };
 
-            if($user->balance <= 0){
-                $response = "<PKT>
-                    <Result Name='PlaceBet' Success='0'>
-                        <Returnset>
-                            <Error Value='Not enoght credits|Insufficient funds' />
-                            <ErrorCode Value='6' />
-                            <Balance Type='int' Value='$user->balance' />
-                        </Returnset>
-                    </Result>
-                </PKT>";
-            }elseif ($this->compareHash($params, $this->token)) {
+                
                 $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
                 $user->update(['balance' => $resultValue / 100]);
+
                 $response = "<PKT>
                     <Result Name='PlaceBet' Success='1'>
                         <Returnset>
