@@ -376,8 +376,8 @@ class GameController extends Controller
                     $resultValue = $user->balance;
                 }else{
                     $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
+                    $user->update(['balance' => $resultValue / 100]);
                 }
-                $user->update(['balance' => $resultValue / 100]);
 
                 Log::info('PlaceBet1', [
                     '$user->balance' => $user->balance,
