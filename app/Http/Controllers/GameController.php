@@ -203,9 +203,11 @@ class GameController extends Controller
                 '$params' =>  $params,
             ]);
         };
-        
 
         if($user == null){
+            Log::info('$params', [
+                '$this->hash' =>  $params['Hash']['@attributes']['Value'],
+            ]);
             $user = User::where('hash_salsa', $params['Hash']['@attributes']['Value'])->first();
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
@@ -255,10 +257,23 @@ class GameController extends Controller
         endswitch;
     }
 
+    public function compareHash($params, $token) {      
+        $flattenedParams = $this->flattenArray($params);
+
+        $computedHash = hash('sha256', $flattenedParams . $token);
+    
+        return  $computedHash;
+    }
+
     public function updateHash($params, $token, $user) {      
         $flattenedParams = $this->flattenArray($params);
 
         $computedHash = hash('sha256', $flattenedParams . $token);
+
+        Log::info('$user->HASH NOVO', [
+            '$user->HASH NOVO' =>  $params['Hash']['@attributes']['Value'],
+            '$computedHash' => $computedHash
+        ]);
 
         $user->update(['hash_salsa' => $computedHash]);
     
