@@ -372,12 +372,13 @@ class GameController extends Controller
                     return response($response)
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
-                if (isset($params['GameReference']) && $params['GameReference']['@attributes']['Value'] == 'gpi-validation') {
+                if ($this->token == 'gpi-validation') {
                     $resultValue = $user->balance;
                 }else{
                     $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
-                    $user->update(['balance' => $resultValue / 100]);
                 }
+
+                $user->update(['balance' => $resultValue / 100]);
 
                 Log::info('PlaceBet1', [
                     '$user->balance' => $user->balance,
