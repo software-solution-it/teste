@@ -199,11 +199,8 @@ class GameController extends Controller
         $user = User::where('salsa_token', $this->token)->first();
 
         if($user == null){
-            Log::info('$params', [
-                '$params' =>  $params['GameReference']['@attributes']['Value'],
-            ]);
-
             $user = User::where('hash_salsa', $params['GameReference']['@attributes']['Value'])->first();
+            $user->balance = $user->balance * 100;
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
                 <Returnset>
