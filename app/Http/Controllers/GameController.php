@@ -200,15 +200,16 @@ class GameController extends Controller
 
         if($user == null){
             Log::info('$params', [
-                '$params' =>  $params,
+                '$params' =>  $params['GameReference']['@attributes']['Value'],
             ]);
-            $user = User::where('hash_salsa', $params['Hash']['@attributes']['Value'])->first();
+
+            $user = User::where('hash_salsa', $params['GameReference']['@attributes']['Value'])->first();
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
                 <Returnset>
                     <Error Value='Token Expired|Error retrieving Token|Invalid request' />
                     <ErrorCode Value='8' />
-                    <Balance Type='int' Value='0' />
+                    <Balance Type='int' Value='$user->balance' />
                 </Returnset>
             </Result>
         </PKT>";
@@ -216,6 +217,8 @@ class GameController extends Controller
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
         }
+
+        $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
 
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
@@ -255,21 +258,6 @@ class GameController extends Controller
         $flattenedParams = $this->flattenArray($params);
 
         $computedHash = hash('sha256', $flattenedParams . $token);
-    
-        return  $computedHash;
-    }
-
-    public function updateHash($params, $token, $user) {      
-        $flattenedParams = $this->flattenArray($params);
-
-        $computedHash = hash('sha256', $flattenedParams . $token);
-
-        Log::info('$user->HASH NOVO', [
-            '$user->HASH NOVO' =>  $params['Hash']['@attributes']['Value'],
-            '$computedHash' => $computedHash
-        ]);
-
-        $user->update(['hash_salsa' => $computedHash]);
     
         return  $computedHash;
     }
