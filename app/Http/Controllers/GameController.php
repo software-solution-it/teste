@@ -340,8 +340,6 @@ class GameController extends Controller
 
         $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
 
-        $user->update(['balance' => $resultValue / 100]);
-
         if ($this->token) {
 
             if($user->balance <= 0){
@@ -350,11 +348,12 @@ class GameController extends Controller
                         <Returnset>
                             <Error Value='Not enoght credits|Insufficient funds' />
                             <ErrorCode Value='6' />
-                            <Balance Type='int' Value='$resultValue' />
+                            <Balance Type='int' Value='$user->balance' />
                         </Returnset>
                     </Result>
                 </PKT>";
             }elseif ($this->compareHash($params, $this->token)) {
+                $user->update(['balance' => $resultValue / 100]);
                 $response = "<PKT>
                     <Result Name='PlaceBet' Success='1'>
                         <Returnset>
