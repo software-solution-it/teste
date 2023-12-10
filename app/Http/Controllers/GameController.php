@@ -198,15 +198,9 @@ class GameController extends Controller
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
 
-        if ($this->token == ':token' || strpos($this->token, ':token') || strpos($this->token, 'salsa') !== false) {
-            Log::info('$params', [
-                '$params' =>  $params,
-            ]);
-        };
-
         if($user == null){
             Log::info('$params', [
-                '$this->hash' =>  $params['Hash']['@attributes']['Value'],
+                '$params' =>  $params,
             ]);
             $user = User::where('hash_salsa', $params['Hash']['@attributes']['Value'])->first();
             $response = "<PKT>
@@ -295,6 +289,11 @@ class GameController extends Controller
         if ($this->token) {
             
             if ($this->compareHash($params, $user->salsa_token)) {
+
+                Log::info('getAccountDetails', [
+                    'getAccountDetails' =>  $params['Hash']['@attributes']['Value'],
+                ]);
+
                 $response = "<PKT>
                     <Result Name='GetAccountDetails' Success='1'>
                         <Returnset>
