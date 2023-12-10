@@ -236,6 +236,8 @@ class GameController extends Controller
 
         $hash = $params['Hash']['@attributes']['Value'];
 
+        $secret = 'fc8b096c103702de9fa03833993f91dd';
+
         unset($params['Hash']);
 
         Log::info('$params', [
@@ -249,10 +251,10 @@ class GameController extends Controller
         ]);
 
         Log::info('comcat', [
-            'comcat' => $flattenedParams . 'fc8b096c103702de9fa03833993f91dd',
+            'comcat' => $flattenedParams . $secret,
         ]);
 
-        $computedHash = hash('sha256', $flattenedParams . 'fc8b096c103702de9fa03833993f91dd');
+        $computedHash = hash('sha256', $flattenedParams . $secret);
 
 
         Log::info('$computedHash', [
