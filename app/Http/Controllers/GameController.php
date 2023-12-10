@@ -342,6 +342,12 @@ class GameController extends Controller
 
         $resultValue = $user->balance - intval($params['BetAmount']['@attributes']['Value']);
 
+        Log::info('Token', [
+            '$user->balance ' => $user->balance,
+            'BetAmount' => intval($params['BetAmount']['@attributes']['Value']),
+            '$resultValue' => $resultValue
+        ]);
+
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
