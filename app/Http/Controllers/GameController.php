@@ -222,6 +222,10 @@ class GameController extends Controller
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
 
+        Log::info('$method', [
+            '$method' =>  $method,
+        ]);
+
         switch ($method):
 
             case 'GetAccountDetails':
@@ -276,10 +280,6 @@ class GameController extends Controller
         if ($this->token) {
             
             if ($this->compareHash($params, $user->salsa_token)) {
-
-                Log::info('getAccountDetails', [
-                    'getAccountDetails' =>  $params['Hash']['@attributes']['Value'],
-                ]);
 
                 $response = "<PKT>
                     <Result Name='GetAccountDetails' Success='1'>
