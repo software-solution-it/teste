@@ -218,7 +218,7 @@ class GameController extends Controller
         ->header('Content-Type', 'text/xml; charset=UTF-8');
         }
 
-        if($params['GameReference']['@attributes']['Value'] != null){
+        if($params['GameReference'] != null){
         $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
         }
 
