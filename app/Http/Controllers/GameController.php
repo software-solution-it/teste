@@ -237,10 +237,6 @@ class GameController extends Controller
 
         $computedHash = hash('sha256', $flattenedParams . $token);
 
-        Log::info('compareHash', [
-            '$flattenedParams' => $flattenedParams,
-        ]);
-
 
         Log::info('compareHash1', [
             '$computedHash' => $computedHash,
@@ -259,10 +255,18 @@ class GameController extends Controller
 
     protected function flattenArray($array) {
         $result = [];
+
+        Log::info('$array', [
+            '$array' => $array,
+        ]);
     
         foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($array)) as $value) {
             $result[] = $value;
         }
+
+        Log::info('$result', [
+            '$result' => $result,
+        ]);
     
         return implode('', $result);
     }
