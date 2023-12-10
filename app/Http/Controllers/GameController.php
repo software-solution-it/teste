@@ -340,7 +340,7 @@ class GameController extends Controller
 
         Log::info('Token', [
             '$user->balance ' => $user->balance,
-            'BetAmount' => intval($params['BetAmount']['@attributes']['Value'])
+            'BetAmount' => intval($params['BetAmount']['@attributes']['Value']) / 100
         ]);
 
         $user->update(['balance' => ($user->balance / 100) - intval($params['BetAmount']['@attributes']['Value'])]);
