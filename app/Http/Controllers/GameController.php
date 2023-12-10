@@ -234,6 +234,8 @@ class GameController extends Controller
 
     public function compareHash($params, $token) {   
 
+        $hash = $params['Hash']['@attributes']['Value'];
+
         unset($params['Hash']);
 
         Log::info('$params', [
@@ -257,7 +259,11 @@ class GameController extends Controller
             '$computedHash' => $computedHash,
         ]);
 
-        if($computedHash == $params['Hash']['@attributes']['Value']){
+        Log::info('$hash', [
+            '$hash' => $hash,
+        ]);
+
+        if($computedHash == $hash){
             return true;
         }else{
             return false;
@@ -266,20 +272,12 @@ class GameController extends Controller
 
     protected function flattenArray($array) {
         $result = [];
-
-        Log::info('$array', [
-            '$array' => $array,
-        ]);
     
         foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($array)) as $value) {
             if ($value !== 'string') {
                 $result[] = $value;
             }
         }
-
-        Log::info('$result', [
-            '$result' => $result,
-        ]);
     
         return implode('', $result);
     }
