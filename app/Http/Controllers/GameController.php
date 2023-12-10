@@ -376,10 +376,17 @@ class GameController extends Controller
                     return response($response)
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
-
                 
                 $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
                 $user->update(['balance' => $resultValue / 100]);
+
+                Log::info('PlaceBet1', [
+                    '$user->balance' => $user->balance,
+                ]);
+
+                Log::info('PlaceBet2', [
+                    '$params' =>  $params,
+                ]);
 
                 $response = "<PKT>
                     <Result Name='PlaceBet' Success='1'>
