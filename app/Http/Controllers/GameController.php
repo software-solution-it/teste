@@ -249,10 +249,10 @@ class GameController extends Controller
         ]);
 
         Log::info('comcat', [
-            'comcat' => $flattenedParams . $token,
+            'comcat' => $flattenedParams . 'fc8b096c103702de9fa03833993f91dd',
         ]);
 
-        $computedHash = hash('sha256', $flattenedParams . $token);
+        $computedHash = hash('sha256', $flattenedParams . 'fc8b096c103702de9fa03833993f91dd');
 
 
         Log::info('$computedHash', [
