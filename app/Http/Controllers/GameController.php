@@ -272,7 +272,9 @@ class GameController extends Controller
         ]);
     
         foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($array)) as $value) {
-            $result[] = $value;
+            if ($value !== 'string') {
+                $result[] = $value;
+            }
         }
 
         Log::info('$result', [
