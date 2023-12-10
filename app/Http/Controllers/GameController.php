@@ -306,7 +306,7 @@ class GameController extends Controller
                     <Result Name='GetBalance' Success='1'>
                         <Returnset>
                             <Token Type='string' Value='$user->salsa_token' />
-                            <Balance Type='int' Value='800' />
+                            <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
                         </Returnset>
                     </Result>
@@ -352,7 +352,7 @@ class GameController extends Controller
                     <Result Name='PlaceBet' Success='1'>
                         <Returnset>
                             <Token Type='string' Value='$user->salsa_token' />
-                            <Balance Type='int' Value='1000' />
+                            <Balance Type='int' Value='$user->balance' />
                             <Currency Type='string' Value='BRL' />
                             <ExtTransactionID Type='long' Value='{$params['TransactionID']['@attributes']['Value']}' />
                             <AlreadyProcessed Type='bool' Value='true' />
