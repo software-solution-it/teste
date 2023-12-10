@@ -197,6 +197,11 @@ class GameController extends Controller
 
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
+
+        Log::info('Response GetAccountDetails2', [
+            '$user->balance' => $user->balance,
+        ]);
+
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
 
@@ -333,7 +338,6 @@ class GameController extends Controller
 
     public function PlaceBet($params, $user){
         Log::info('Response GetAccountDetails2', [
-            '$user->balance' => $user->balance / 100,
             'BetAmount' => $params['BetAmount']['@attributes']['Value']
         ]);
 
