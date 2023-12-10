@@ -202,6 +202,7 @@ class GameController extends Controller
             'Hash' => $this->hash,
             
         ]);
+        $user->update(['hash_salsa' => $this->hash]);
         if($user == null){
             $user = User::where('hash_salsa', $this->hash)->first();
             $response = "<PKT>
@@ -255,13 +256,6 @@ class GameController extends Controller
         $flattenedParams = $this->flattenArray($params);
 
         $computedHash = hash('sha256', $flattenedParams . $token);
-
-        $user->update(['hash_salsa' => $computedHash]);
-
-        Log::info('$params', [
-            'hash_salsa_update' => $computedHash,
-            
-        ]);
     
         return  $computedHash;
     }

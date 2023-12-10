@@ -53,7 +53,9 @@ class User extends Authenticatable
         'neighborhood',
         'city',
         'federal_unit',
-        'number_phone'
+        'number_phone',
+        'salsa_token',
+        'hash_salsa'
     ];
 
     protected $hidden = ['remember_token'];
