@@ -198,10 +198,6 @@ class GameController extends Controller
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
 
-        Log::info('Token', [
-            'Token retrieved from webhook' => $this->token,
-        ]);
-
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
 
@@ -390,6 +386,12 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
+
+        Log::info('Token', [
+            '$params' => $params,
+            '$response' => $response,
+            '$user' => $user
+        ]);
     
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
