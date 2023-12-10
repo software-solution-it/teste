@@ -15,7 +15,6 @@ class GameController extends Controller
     private $balance;
     private $token;
     private $userLogged;
-    private $hash;
 
     public function __construct()
     {
@@ -195,15 +194,15 @@ class GameController extends Controller
 
         $method = $array['Method']['@attributes']['Name'];
         $params = $array['Method']['Params'];
+
         $this->token = $params['Token']['@attributes']['Value'];
-        $this->hash = $params['Hash']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
+
         if($user == null){
-            $this->compareHash($params, $this->token, $user);
             Log::info('$params', [
-                '$this->hash' =>  $this->hash,
+                '$this->hash' =>  $params['Hash']['@attributes']['Value'],
             ]);
-            $user = User::where('hash_salsa', $this->hash)->first();
+            $user = User::where('hash_salsa', $params['Hash']['@attributes']['Value'])->first();
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
                 <Returnset>
@@ -217,6 +216,11 @@ class GameController extends Controller
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
         }
+
+        Log::info('$user->balance', [
+            '$user->balance' =>  $user->balance,
+        ]);
+
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
 
@@ -251,7 +255,15 @@ class GameController extends Controller
         endswitch;
     }
 
-    public function compareHash($params, $token, $user) {      
+    public function compareHash($params, $token) {      
+        $flattenedParams = $this->flattenArray($params);
+
+        $computedHash = hash('sha256', $flattenedParams . $token);
+    
+        return  $computedHash;
+    }
+
+    public function updateHasg($params, $token, $user) {      
         $flattenedParams = $this->flattenArray($params);
 
         $computedHash = hash('sha256', $flattenedParams . $token);
@@ -275,7 +287,7 @@ class GameController extends Controller
     
         if ($this->token) {
             
-            if ($this->compareHash($params, $user->salsa_token, $user)) {
+            if ($this->compareHash($params, $user->salsa_token)) {
                 $response = "<PKT>
                     <Result Name='GetAccountDetails' Success='1'>
                         <Returnset>
@@ -318,8 +330,7 @@ class GameController extends Controller
     public function GetBalance($params, $user){
     
         if ($this->token) {
-            if ($this->compareHash($params, $this->token, $user)) {
-                $this->balance = $user->balance;
+            if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
                     <Result Name='GetBalance' Success='1'>
                         <Returnset>
@@ -356,7 +367,7 @@ class GameController extends Controller
 
     public function PlaceBet($params, $user){
         if ($this->token) {
-            if ($this->compareHash($params, $this->token, $user)) {
+            if ($this->compareHash($params, $this->token)) {
                 
                 if($user->balance < $params['BetAmount']['@attributes']['Value']){
                     $response = "<PKT>
@@ -408,6 +419,8 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
+
+        
     
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
@@ -420,7 +433,7 @@ class GameController extends Controller
         $user->update(['balance' => $resultValue / 100]);
 
         if ($this->token) {
-            if ($this->compareHash($params, $this->token, $user)) {
+            if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
                     <Result Name='AwardWinnings' Success='1'>
                         <Returnset>
@@ -464,7 +477,7 @@ class GameController extends Controller
         $user->update(['balance' => $resultValue / 100]);
 
         if ($this->token) {
-            if ($this->compareHash($params, $this->token, $user)) {
+            if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
                     <Result Name='RefundBet' Success='1'>
                         <Returnset>
@@ -506,7 +519,7 @@ class GameController extends Controller
     public function ChangeGameToken($params, $user){
     
         if ($this->token) {
-            if ($this->compareHash($params, $this->token, $user)) {
+            if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
                     <Result Name='ChangeGameToken' Success='1'>
                         <Returnset>
