@@ -275,15 +275,19 @@ class GameController extends Controller
     protected function flattenArray($array) {
         $result = [];
     
-        foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($array)) as $value) {
-            if ($value !== 'string') {
-                $result[] = $value;
+        foreach ($array as $value) {
+            if (is_array($value) && isset($value['@attributes']['Value'])) {
+                $result[] = $value['@attributes']['Value'];
+            } else {
+                $result[] = strval($value);
             }
         }
-    
+        Log::info('flattenArray', [
+            'flattenArray' => $result,
+        ]);
+
         return implode('', $result);
     }
-    
     public function getAccountDetails($params, $user) {
     
         if ($this->token) {
