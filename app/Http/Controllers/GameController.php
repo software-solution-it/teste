@@ -350,6 +350,7 @@ class GameController extends Controller
                         <Returnset>
                             <Error Value='Not enoght credits|Insufficient funds' />
                             <ErrorCode Value='6' />
+                            <Balance Type='int' Value='$resultValue' />
                         </Returnset>
                     </Result>
                 </PKT>";
