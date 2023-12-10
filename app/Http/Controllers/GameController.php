@@ -200,12 +200,6 @@ class GameController extends Controller
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
 
-        Log::info('webhook called', [
-            '$method' => $method,
-            '$user' => $user,
-
-        ]);
-
         switch ($method):
 
             case 'GetAccountDetails':
@@ -241,10 +235,6 @@ class GameController extends Controller
         $flattenedParams = $this->flattenArray($params);
 
         $computedHash = hash('sha256', $flattenedParams . $token);
-
-        Log::info('compareHash called', [
-            '$computedHash' => $computedHash,
-        ]);
     
         return  $computedHash;
     }
@@ -297,10 +287,6 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
-
-        Log::info('Response GetAccountDetails', [
-            'GetAccountDetails' => $response,
-        ]);
     
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
@@ -340,17 +326,18 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
-
-        Log::info('Response GetAccountDetails1', [
-            'GetAccountDetails1' => $response,
-        ]);
     
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
     }
 
     public function PlaceBet($params, $user){
-        $user->update(['balance' => ($user->balance / 100) - ((float)$params['BetAmount']['@attributes']['Value'])]);
+        Log::info('Response GetAccountDetails2', [
+            '$user->balance' => $user->balance / 100,
+            'BetAmount' => $params['BetAmount']['@attributes']['Value']
+        ]);
+
+        $user->update(['balance' => ($user->balance / 100) - intval($params['BetAmount']['@attributes']['Value'])]);
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
@@ -384,10 +371,6 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
-
-        Log::info('Response GetAccountDetails2', [
-            'GetAccountDetails2' => $response,
-        ]);
     
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
@@ -428,10 +411,6 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
-
-        Log::info('Response GetAccountDetails3', [
-            'GetAccountDetails3' => $response,
-        ]);
     
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
@@ -474,10 +453,6 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
-
-        Log::info('Response GetAccountDetails4', [
-            'GetAccountDetails4' => $response,
-        ]);
     
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
