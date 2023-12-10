@@ -352,7 +352,7 @@ class GameController extends Controller
     }
 
     public function PlaceBet($params, $user){
-    
+        $user->update(['balance' => ($user->balance / 100) - ($params['BetAmount']['@attributes']['Value'] / 100)]);
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
@@ -366,7 +366,6 @@ class GameController extends Controller
                         </Returnset>
                     </Result>
                 </PKT>";
-                $user->update(['balance' => ($user->balance / 100) - ($params['BetAmount']['@attributes']['Value'] / 100)]);
             } else {
                 $response = "<PKT>
                     <Result Name='PlaceBet' Success='0'>
@@ -397,7 +396,7 @@ class GameController extends Controller
     }
 
     public function AwardWinnings($params, $user){
-    
+        $user->update(['balance' => ($user->balance / 100) + ($params['WinAmount']['@attributes']['Value'] / 100)]);
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
@@ -411,7 +410,6 @@ class GameController extends Controller
                         </Returnset>
                     </Result>
                 </PKT>";
-                $user->update(['balance' => ($user->balance / 100) + ($params['WinAmount']['@attributes']['Value'] / 100)]);
             } else {
                 $response = "<PKT>
                     <Result Name='AwardWinnings' Success='0'>
@@ -442,7 +440,7 @@ class GameController extends Controller
     }
 
     public function RefundBet($params, $user){
-    
+        $user->update(['balance' => ($user->balance / 100) + ($params['RefundAmount']['@attributes']['Value'] / 100)]);
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
@@ -456,7 +454,6 @@ class GameController extends Controller
                         </Returnset>
                     </Result>
                 </PKT>";
-                $user->update(['balance' => ($user->balance / 100) + ($params['RefundAmount']['@attributes']['Value'] / 100)]);
             } else {
                 $response = "<PKT>
                     <Result Name='RefundBet' Success='0'>
