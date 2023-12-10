@@ -198,6 +198,10 @@ class GameController extends Controller
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
 
+        if (isset($params['GameReference']) && $params['GameReference']['@attributes']['Value'] != null) {
+            $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
+        }
+
         if($user == null){
             if (isset($params['GameReference']) && $params['GameReference']['@attributes']['Value'] != null) {
                 Log::info('webhook', [
@@ -220,10 +224,6 @@ class GameController extends Controller
 
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
-        }
-
-        if (isset($params['GameReference']) && $params['GameReference']['@attributes']['Value'] != null) {
-            $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
         }
 
         $user->balance = $user->balance * 100;
