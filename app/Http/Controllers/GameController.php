@@ -242,7 +242,7 @@ class GameController extends Controller
         ]);
 
         Log::info('compareHash2', [
-            $params => $params,
+            '$params' => $params,
         ]);
 
         if($computedHash == $params['Hash']['@attributes']['Value']){
