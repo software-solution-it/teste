@@ -197,6 +197,7 @@ class GameController extends Controller
 
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
+        Log::info('User retrieved from database', ['user' => $user]);
 
         Log::info('Response GetAccountDetails2', [
             '$user->balance' => $user->balance,
