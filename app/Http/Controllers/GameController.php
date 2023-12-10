@@ -201,9 +201,7 @@ class GameController extends Controller
         $this->userLogged = trim($this->token);
 
         Log::info('webhook called', [
-            '$params' => $params,
             '$method' => $method,
-            '$this->token' => $this->token,
             '$user' => $user,
 
         ]);
@@ -352,7 +350,7 @@ class GameController extends Controller
     }
 
     public function PlaceBet($params, $user){
-        $user->update(['balance' => ($user->balance / 100) - ($params['BetAmount']['@attributes']['Value'] / 100)]);
+        $user->update(['balance' => ($user->balance / 100) - ((float)$params['BetAmount']['@attributes']['Value'] / 100)]);
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
