@@ -479,6 +479,10 @@ class GameController extends Controller
                 </Result>
             </PKT>";
         }
+
+        Log::info('Response GetAccountDetails4', [
+            'GetAccountDetails4' => $response,
+        ]);
     
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
@@ -540,6 +544,10 @@ public function playGame($game_id)
     $url = "https://api-test.salsagator.com/game?token=$token&pn={$game->pn}&lang={$game->lang}&game={$game->game}";
 
     User::where('username', $userLogged)->update(['salsa_token' => $token]);
+
+    Log::info('Response playGame', [
+        'playGame' => $url,
+    ]);
 
     return view('pages.superHotBingo', compact('url'));
 }
