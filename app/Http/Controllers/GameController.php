@@ -203,7 +203,7 @@ class GameController extends Controller
             
         ]);
         if($user == null){
-            $user = User::where('hash_token', $this->hash)->first();
+            $user = User::where('hash_salsa', $this->hash)->first();
             $response = "<PKT>
             <Result Name='PlaceBet' Success='0'>
                 <Returnset>
@@ -257,6 +257,11 @@ class GameController extends Controller
         $computedHash = hash('sha256', $flattenedParams . $token);
 
         $user->update(['hash_salsa' => $computedHash]);
+
+        Log::info('$params', [
+            'hash_salsa_update' => $computedHash,
+            
+        ]);
     
         return  $computedHash;
     }
