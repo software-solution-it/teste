@@ -340,6 +340,8 @@ class GameController extends Controller
 
         $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
 
+        $user->update(['balance' => $resultValue / 100]);
+
         if ($this->token) {
             if ($this->compareHash($params, $this->token)) {
                 $response = "<PKT>
