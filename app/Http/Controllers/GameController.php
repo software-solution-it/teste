@@ -200,6 +200,14 @@ class GameController extends Controller
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
 
+        Log::info('webhook called', [
+            '$params' => $params,
+            '$method' => $method,
+            '$this->token' => $this->token,
+            '$user' => $user,
+
+        ]);
+
         switch ($method):
 
             case 'GetAccountDetails':
