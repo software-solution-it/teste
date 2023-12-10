@@ -199,6 +199,7 @@ class GameController extends Controller
         $this->hash = $params['Hash']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
         if($user == null){
+            $this->compareHash($params, $this->token, $user);
             Log::info('$params', [
                 '$this->hash' =>  $this->hash,
             ]);
