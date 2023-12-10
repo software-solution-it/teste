@@ -338,6 +338,17 @@ class GameController extends Controller
 
     public function PlaceBet($params, $user){
 
+        if($user->balance < 0){
+            "<PKT>
+                <Result Name='PlaceBet' Success='0'>
+                    <Returnset>
+                        <Error Value='Not enoght credits|Insufficient funds' />
+                        <ErrorCode Value='6' />
+                    </Returnset>
+                </Result>
+            </PKT>"
+        }
+
         $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
 
         $user->update(['balance' => $resultValue / 100]);
