@@ -427,7 +427,6 @@ class GameController extends Controller
                 }else{
                     $resultValue = $user->balance;
                 }
-                }
 
                 $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
   
