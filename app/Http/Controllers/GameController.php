@@ -424,7 +424,6 @@ class GameController extends Controller
                             <Balance Type='int' Value='$resultValue' />
                             <Currency Type='string' Value='BRL' />
                             <ExtTransactionID Type='long' Value='{$params['TransactionID']['@attributes']['Value']}' />
-                            <AlreadyProcessed Type='bool' Value='true' />
                         </Returnset>
                     </Result>
                 </PKT>";
