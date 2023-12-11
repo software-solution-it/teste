@@ -417,7 +417,7 @@ class GameController extends Controller
                     return response($response)
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
-                    if($user->transaction == $params['TransactionID']['@attributes']['Value'] && $user->bet_reference_nu == $params['BetReferenceNum']['@attributes']['Value']){
+                    if($user->transaction == $params['TransactionID']['@attributes']['Value'] && $user->bet_reference_num == $params['BetReferenceNum']['@attributes']['Value']){
                         $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
                     }else{
                         $resultValue = $user->balance;
