@@ -500,12 +500,25 @@ class GameController extends Controller
 
     public function RefundBet($params, $user, $method){
 
-        $resultValue = $user->balance + $params['RefundAmount']['@attributes']['Value'];
-
-        $user->update(['balance' => $resultValue / 100]);
-
         if ($this->token) {
             if ($this->compareHash($params, $this->token, $method)) {
+
+                if ($params['BetReferenceNum']['@attributes']['Value'] == $user->bet_reference_num){
+                    $resultValue = $user->balance;
+                    Log::info('BetReferenceNum', [
+                        'BetReferenceNum' => $params['BetReferenceNum']['@attributes']['Value'],
+                    ]);
+                }else{
+                    $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
+                    Log::info('BetReferenceNum', [
+                        'BetReferenceNum' => $params['BetReferenceNum']['@attributes']['Value'],
+                    ]);
+                }
+     
+                $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
+  
+                $user->update(['balance' => $resultValue / 100]);
+
                 $response = "<PKT>
                     <Result Name='RefundBet' Success='1'>
                         <Returnset>
