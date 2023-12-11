@@ -426,7 +426,7 @@ class GameController extends Controller
                     ]);
                 }
             }else{
-                $resultValue = $user->balance;
+                $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
             }
      
                 $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
