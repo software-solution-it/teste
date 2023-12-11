@@ -221,6 +221,14 @@ class GameController extends Controller
             $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
         }
 
+        if (isset($params['BetReferenceNum']) && $params['BetReferenceNum']['@attributes']['Value'] != null) {
+            $user->update(['BetReferenceNum' =>$params['BetReferenceNum']['@attributes']['Value']]);
+        }
+
+        if (isset($params['TransactionID']) && $params['TransactionID']['@attributes']['Value'] != null) {
+            $user->update(['transaction' =>$params['TransactionID']['@attributes']['Value']]);
+        }
+
         $user->balance = $user->balance * 100;
         
 
