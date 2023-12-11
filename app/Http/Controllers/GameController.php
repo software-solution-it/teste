@@ -222,7 +222,7 @@ class GameController extends Controller
         }
 
         if (isset($params['BetReferenceNum']) && $params['BetReferenceNum']['@attributes']['Value'] != null) {
-            $user->update(['BetReferenceNum' =>$params['BetReferenceNum']['@attributes']['Value']]);
+            $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
         }
 
         if (isset($params['TransactionID']) && $params['TransactionID']['@attributes']['Value'] != null) {
