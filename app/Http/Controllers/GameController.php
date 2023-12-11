@@ -563,7 +563,7 @@ class GameController extends Controller
                 $response = "<PKT>
                     <Result Name='ChangeGameToken' Success='1'>
                         <Returnset>
-                            <NewToken Type='string' Value='{$params['NewGameReference']['@attributes']['Value']}' />
+                            <NewToken Type='string' Value='{$params['Token']['@attributes']['Value']}' />
                             <Balance Type='int' Value='$user->balance' />
                         </Returnset>
                     </Result>
