@@ -55,7 +55,8 @@ class User extends Authenticatable
         'federal_unit',
         'number_phone',
         'salsa_token',
-        'hash_salsa'
+        'hash_salsa',
+        'transaction'
     ];
 
     protected $hidden = ['remember_token'];

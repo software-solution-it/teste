@@ -221,6 +221,7 @@ class GameController extends Controller
             $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
         }
 
+        $user->update(['transaction' =>$params['TransactionID']['@attributes']['Value']]);
         $user->balance = $user->balance * 100;
         
 
@@ -409,10 +410,11 @@ class GameController extends Controller
                     return response($response)
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
-                    $resultValue = $user->balance;
 
-                    if($params['BetAmount']['@attributes']['Value'] > 0){
+                    if($user->transaction == $params['TransactionID']['@attributes']['Value']){
                         $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
+                    }else{
+                        $resultValue = $user->balance;
                     }
 
                 $user->update(['balance' => $resultValue / 100]);
