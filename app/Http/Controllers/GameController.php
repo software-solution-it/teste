@@ -221,10 +221,14 @@ class GameController extends Controller
             $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
         }
 
+        if (isset($params['BetReferenceNum']) && $params['BetReferenceNum']['@attributes']['Value'] != null) {
+            $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
+        }
+
         if (isset($params['TransactionID']) && $params['TransactionID']['@attributes']['Value'] != null) {
         $user->update(['transaction' =>$params['TransactionID']['@attributes']['Value']]);
         }
-        
+
         $user->balance = $user->balance * 100;
         
 
@@ -413,13 +417,11 @@ class GameController extends Controller
                     return response($response)
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
-
-                    if($user->transaction == $params['TransactionID']['@attributes']['Value']){
+                    if($user->transaction == $params['TransactionID']['@attributes']['Value'] && $user->bet_reference_nu == $params['BetReferenceNum']['@attributes']['Value']){
                         $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
                     }else{
                         $resultValue = $user->balance;
                     }
-
                 $user->update(['balance' => $resultValue / 100]);
 
                 $response = "<PKT>

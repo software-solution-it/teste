@@ -56,7 +56,8 @@ class User extends Authenticatable
         'number_phone',
         'salsa_token',
         'hash_salsa',
-        'transaction'
+        'transaction',
+        'bet_reference_nu'
     ];
 
     protected $hidden = ['remember_token'];
