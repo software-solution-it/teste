@@ -199,10 +199,6 @@ class GameController extends Controller
         $user = User::where('salsa_token', $this->token)->first();
         if($user == null){
 
-        Log::info('$params', [
-            '$params' => $params,
-        ]);
-
         $userNovoToken = User::where('hash_salsa', $params['GameReference']['@attributes']['Value'])->first();
         $response =
         "<PKT>
@@ -414,6 +410,10 @@ class GameController extends Controller
                     'BETREFERENCE' => $params['BetReferenceNum']['@attributes']['Value'],
                 ]);
 
+                Log::info('TransactionID', [
+                    'TransactionID' => $params['TransactionID']['@attributes']['Value'],
+                ]);
+
                     if (isset($params['BetReferenceNum']) && $params['BetReferenceNum']['@attributes']['Value'] != null) {
                         if($params['BetReferenceNum']['@attributes']['Value'] == $user->bet_reference_num){
                             $resultValue = $user->balance;
@@ -606,10 +606,6 @@ public function playGame($game_id)
 
 
     $url = "https://api-test.salsagator.com/game?token=$token&pn={$game->pn}&lang={$game->lang}&game={$game->game}";
-
-    Log::info('Token', [
-        'Send Token to Api' => $token,
-    ]);
 
     User::where('username', $userLogged)->update(['salsa_token' => $token]);
 
