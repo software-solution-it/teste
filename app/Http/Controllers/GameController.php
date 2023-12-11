@@ -600,8 +600,8 @@ public function playGame($game_id)
 {
     $namespace = Uuid::NAMESPACE_DNS;
 
-    if($this->user->username == null){
-    $this->user->username = 'demo';
+    if($this->user == null){
+    $userLogged = 'demo';
     }else{
     $userLogged = $this->user->username;
     }
