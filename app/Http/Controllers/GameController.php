@@ -197,8 +197,12 @@ class GameController extends Controller
 
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
-
         if($user == null){
+
+        Log::info('$params', [
+            '$params' => $params,
+        ]);
+
         $userNovoToken = User::where('hash_salsa', $this->token)->first();
         $response =
         "<PKT>
@@ -453,12 +457,6 @@ class GameController extends Controller
 
         $resultValue = $user->balance + $params['WinAmount']['@attributes']['Value'];
         $user->update(['balance' => $resultValue / 100]);
-
-        Log::info('$params', [
-            '$params' => $params,
-            '$user' => $user,
-            '$method' => $method
-        ]);
 
         if ($this->token) {
             if ($this->compareHash($params, $this->token, $method)) {
