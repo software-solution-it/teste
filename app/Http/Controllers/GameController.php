@@ -410,15 +410,25 @@ class GameController extends Controller
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
 
-                    if (isset($params['TransactionID']) && $params['TransactionID']['@attributes']['Value'] != null) {
-                        if($params['TransactionID']['@attributes']['Value'] == $user->transaction){
+
+                    if (isset($params['BetReferenceNum']) && $params['BetReferenceNum']['@attributes']['Value'] != null) {
+                        if($params['BetReferenceNum']['@attributes']['Value'] == $user->bet_reference_num){
                             $resultValue = $user->balance;
                         }else{
                             $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
                         }
                     }
 
-                    $user->update(['balance' => $resultValue / 100]);
+                    $user->update(['transaction' => null]);
+
+
+
+                    if($user->transaction == $params['TransactionID']['@attributes']['Value'] && $user->bet_reference_num == $params['BetReferenceNum']['@attributes']['Value']){
+                        $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
+                    }else{
+                        $resultValue = $user->balance;
+                    }
+                $user->update(['balance' => $resultValue / 100]);
 
                 $response = "<PKT>
                     <Result Name='PlaceBet' Success='1'>
