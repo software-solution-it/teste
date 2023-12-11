@@ -221,23 +221,6 @@ class GameController extends Controller
             $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
         }
 
-        if($user->bet_reference_num != null && $user->bet_reference_num == $params['BetReferenceNum']['@attributes']['Value']){
-        if (isset($params['BetReferenceNum']) && $params['BetReferenceNum']['@attributes']['Value'] != null) {
-            if($params['BetReferenceNum']['@attributes']['Value'] != $user->bet_reference_num){
-            $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
-            }
-        }
-        $user->update(['bet_reference_num' => null]);
-    }
-    if($user->transaction != null && $user->transaction == $params['TransactionID']['@attributes']['Value']){
-        if (isset($params['TransactionID']) && $params['TransactionID']['@attributes']['Value'] != null) {
-            if($params['TransactionID']['@attributes']['Value'] != $user->transaction){
-            $user->update(['transaction' =>$params['TransactionID']['@attributes']['Value']]);
-            }
-        }
-        $user->update(['transaction' => null]);
-    }
-
         $user->balance = $user->balance * 100;
         
 
@@ -426,12 +409,16 @@ class GameController extends Controller
                     return response($response)
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
-                    if($user->transaction == $params['TransactionID']['@attributes']['Value'] && $user->bet_reference_num == $params['BetReferenceNum']['@attributes']['Value']){
-                        $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
-                    }else{
-                        $resultValue = $user->balance;
+
+                    if (isset($params['TransactionID']) && $params['TransactionID']['@attributes']['Value'] != null) {
+                        if($params['TransactionID']['@attributes']['Value'] == $user->transaction){
+                            $resultValue = $user->balance;
+                        }else{
+                            $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
+                        }
                     }
-                $user->update(['balance' => $resultValue / 100]);
+
+                    $user->update(['balance' => $resultValue / 100]);
 
                 $response = "<PKT>
                     <Result Name='PlaceBet' Success='1'>
