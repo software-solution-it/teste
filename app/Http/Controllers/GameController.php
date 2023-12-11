@@ -203,7 +203,7 @@ class GameController extends Controller
             '$params' => $params,
         ]);
 
-        $userNovoToken = User::where('hash_salsa', $this->token)->first();
+        $userNovoToken = User::where('hash_salsa', $params['GameReference']['@attributes']['Value'])->first();
         $response =
         "<PKT>
             <Result Name='GetAccountDetails' Success='0'>
