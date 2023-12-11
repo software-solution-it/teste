@@ -186,6 +186,9 @@ class GameController extends Controller
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
         if($user == null){
+        Log::info('webhook', [
+            'webhook' => $params,
+        ]);
         $userNovoToken = User::where('hash_salsa', $params['GameReference']['@attributes']['Value'])->first();
         $response =
         "<PKT>
@@ -395,14 +398,8 @@ class GameController extends Controller
 
                 if ($params['BetReferenceNum']['@attributes']['Value'] == $user->bet_reference_num){
                     $resultValue = $user->balance;
-                    Log::info('BetReferenceNum', [
-                        'BetReferenceNum' => $params['BetReferenceNum']['@attributes']['Value'],
-                    ]);
                 }else{
                     $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
-                    Log::info('BetReferenceNum', [
-                        'BetReferenceNum' => $params['BetReferenceNum']['@attributes']['Value'],
-                    ]);
                 }
      
                 $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
