@@ -257,9 +257,13 @@ class GameController extends Controller
             case 'GetBalance':
                 $result[] = $params['Token']['@attributes']['Value'];
                 break;
-    
-            case 'PlaceBet':
+            
             case 'AwardWinnings':
+                $result[] = $params['TransactionID']['@attributes']['Value'];
+                $result[] = $params['WinReferenceNum']['@attributes']['Value'];
+                $result[] = $params['Token']['@attributes']['Value'];
+                break;
+            case 'PlaceBet':
             case 'RefundBet':
                 $result[] = $params['TransactionID']['@attributes']['Value'];
                 $result[] = $params['BetReferenceNum']['@attributes']['Value'];
