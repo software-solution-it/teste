@@ -199,7 +199,6 @@ class GameController extends Controller
         $user = User::where('salsa_token', $this->token)->first();
         if($user == null){
         $userNovoToken = User::where('hash_salsa', $this->token)->first();
-        $userNovoToken->balance = $userNovoToken->balance * 100;
         $response =
         "<PKT>
             <Result Name='GetAccountDetails' Success='0'>
