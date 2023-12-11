@@ -503,13 +503,13 @@ class GameController extends Controller
         if ($this->token) {
             if ($this->compareHash($params, $this->token, $method)) {
 
-                if ($params['BetReferenceNum']['@attributes']['Value'] != $user->bet_reference_num){
+                if ($params['BetReferenceNum']['@attributes']['Value'] == $user->bet_reference_num){
                     $resultValue = $user->balance;
                     Log::info('BetReferenceNum', [
                         'BetReferenceNum' => $params['BetReferenceNum']['@attributes']['Value'],
                     ]);
                 }else{
-                    $resultValue = $user->balance - $params['RefundAmount']['@attributes']['Value'];
+                    $resultValue = $user->balance + $params['RefundAmount']['@attributes']['Value'];
                     Log::info('BetReferenceNum', [
                         'BetReferenceNum' => $params['BetReferenceNum']['@attributes']['Value'],
                     ]);
