@@ -205,6 +205,9 @@ class GameController extends Controller
         }
         if (isset($params['GameReference']) && $params['GameReference']['@attributes']['Value'] != null) {
             $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
+            Log::info('webhook2', [
+                'webhook2' => $this->token,
+            ]);
         }
 
         $user->balance = $user->balance * 100;
