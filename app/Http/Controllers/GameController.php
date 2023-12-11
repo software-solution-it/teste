@@ -424,6 +424,8 @@ class GameController extends Controller
                     $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
                 }
 
+                $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
+
                 $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
   
                 $user->update(['balance' => $resultValue / 100]);
