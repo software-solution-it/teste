@@ -449,11 +449,19 @@ class GameController extends Controller
 
     public function AwardWinnings($params, $user, $method){
 
-        $resultValue = $user->balance + $params['WinAmount']['@attributes']['Value'];
-        $user->update(['balance' => $resultValue / 100]);
-
         if ($this->token) {
             if ($this->compareHash($params, $this->token, $method)) {
+
+                if ($params['WinReferenceNum']['@attributes']['Value'] == $user->win_reference_num){
+                    $resultValue = $user->balance;
+                }else{
+                    $resultValue = $user->balance + $params['WinAmount']['@attributes']['Value'];
+                }
+     
+                $user->update(['win_reference_num' =>$params['WinReferenceNum']['@attributes']['Value']]);
+
+                $user->update(['balance' => $resultValue / 100]);
+
                 $response = "<PKT>
                     <Result Name='AwardWinnings' Success='1'>
                         <Returnset>
