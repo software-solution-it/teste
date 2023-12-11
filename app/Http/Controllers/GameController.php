@@ -393,24 +393,17 @@ class GameController extends Controller
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
 
-                if (isset($params['BETREFERENCE']) && $params['BETREFERENCE']['@attributes']['Value'] != null) {
-                if ($params['BETREFERENCE']['@attributes']['Value'] == $user->bet_reference_num){
+                if ($params['BetReferenceNum']['@attributes']['Value'] == $user->bet_reference_num){
                     $resultValue = $user->balance;
-                    Log::info('BETREFERENCE', [
-                        'BETREFERENCE' => $params['BetReferenceNum']['@attributes']['Value'],
+                    Log::info('BetReferenceNum', [
+                        'BetReferenceNum' => $params['BetReferenceNum']['@attributes']['Value'],
                     ]);
                 }else{
                     $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
-                    Log::info('BETREFERENCE', [
-                        'BETREFERENCE' => $params['BetReferenceNum']['@attributes']['Value'],
+                    Log::info('BetReferenceNum', [
+                        'BetReferenceNum' => $params['BetReferenceNum']['@attributes']['Value'],
                     ]);
                 }
-            }else{
-                Log::info('$params', [
-                    '$params' => $params,
-                ]);
-                $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
-            }
      
                 $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
   
