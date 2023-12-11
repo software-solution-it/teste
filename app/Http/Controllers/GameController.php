@@ -197,21 +197,6 @@ class GameController extends Controller
 
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
-        if($user == null){
-        $userNovoToken = User::where('hash_salsa', $this->token)->first();
-        $response =
-        "<PKT>
-            <Result Name='GetAccountDetails' Success='0'>
-                <Returnset>
-                    <Error Value='Token Expired|Error retrieving Token|Invalid request' />
-                    <ErrorCode Value='2' />
-                    <Balance Type='int' Value='$userNovoToken->balance' />
-                </Returnset>
-            </Result>
-        </PKT>";
-        return response($response)
-        ->header('Content-Type', 'text/xml; charset=UTF-8');
-        }
 
         $user->balance = $user->balance * 100;
         $this->userLogged = trim($this->token);
