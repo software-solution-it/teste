@@ -90,18 +90,6 @@ class GameController extends Controller
         $game_result = $request->input('game_result');
         $user = User::where('username', $brand_uid)->first();
 
-        Log::info('Controller called', [
-            'brand_id' => $brand_id,
-            'sign' => $sign,
-            'brand_uid' => $brand_uid,
-            'currency' => $currency,
-            'amount' => $amount,
-            'round_id' => $round_id,
-            'wager_id' => $wager_id,
-            'provider' => $provider,
-            'game_result' => $game_result,
-        ]);
-
         $user->update(['balance' => $user->balance + $amount]);
         $user->update(['requery' => $user->requery + $amount]);
     
@@ -198,10 +186,6 @@ class GameController extends Controller
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
         if($user == null){
-
-        Log::info('$params', [
-            '$params' => $params,
-        ]);
         $userNovoToken = User::where('hash_salsa', $params['GameReference']['@attributes']['Value'])->first();
         $response =
         "<PKT>
@@ -409,10 +393,6 @@ class GameController extends Controller
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
 
-                Log::info('BETREFERENCE', [
-                    'BETREFERENCE' => $params['BetReferenceNum']['@attributes']['Value'],
-                ]);
-
                 if (isset($params['BETREFERENCE']) && $params['BETREFERENCE']['@attributes']['Value'] != null) {
                 if ($params['BETREFERENCE']['@attributes']['Value'] == $user->bet_reference_num){
                     $resultValue = $user->balance;
@@ -426,6 +406,9 @@ class GameController extends Controller
                     ]);
                 }
             }else{
+                Log::info('$params', [
+                    '$params' => $params,
+                ]);
                 $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
             }
      
