@@ -418,14 +418,9 @@ class GameController extends Controller
                     'TransactionID' => $params['TransactionID']['@attributes']['Value'],
                 ]);
 
-                if ($params['BETREFERENCE']['@attributes']['Value'] == $user->bet_reference_num){
-                    $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
-                }else{
+                if ($params['BETREFERENCE']['@attributes']['Value'] == $user->bet_reference_num && $user->bet_reference_num != null){
                     $resultValue = $user->balance;
-                }
-
-                if($user->bet_reference_num == null){
-                    $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
+                }else{
                     $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
                 }
 
