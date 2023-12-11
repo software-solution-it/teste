@@ -407,12 +407,14 @@ class GameController extends Controller
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
 
-                if ($params['BetReferenceNum']['@attributes']['Value'] == $user->bet_reference_num){
+                if ($params['BetReferenceNum']['@attributes']['Value'] == $user->bet_reference_num
+                && $params['TransactionID']['@attributes']['Value'] == $user->transaction){
                     $resultValue = $user->balance;
                 }else{
                     $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
                 }
-     
+                $user->update(['transaction' =>$params['TransactionID']['@attributes']['Value']]);
+
                 $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
   
                 $user->update(['balance' => $resultValue / 100]);
