@@ -186,9 +186,7 @@ class GameController extends Controller
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
         if($user == null){
-        Log::info('webhook', [
-            'webhook' => $params,
-        ]);
+        if(isset($params['GameReference']) && $params['GameReference']['@attributes']['Value'] != null){
         $userNovoToken = User::where('hash_salsa', $params['GameReference']['@attributes']['Value'])->first();
         $response =
         "<PKT>
@@ -202,14 +200,23 @@ class GameController extends Controller
         </PKT>";
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
+        }else{
+            $response =
+            "<PKT>
+                <Result Name='GetAccountDetails' Success='0'>
+                    <Returnset>
+                        <Error Value='Token Expired|Error retrieving Token|Invalid request' />
+                        <ErrorCode Value='2' />
+                    </Returnset>
+                </Result>
+            </PKT>";
+            return response($response)
+            ->header('Content-Type', 'text/xml; charset=UTF-8');
         }
+    }
         if (isset($params['GameReference']) && $params['GameReference']['@attributes']['Value'] != null) {
             $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
         }
-
-        Log::info('webhook2', [
-            'webhook2' => $this->token,
-        ]);
 
         $user->balance = $user->balance * 100;
         
