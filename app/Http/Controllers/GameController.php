@@ -600,7 +600,11 @@ public function playGame($game_id)
 {
     $namespace = Uuid::NAMESPACE_DNS;
 
+    if($this->user->username == null){
+    $this->user->username = 'demo';
+    }else{
     $userLogged = $this->user->username;
+    }
 
     $game = Salsa::where('id', $game_id)->first();
 
