@@ -215,6 +215,8 @@ class GameController extends Controller
         if (isset($params['Hash']) && $params['Hash']['@attributes']['Value'] != null) {
             $user->update(['hash_salsa' => $params['Hash']['@attributes']['Value']]);
         }
+
+        $user->balance = $user->balance * 100;
         
 
 
