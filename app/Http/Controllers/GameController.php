@@ -410,6 +410,9 @@ class GameController extends Controller
                     ->header('Content-Type', 'text/xml; charset=UTF-8');
                 };
 
+                Log::info('BETREFERENCE', [
+                    'BETREFERENCE' => $params['BetReferenceNum']['@attributes']['Value'],
+                ]);
 
                     if (isset($params['BetReferenceNum']) && $params['BetReferenceNum']['@attributes']['Value'] != null) {
                         if($params['BetReferenceNum']['@attributes']['Value'] == $user->bet_reference_num){
