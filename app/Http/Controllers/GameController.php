@@ -197,6 +197,7 @@ class GameController extends Controller
 
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
+
         if($user == null){
         $userNovoToken = User::where('hash_salsa', $this->token)->first();
         $response =
@@ -212,8 +213,8 @@ class GameController extends Controller
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
         }
-        if (isset($params['Hash']) && $params['Hash']['@attributes']['Value'] != null) {
-            $user->update(['hash_salsa' => $params['Hash']['@attributes']['Value']]);
+        if (isset($params['Token']) && $params['Token']['@attributes']['Value'] != null) {
+            $user->update(['hash_salsa' => $params['Token']['@attributes']['Value']]);
         }
 
         $user->balance = $user->balance * 100;
