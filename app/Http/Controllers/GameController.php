@@ -547,7 +547,6 @@ class GameController extends Controller
                     <Returnset>
                         <Error Value='Transaction not found.' />
                         <ErrorCode Value='7' />
-                        <Balance Type='int' Value='10000' />
                         <Currency Type='string' Value='BRL' />
                     </Returnset>
                 </Result>
@@ -566,6 +565,7 @@ class GameController extends Controller
                     <Result Name='ChangeGameToken' Success='1'>
                         <Returnset>
                             <NewToken Type='string' Value='{$params['NewGameReference']['@attributes']['Value']}' />
+                            <Balance Type='int' Value='$user->balance' />
                         </Returnset>
                     </Result>
                 </PKT>";
