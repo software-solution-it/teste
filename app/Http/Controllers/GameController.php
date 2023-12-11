@@ -213,8 +213,8 @@ class GameController extends Controller
         return response($response)
         ->header('Content-Type', 'text/xml; charset=UTF-8');
         }
-        if (isset($params['Token']) && $params['Token']['@attributes']['Value'] != null) {
-            $user->update(['hash_salsa' => $params['Token']['@attributes']['Value']]);
+        if (isset($params['GameReference']) && $params['GameReference']['@attributes']['Value'] != null) {
+            $user->update(['hash_salsa' => $params['GameReference']['@attributes']['Value']]);
         }
 
         $user->balance = $user->balance * 100;
