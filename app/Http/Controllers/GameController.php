@@ -197,7 +197,6 @@ class GameController extends Controller
 
         $this->token = $params['Token']['@attributes']['Value'];
         $user = User::where('salsa_token', $this->token)->first();
-        $user->balance = $user->balance * 100;
         if($user == null){
         $userNovoToken = User::where('hash_salsa', $this->token)->first();
         $response =
