@@ -500,7 +500,13 @@ class GameController extends Controller
 
     public function RefundBet($params, $user, $method){
 
-        $resultValue = $user->balance + $params['RefundAmount']['@attributes']['Value'];
+        if ($params['TransactionID']['@attributes']['Value'] == $user->transaction){
+            $resultValue = $user->balance;
+        }else{
+            $resultValue = $user->balance + $params['RefundAmount']['@attributes']['Value'];
+        }
+
+        $user->update(['transaction' =>$params['TransactionID']['@attributes']['Value']]);
 
         $user->update(['balance' => $resultValue / 100]);
 
