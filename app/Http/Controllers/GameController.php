@@ -202,7 +202,6 @@ class GameController extends Controller
         Log::info('$params', [
             '$params' => $params,
         ]);
-
         $userNovoToken = User::where('hash_salsa', $params['GameReference']['@attributes']['Value'])->first();
         $response =
         "<PKT>
@@ -414,15 +413,21 @@ class GameController extends Controller
                     'BETREFERENCE' => $params['BetReferenceNum']['@attributes']['Value'],
                 ]);
 
-                Log::info('TransactionID', [
-                    'TransactionID' => $params['TransactionID']['@attributes']['Value'],
-                ]);
-
+                if (isset($params['BETREFERENCE']) && $params['BETREFERENCE']['@attributes']['Value'] != null) {
                 if ($params['BETREFERENCE']['@attributes']['Value'] == $user->bet_reference_num){
                     $resultValue = $user->balance;
+                    Log::info('BETREFERENCE', [
+                        'BETREFERENCE' => $params['BetReferenceNum']['@attributes']['Value'],
+                    ]);
                 }else{
                     $resultValue = $user->balance - $params['BetAmount']['@attributes']['Value'];
+                    Log::info('BETREFERENCE', [
+                        'BETREFERENCE' => $params['BetReferenceNum']['@attributes']['Value'],
+                    ]);
                 }
+            }else{
+                $resultValue = $user->balance;
+            }
      
                 $user->update(['bet_reference_num' =>$params['BetReferenceNum']['@attributes']['Value']]);
   
