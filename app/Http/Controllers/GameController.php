@@ -237,31 +237,10 @@ class GameController extends Controller
         $secret = 'fc8b096c103702de9fa03833993f91dd';
 
         unset($params['Hash']);
-
-        Log::info('$params', [
-            '$params' => $params,
-        ]);
         
         $flattenedParams = $this->flattenArray($params, $method);
 
-        Log::info('$flattenedParams', [
-            '$flattenedParams' => $flattenedParams,
-        ]);
-
-        Log::info('comcat', [
-            'comcat' => $flattenedParams . $secret,
-        ]);
-
         $computedHash = hash('sha256', $flattenedParams . $secret);
-
-
-        Log::info('$computedHash', [
-            '$computedHash' => $computedHash,
-        ]);
-
-        Log::info('$hash', [
-            '$hash' => $hash,
-        ]);
 
         if($computedHash == $hash){
             return true;
@@ -297,10 +276,6 @@ class GameController extends Controller
         }
     
         $concatedString = implode('', $result);
-    
-        Log::info('flattenArray', [
-            'flattenArray' => $concatedString,
-        ]);
     
         return $concatedString;
     }
@@ -453,8 +428,13 @@ class GameController extends Controller
     public function AwardWinnings($params, $user, $method){
 
         $resultValue = $user->balance + $params['WinAmount']['@attributes']['Value'];
-
         $user->update(['balance' => $resultValue / 100]);
+
+        Log::info('$params', [
+            '$params' => $params,
+            '$user' => $user,
+            '$method' => $method
+        ]);
 
         if ($this->token) {
             if ($this->compareHash($params, $this->token, $method)) {
