@@ -218,7 +218,7 @@ crossorigin="anonymous">
                             <div class="listmenu"></div>
 
                             <div class="one-menu">
-                                <a href="/crash">
+                                <a>
                                     <div class="img-one-menu">
                                         <svg width="24" height="24" focusable="false" aria-hidden="true" class="">
                                             <use xlink:href="/img/symbols.svg#icon-crash" class="svg-use"></use>
@@ -229,7 +229,7 @@ crossorigin="anonymous">
 
                             
                             <div class="one-menu">
-                                <a href="/double">
+                                <a>
                                     <div class="img-one-menu">
                                         <i class="fa fa-circle-dot" style="color: #55657e; font-size: 24px"></i>
                                     </div>
@@ -238,7 +238,7 @@ crossorigin="anonymous">
 
 
                             <div class="one-menu">
-                                <a href="/wheel">
+                                <a>
                                     <div class="img-one-menu">
                                         <svg width="24" height="24" focusable="false" aria-hidden="true" class="">
                                             <use xlink:href="/img/symbols.svg#icon-roulette" class="svg-use"></use>
@@ -249,7 +249,7 @@ crossorigin="anonymous">
 
 
                             <div class="one-menu">
-                                <a href="/dice">
+                                <a>
                                     <div class="img-one-menu">
                                         <svg width="24" height="24" focusable="false" aria-hidden="true" class="">
                                             <use xlink:href="/img/symbols.svg#icon-dice" class="svg-use"></use>
@@ -260,7 +260,7 @@ crossorigin="anonymous">
 
 
                             <div class="one-menu">
-                                <a href="/mines">
+                                <a>
                                     <div class="img-one-menu">
                                         <svg width="24" height="24" focusable="false" aria-hidden="true" class="">
                                             <use xlink:href="/img/symbols.svg#icon-mines" class="svg-use"></use>
@@ -282,7 +282,7 @@ crossorigin="anonymous">
 
 
                             <div class="one-menu">
-                                <a href="/coinflip">
+                                <a>
                                     <div class="img-one-menu">
                                         <svg width="24" height="24" focusable="false" aria-hidden="true" class="">
                                             <use xlink:href="/img/symbols.svg#icon-flip" class="svg-use"></use>
@@ -293,7 +293,7 @@ crossorigin="anonymous">
 
 
                             <div class="one-menu">
-                                <a href="/tower">
+                                <a>
                                     <div class="img-one-menu">
                                         <svg width="24" height="24" focusable="false" aria-hidden="true" class="">
                                             <use xlink:href="/img/symbols.svg#icon-tower" class="svg-use"></use>

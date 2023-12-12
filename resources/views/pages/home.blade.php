@@ -199,7 +199,7 @@
 </section>
 <div class="index-features">
     <div class="col-features">
-        <a href="/crash" class="free-to-play" style="background-image: url('/img/bg-1_2x.dc8a421.png');">
+        <a class="free-to-play" style="background-image: url('/img/bg-1_2x.dc8a421.png');">
             <span>Jogue Agora o Crash e Lucre até 300x por partida!</span>
         </a>
         <a href="/affiliate" style="background-image: url('/img/bg-2_1x.c124441.png');">
@@ -248,7 +248,7 @@
         <a href="javascript:;" style="background-image: url(/img/bg-4_1x.56ae9bd.png);">
             <span>Depósitos Imediatos</span>
         </a>
-        <a href="/mines" class="free-to-play" style="background-image: url(/img/bg-5_1x.0006b1c.png);">
+        <a class="free-to-play" style="background-image: url(/img/bg-5_1x.0006b1c.png);">
             <span>Lucre Muito no Mines</span>
         </a>
         <a href="javascript:;" style="background-image: url(/img/bg-6_1x.8938de0.png);">
