@@ -5752,60 +5752,6 @@ a.view-all {
     overflow: hidden;
 }
 
-.game-swiper .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 16.8%;
-}
-
-.game-swiper .swiper-button-next,
-.game-swiper .swiper-button-prev {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    color: white; /* Cor do ícone */
-    border-radius: 50%; /* Para tornar o botão redondo */
-    font-size: 70px; /* Tamanho do ícone */
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Efeito de transição */
-}
-
-.game-swiper .swiper-button-next:hover,
-.game-swiper .swiper-button-prev:hover {
-    background-color: #45a049; /* Cor de fundo ao passar o mouse */
-}
-
-
-.game-swiper2 .swiper-slide {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    width: 16.8%;
-}
-
-.game-swiper2 .swiper-button-next,
-.game-swiper2 .swiper-button-prev {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    color: white; /* Cor do ícone */
-    border-radius: 50%; /* Para tornar o botão redondo */
-    font-size: 70px; /* Tamanho do ícone */
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Efeito de transição */
-}
-
-.game-swiper2 .swiper-button-next:hover,
-.game-swiper2 .swiper-button-prev:hover {
-    background-color: #45a049; /* Cor de fundo ao passar o mouse */
-}
-
 @media (max-width: 1350px){
 .swiper-wrapper {
     flex-wrap: nowrap !important;
@@ -5820,26 +5766,6 @@ a.view-all {
     width: 16.8%;
     margin-bottom: 20px;
 }
-
-.game-swiper1 .swiper-button-next,
-.game-swiper1 .swiper-button-prev {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    color: white; /* Cor do ícone */
-    border-radius: 50%; /* Para tornar o botão redondo */
-    font-size: 70px; /* Tamanho do ícone */
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Efeito de transição */
-}
-
-.game-swiper1 .swiper-button-next:hover,
-.game-swiper1 .swiper-button-prev:hover {
-    background-color: #45a049; /* Cor de fundo ao passar o mouse */
-}
-
 
 
 .game-slide {
@@ -9370,63 +9296,7 @@ a.one-btn-swap.active svg {
    :root {
     --swiper-navigation-size:44px
    }
-   .swiper-button-next,
-   .swiper-button-prev {
-    position:absolute;
-    top:50%;
-    width:calc(var(--swiper-navigation-size)/ 44 * 27);
-    height:var(--swiper-navigation-size);
-    margin-top:calc(0px - (var(--swiper-navigation-size)/ 2));
-    z-index:10;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--swiper-navigation-color,var(--swiper-theme-color))
-   }
-   .swiper-button-next.swiper-button-disabled,
-   .swiper-button-prev.swiper-button-disabled {
-    opacity:.35;
-    cursor:auto;
-    pointer-events:none
-   }
-   .swiper-button-next.swiper-button-hidden,
-   .swiper-button-prev.swiper-button-hidden {
-    opacity:0;
-    cursor:auto;
-    pointer-events:none
-   }
-   .swiper-navigation-disabled .swiper-button-next,
-   .swiper-navigation-disabled .swiper-button-prev {
-    display:none!important
-   }
-   .swiper-button-next:after,
-   .swiper-button-prev:after {
-    font-family:swiper-icons;
-    font-size:var(--swiper-navigation-size);
-    text-transform:none!important;
-    letter-spacing:0;
-    font-variant:initial;
-    line-height:1
-   }
-   .swiper-button-prev,
-   .swiper-rtl .swiper-button-next {
-    left:10px;
-    right:auto
-   }
-   .swiper-button-prev:after,
-   .swiper-rtl .swiper-button-next:after {
-    content:'prev'
-   }
-   .swiper-button-next,
-   .swiper-rtl .swiper-button-prev {
-    right:10px;
-    left:auto
-   }
-   .swiper-button-next:after,
-   .swiper-rtl .swiper-button-prev:after {
-    content:'next'
-   }
+   
    .swiper-button-lock {
     display:none
    }

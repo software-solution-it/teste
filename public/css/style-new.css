@@ -1743,11 +1743,6 @@ a.view-all {
     width: 15%;
 }
 
-.game-swiper .swiper-button-next,
-.game-swiper .swiper-button-prev {
-    display: none;
-}
-
 .game-slide {
     position: relative;
     border-radius: 14px;

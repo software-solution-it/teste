@@ -70,18 +70,21 @@
 
     .swiper-button-next,
     .swiper-button-prev {
+    position: static !important;
     width: 40px;
     height: 40px;
     color: #fff;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 56%;
-    transform: translateY(-50%);
     cursor: pointer;
+    margin: 0 !important;
     }
+
+    .swiper-button-next:after, .swiper-button-prev:after{
+        font-size: 20px !important;
+    }
+
+
+    
     .tamanho {
         flex: 0 0 0;
         max-width: 100%;
@@ -260,13 +263,18 @@
 <div class="index-features2">
     <div class="one-category">
         <div class="head-one-category">
-            <a href="/slots/" class="h-one-category">
+        <div style="display: flex;">
+            <a class="h-one-category">
                 <svg width="24" height="24" focusable="false" aria-hidden="true" class="">
                     <use xlink:href="/templates/default/img/betnew/svg-sprite.e1149d9.svg#icon-inhouse" class="svg-use">
                     </use>
                 </svg>
-                JOGOS DA CASA
+
+                JOGOS POPULARES
             </a>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            </div>
         </div>
 
         <div class="swiper-container swiper game-swiper1">
@@ -318,9 +326,10 @@
             </div>
         </div>
     </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
 </div>
+
+
+
 
 @if(Auth::user())
 <script>
@@ -356,6 +365,7 @@
         slidesPerView: getSlidesPerView(),
         slidesPerColumn: 3,
         spaceBetween: 10,
+        slidesPerGroup: 5,
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',

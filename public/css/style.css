@@ -1232,11 +1232,6 @@ body#faq .rules.page_content h1{
 	fill: #93acd3;
 }
 
-.swiper.tour_swiper .swiper-button-next,
-.swiper.tour_swiper .swiper-button-prev{
-	display: none;
-}
-
 .swiper.tour_swiper .swiper-slide{
     width: calc(16.66% - 10px);
 	margin-right: 10px;
