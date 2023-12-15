@@ -30,7 +30,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="affiliate-stats">
+                <div class="d-flex">
                     <div class="left">
                         <div class="affiliate-stats-item">
                             <div class="wrap">
