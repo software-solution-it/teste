@@ -30,7 +30,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="d-flex">
+                <div class="affiliate-stats">
                     <div class="left">
                         <div class="affiliate-stats-item">
                             <div class="wrap">
@@ -63,13 +63,13 @@
                         </div>
                     </div>
                     <div class="right">
-                        <div class="affiliate-stats-item full">
+                        <div class="affiliate-stats-item">
                             <div class="wrap">
                                 <div class="block">
                                     <img src="/img/casino-chip.png" height="30px"/>
                                     <div class="num">{{$u->ref_money}}</div>
                                     <div class="text">Ganhos Disponíveis</div>
-                                    <span id="withdraw-button" class="" data-toggle="tooltip" data-placement="top" title="Quantidade mínima
+                                    <span class="" data-toggle="tooltip" data-placement="top" title="Quantidade mínima
     para retirada {{ $settings->min_ref_withdraw }} R$ 50,00"><button type="button"
                                                                     {{ $u->ref_money < $settings->min_ref_withdraw  ? 'disabled' : '' }} class="btn">Retirar</button></span>
                                 </div>
