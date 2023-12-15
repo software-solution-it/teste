@@ -418,7 +418,7 @@ crossorigin="anonymous">
                                         <use data-v-7e25d36a="" xlink:href="/img/symbols.svg#icon-person"
                                              class="svg-use"></use>
                                     </svg>
-                                    <div class="chat-online">Jogadores Online: <span>0</span></div>
+                                    <div class="chat-online">Jogadores Online: <span id="playersCount">0</span></div>
                                 </a>
                             </div>
 
@@ -1885,6 +1885,21 @@ crossorigin="anonymous">
                     });
                 </script>
             @endif
+
+            <script>
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function updatePlayersCount() {
+    var playersCountElement = document.getElementById('playersCount');
+    var randomCount = getRandomNumber(10, 100);
+    playersCountElement.textContent = randomCount;
+  }
+
+  updatePlayersCount();
+  setInterval(updatePlayersCount, 30000);
+</script>
 
 
             </body>
