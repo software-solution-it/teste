@@ -1881,7 +1881,7 @@ crossorigin="anonymous">
                 <script>
                     $.notify({
                         type: 'success',
-                        message: "{{ session('success') }}"
+                        message: "{{ session('success') }}" 
                     });
                 </script>
             @endif
