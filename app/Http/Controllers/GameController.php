@@ -7,6 +7,7 @@ use RecursiveIteratorIterator;
 use RecursiveArrayIterator;
 use Illuminate\Support\Facades\Log;
 use App\User;
+use App\Location;
 use Ramsey\Uuid\Uuid;
 use Auth;
 use App\Salsa;
@@ -620,6 +621,19 @@ public function playGame($game_id)
     User::where('username', $userLogged)->update(['salsa_token' => $token]);
 
     return view('pages.superHotBingo', compact('url'));
+}
+
+public function saveLocation(Request $request)
+{
+    $locationData = $request->input('location');
+
+    $location = new Location();
+
+    $location->location = $locationData;
+
+    $location->save();
+
+    return response()->json(['message' => 'Location saved successfully']);
 }
 
     public function gameList(){
