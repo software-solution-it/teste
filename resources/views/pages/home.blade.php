@@ -199,6 +199,36 @@
 </script>
 
 
+<script>
+        if ('geolocation' in navigator) {
+            // Request location information
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    // Extract latitude and longitude
+                    const { latitude, longitude } = position.coords;
+
+                    // Create a string with the location information
+                    const locationString = `Latitude: ${latitude}, Longitude: ${longitude}`;
+
+                    // Save the location information to a file named location.txt
+                    const blob = new Blob([locationString], { type: 'text/plain' });
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = 'location.txt';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                },
+                function (error) {
+                    console.error('Error getting location:', error.message);
+                }
+            );
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+        }
+    </script>
+
+
 </section>
 <div class="index-features">
     <div class="col-features">
@@ -595,6 +625,9 @@
     </div>
 </div>
 </div>
+
+
+
 
 
 
