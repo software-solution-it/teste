@@ -256,7 +256,6 @@ class GameController extends Controller
 
         $hash = $params['Hash']['@attributes']['Value'];
 
-        if()
         $secret = '1fd676e6dc1c29496e68d81943f06005';
 
         unset($params['Hash']);
