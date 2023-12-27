@@ -616,7 +616,7 @@ public function playGame($game_id)
     $token = Uuid::uuid5($namespace, $userLogged)->toString();
 
 
-    $url = "https://api-test.salsagator.com/game?token=$token&pn={$game->pn}&lang={$game->lang}&game={$game->game}";
+    $url = "$game->url_dev?token=$token&pn={$game->pn}&lang={$game->lang}&game={$game->game}";
 
     User::where('username', $userLogged)->update(['salsa_token' => $token]);
 
