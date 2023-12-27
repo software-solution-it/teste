@@ -616,7 +616,7 @@ public function playGame($game_id)
     $token = Uuid::uuid5($namespace, $userLogged)->toString();
 
     $url = "$game->url_dev?token=$token&pn=$game->pn&lang=$game->lang&game=$game->game&currency=BRL&type=CHARGED";
-
+    Log::info('URL: ' . $url);
     User::where('username', $userLogged)->update(['salsa_token' => $token]);
 
     return view('pages.superHotBingo', compact('url'));
