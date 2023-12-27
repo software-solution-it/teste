@@ -615,8 +615,7 @@ public function playGame($game_id)
 
     $token = Uuid::uuid5($namespace, $userLogged)->toString();
 
-
-    $url = "$game->url_dev?token=$token&pn={$game->pn}&lang={$game->lang}&game={$game->game}";
+    $url = "$game->url_dev?token=$token&pn={$game->pn}&lang={$game->lang}&game={$game->game}&currency=BRL&type=CHARGED";
 
     User::where('username', $userLogged)->update(['salsa_token' => $token]);
 
