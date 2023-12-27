@@ -56,7 +56,7 @@ class PagesController extends Controller
 
 public function home()
 {
-    $jogosCollection = Salsa::all();
+    $jogosCollection = Salsa::where('is_enabled', true)->get();
     $jogos = $jogosCollection->toArray();
     return view('pages.home', compact('jogos'));
 }

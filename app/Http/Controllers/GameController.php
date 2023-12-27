@@ -257,6 +257,7 @@ class GameController extends Controller
         $hash = $params['Hash']['@attributes']['Value'];
 
         $secret = '1fd676e6dc1c29496e68d81943f06005';
+        $secret2 = 'fc8b096c103702de9fa03833993f91dd';
 
         unset($params['Hash']);
         
@@ -267,7 +268,12 @@ class GameController extends Controller
         if($computedHash == $hash){
             return true;
         }else{
-            return false;
+            $computedHash2 = hash('sha256', $flattenedParams . $secret2);
+            if($computedHash2 == $hash){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 
@@ -614,8 +620,11 @@ public function playGame($game_id)
     }
 
     $token = Uuid::uuid5($namespace, $userLogged)->toString();
-
+    if($game->pn == 'playbet'){
     $url = "$game->url_dev?token=$token&pn=$game->pn&lang=$game->lang&game=$game->game&currency=BRL&type=CHARGED";
+    }else{
+    $url = "$game->url_dev?token=$token&pn={$game->pn}&lang={$game->lang}&game={$game->game}";
+    }
     Log::info('URL: ' . $url);
     User::where('username', $userLogged)->update(['salsa_token' => $token]);
 
