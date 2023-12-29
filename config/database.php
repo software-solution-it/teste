@@ -113,19 +113,14 @@ return [
     */
 
     'redis' => [
-
         'client' => 'predis',
-
         'default' => [
-            //'scheme' => 'unix',
-            //'path' => '/run/redis/redis.sock'
-             'host' => env('REDIS_HOST', '127.0.0.1'),
-             'password' => env('REDIS_PASSWORD', null),
-             'port' => env('REDIS_PORT', 6379),
-             'database' => 0,
-            // 'unix-socket' => '/var/run/redis/redis.sock'
+            'url' => 'tcp://redis:6379',
+            'host' => 'redis',
+            'password' => 'changeit',
+            'port' => 6379,
+            'database' => 0,
         ],
-
     ],
 
 ];
