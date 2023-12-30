@@ -63,8 +63,8 @@ class PagesController extends Controller
             $jogos = array();
         } else {
             foreach ($jogos as &$jogo) {
-                $nomeJogo = $jogo['name'];
-                $caminhoImagem = $this->encontrarImagemJogos($nomeJogo);
+                $idJogo = $jogo['id'];
+                $caminhoImagem = $this->encontrarImagemJogos($idJogo);
     
                 if ($caminhoImagem !== "") {
                     $jogo['image_path'] = $caminhoImagem;
@@ -75,13 +75,15 @@ class PagesController extends Controller
         return view('pages.home', compact('jogos'));
     }
     
-    private function encontrarImagemJogos($nomeJogo)
+    private function encontrarImagemJogos($idJogo)
     {
         $arquivos = scandir('images/games');
     
         foreach ($arquivos as $arquivo) {
-            if (strpos((trim($arquivo)), (trim($nomeJogo))) !== false) {
-                return "images/games/" . $arquivo;
+            $arquivoSemEspacos = trim($arquivo);
+            
+            if (strpos($arquivoSemEspacos, $idJogo . '_') === 0) {
+                return "images/games/" . $arquivoSemEspacos;
             }
         }
     
