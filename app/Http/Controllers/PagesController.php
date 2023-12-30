@@ -64,8 +64,7 @@ class PagesController extends Controller
         } else {
             foreach ($jogos as &$jogo) {
                 $nomeJogo = $jogo['name'];
-                $nomeJogo = trim($nomeJogo);
-                $caminhoImagem = $this->encontrarImagemJogos(strtolower($nomeJogo));
+                $caminhoImagem = $this->encontrarImagemJogos($nomeJogo);
     
                 if ($caminhoImagem !== "") {
                     $jogo['image_path'] = $caminhoImagem;
@@ -81,11 +80,8 @@ class PagesController extends Controller
         $arquivos = scandir('images/games');
     
         foreach ($arquivos as $arquivo) {
-            $arquivoSemEspacos = trim($arquivo);
-            $arquivoSemEspacosLowercase = strtolower($arquivoSemEspacos);
-            $nomeJogoLowercase = strtolower($nomeJogo);
-            if (strpos($arquivoSemEspacosLowercase, $nomeJogoLowercase) !== false) {
-                return "images/games/" . $arquivoSemEspacos;
+            if (strpos((trim($arquivo)), (trim($nomeJogo))) !== false) {
+                return "images/games/" . $arquivo;
             }
         }
     
