@@ -686,18 +686,7 @@ public function saveLocation(Request $request)
         $responseBody['data'] = $jogos;
         return response()->json($responseBody);
     }
-    
-    private function encontrarNomeImagem($caminho, $idJogo) {
-        $arquivos = scandir($caminho);
-        
-        foreach ($arquivos as $arquivo) {
-            if (strpos($arquivo, strval($idJogo)) !== false) {
-                return "images/games/" . $arquivo;
-            }
-        }
-    
-        return "";
-    }
+
 
 
 
