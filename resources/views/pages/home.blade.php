@@ -49,22 +49,55 @@
 <div class="tamanho mobile-hide">
     <div class="owl-carousel testimonial-carousel" style="max-width:97%; padding-top:20px;">
         <div class="text-center">
-            <a href="#"><img class="img-fluid mx-auto mb-3" src="img/slider/d1.jpg" alt=""></a>
+            <a href="/playGame/21"><img class="img-fluid mx-auto mb-3" src="img/slider/d1.jpg" alt=""></a>
         </div>
         <div class="text-center">
-            <a href="#"><img class="img-fluid mx-auto mb-3" src="img/slider/d2.jpg" alt=""></a>
+            <a data-toggle="modal" data-target="#promoModal"><img class="img-fluid mx-auto mb-3" src="img/slider/d4.jpg" alt=""></a>
         </div>
         <div class="text-center">
-            <a href="#"><img class="img-fluid mx-auto mb-3" src="img/slider/d3.jpg" alt=""></a>
-        </div>
-        <div class="text-center">
-            <a href="#"><img class="img-fluid mx-auto mb-3" src="img/slider/d4.jpg" alt=""></a>
-        </div>
-        <div class="text-center">
-            <a href="#"><img class="img-fluid mx-auto mb-3" src="img/slider/d5.jpg" alt=""></a>
+            <a href="/affiliate"><img class="img-fluid mx-auto mb-3" src="img/slider/d5.jpg" alt=""></a>
         </div>
     </div>
 </div>
+
+
+                    <div class="modal fade" id="promoModal" tabindex="-1" role="dialog"
+                     aria-labelledby="promoModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog faucet-demo-modal modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <button class="modal-close" data-dismiss="modal" aria-label="Close">
+                                <svg class="icon icon-close">
+                                    <use xlink:href="/img/symbols.svg#icon-close"></use>
+                                </svg>
+                            </button>
+                            <div class="faucet-container">
+                                <h3 class="faucet-caption"><span>Código Promocional</span></h3>
+                                <div class="caption-line"><span class="span"><img src="/img/MOEDA_01.png" height="30px"/></span></div>
+                                <div class="form-row">
+                                    <label>
+                                        <div class="form-field">
+                                            <div class="input-valid">
+                                                <input class="input-field input-with-icon" name="promo"
+                                                       placeholder="Digite um código" id="promoInput">
+                                                <div class="input-icon">
+                                                    <svg class="icon icon-promo">
+                                                        <use xlink:href="/img/symbols.svg#icon-promo"></use>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="faucet-modal-form">
+                                    <button type="button" class="btn btn-green activatePromo">
+                                        <span>RECEBER BÔNUS</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 <style>
 
